@@ -4,6 +4,7 @@
 from django.http import *
 from django.template import RequestContext, loader
 from django.shortcuts import render
+from .models import *
 
 
 def index(request):
@@ -20,5 +21,7 @@ def index2(request):
 
 
 def index3(request):
-    content = dict(content='xiaoming')
-    return render(request, 'test1/index1.html', content)
+    # content = dict(content='xiaoming')
+    booklist = bookInfo.objects.all()
+    data = {'booklist':booklist,'content':'xiaoming'}
+    return render(request, 'test1/index1.html', data)
