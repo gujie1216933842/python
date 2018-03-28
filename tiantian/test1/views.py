@@ -3,6 +3,8 @@
 # Create your views here.
 from django.http import *
 from django.template import RequestContext,loader
+from django.shortcuts import render
+
 def index(request):
     return HttpResponse('hello world')
 
