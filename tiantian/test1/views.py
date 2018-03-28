@@ -15,3 +15,7 @@ def index1(request):
 
 def index2(request):
     return render(request,'test1/index1.html')
+
+
+def index3(request):
+    return render(request,'test1/index1.html')
