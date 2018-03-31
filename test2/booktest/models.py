@@ -34,8 +34,8 @@ class BookInfo(models.Model):
     class Mrta:
         db_table = "bookinfo"
 
-    bookinfo1 = models.Manager()  # django自己生成的模型类对象
-    bookinfo2 = BookInfoManager()  # 自定义的模型类对象
+    bookinfo1 = models.Manager()  # django自己生成模型管理器
+    bookinfo2 = BookInfoManager()  # 自定义的模型类管理器
     '''
     模型类自定义创建方法,类似与__init__,注意,不能用__init__
     '''
