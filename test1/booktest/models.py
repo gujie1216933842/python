@@ -5,7 +5,7 @@ class booInfo(models.Model):
     title = models.CharField(max_length=20)
     date = models.DateTimeField
 
-class heroInfo(models):
+class heroInfo(models.Model):
     name = models.CharField(max_length=50)
     gender = models.BooleanField()
     content = models.CharField(max_length=1000)
