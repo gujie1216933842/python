@@ -6,6 +6,6 @@ from django.shortcuts import render
 #     def get(self):
 
 def index(request):
-    render(request,'goods/index.html')
+    return  render(request,'goods/index.html')
 
 
