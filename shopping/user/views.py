@@ -45,7 +45,14 @@ class user():
     def register_exist(request):
         get = request.GET
         uname = get.get('uname')
-        userinfo = models.UserInfo()
+        '''
+        以下这种写法代码会报错:Manager isn't accessible via UserInfo instances        
+        # count = models.UserInfo().objects.filter(uname=uname).count()
         # 此条代码,django用户查询数据库
-        count = userinfo.objects.filter(uname=uname).count()
+        model.UserInfo():表示UserInfo的实例对象
+        model.UserInfo:表示UserInfo的类对象
+        而模型管理器Manager只是争对与类对象才有的权限        
+        '''
+        count = models.UserInfo.objects.filter(uname=uname).count()
+        print(count)
         return JsonResponse(dict(count=count))
