@@ -30,7 +30,12 @@ class user():
         sha1_obj.update(upwd.encode())
         upwd_sha1 = sha1_obj.hexdigest()
         #创建model用户对象
+        print(uname)
+        print(upwd)
+        print(uemail)
+
         user= models.UserInfo()
+        print(user)
         user.uname = uname
         user.upwd = upwd_sha1
         user.uemail = uemail
