@@ -57,16 +57,20 @@ class user():
         print(count)
         return JsonResponse(dict(count=count))
 
-
     def login_handler(request):
-        #获取用户的用户名和密码
+        print('************************************************')
+        # 获取用户的用户名和密码
         post = request.POST
         uname = post.get('username')
         upwd = post.get('pwd')
-
-        #实例化
-
-
-
-
-
+        # 实例化
+        # 获取加密后的密码
+        sha1_obj = sha1()
+        sha1_obj.update(upwd.encode())
+        sha1_upwd = sha1_obj.hexdigest()
+        user = models.UserInfo.objects.filter(uname=uname, upwd=sha1_upwd)
+        print(user[0].id)
+        if user:
+            return render(request, 'goods/index.html')
+        else:
+            return render(request, 'user/register.html')
