@@ -56,3 +56,17 @@ class user():
         count = models.UserInfo.objects.filter(uname=uname).count()
         print(count)
         return JsonResponse(dict(count=count))
+
+
+    def login_handler(request):
+        #获取用户的用户名和密码
+        post = request.POST
+        uname = post.get('username')
+        upwd = post.get('pwd')
+
+        #实例化
+
+
+
+
+
