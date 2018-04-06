@@ -27,7 +27,7 @@ class user():
         #用户注册信息开始入库
         #加密用户密码
         sha1_obj = sha1()
-        sha1_obj.update(upwd)
+        sha1_obj.update(upwd.encode())
         upwd_sha1 = sha1_obj.hexdigest()
         #创建model用户对象
         user= models.UserInfo()
