@@ -33,29 +33,19 @@ class user():
         sha1_obj.update(upwd.encode())
         upwd_sha1 = sha1_obj.hexdigest()
         # 创建model用户对象
-        print(uname)
-        print(upwd)
-        print(uemail)
-
         user = models.UserInfo()
-        print(user)
-        print(time.strftime("%Y-%m-%d %H:%M:%S", time.time()))
         user.uname = uname
         user.upwd = upwd_sha1
         user.uemail = uemail
-        user.raw_add_time = time.strftime("%Y-%m-%d %H:%M:%S", time.time())
+        user.raw_add_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time()))
 
         user.save()
         return redirect('/user/login')
 
     def register_exist(request):
-        print('------------------------------------------------------')
         get = request.GET
-        print(get)
         uname = get.get('uname')
         userinfo = models.UserInfo()
-        print(uname)
         # 此条代码,django用户查询数据库
-        count = models.UserInfo.objects.filter(uname=uname).count()
-        print(count)
+        count = userinfo.objects.filter(uname=uname).count()
         return JsonResponse(dict(count=count))
