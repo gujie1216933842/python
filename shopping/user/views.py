@@ -23,7 +23,8 @@ class user():
         if upwd !=cupwd:
             return redirect('/user/login')
         #创建model用户对象
-        user= UserInfo()
+        user= models.UserInfo()
+        
 
 
 
