@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 import sys
@@ -58,19 +60,28 @@ class user():
         return JsonResponse(dict(count=count))
 
     def login_handler(request):
-        print('************************************************')
         # 获取用户的用户名和密码
         post = request.POST
         uname = post.get('username')
         upwd = post.get('pwd')
+        jizhu = post.get('jizhu', 0)
+        print(jizhu)
+
         # 实例化
         # 获取加密后的密码
         sha1_obj = sha1()
         sha1_obj.update(upwd.encode())
         sha1_upwd = sha1_obj.hexdigest()
         user = models.UserInfo.objects.filter(uname=uname, upwd=sha1_upwd)
-        print(user[0].id)
         if user:
-            return render(request, 'goods/index.html')
+            response = render(request, 'goods/index.html')
+            if jizhu != 0:
+                # 记住用户名勾上的话,如果登录成功,把用户名记录在cookie中
+                response.set_cookie('uname', uname)
+            else:
+                response.set_cookie('uname', '', max_age=-1)  # max_age 超时时间
         else:
-            return render(request, 'user/register.html')
+            response = render(request, 'user/register.html')
+            request.session['user_id'] = user[0].id
+            request.session['user_name'] = user[0].uname
+        return response
