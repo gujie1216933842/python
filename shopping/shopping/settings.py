@@ -29,6 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '47.97.165.75',
+    'localhost'
 ]
 
 # Application definition
@@ -61,7 +62,7 @@ ROOT_URLCONF = 'shopping.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -128,8 +129,51 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
-MDDIA_ROOT = os.path.join(BASE_DIR, 'static')  #开发阶段静态文件上传目录
-#将来项目上线的时候,部署在
-#MDDIA_ROOT = '/var/www/dailyfresh/static'
+MDDIA_ROOT = os.path.join(BASE_DIR, 'static')  # 开发阶段静态文件上传目录
+# 将来项目上线的时候,部署在
+# MDDIA_ROOT = '/var/www/dailyfresh/static'
 
-
+# 日志
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '[%(asctime)s] [%(levelname)s] %(message)s'
+        },
+        'detail': {
+            'format': '%(asctime)s %(levelname)-8s %(pathname)s[line:%(lineno)d] %(message)s'
+        },
+        'verbose1': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        },
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs/log.log'),
+            'formatter': 'verbose'
+        },
+        'email': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+            'include_html': True,
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'file', 'email'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+}

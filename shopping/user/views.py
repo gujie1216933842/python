@@ -13,6 +13,8 @@ import logging
 
 class user():
     def login(request):
+        logger = logging.getLogger('django')
+        logger.info('This is aerr msg')
         return render(request, 'user/login.html')
 
     def register(request):
