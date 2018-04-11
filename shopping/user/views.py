@@ -6,6 +6,7 @@ import sys
 from . import models
 from hashlib import sha1
 import time
+import logging
 
 
 # Create your views here.
