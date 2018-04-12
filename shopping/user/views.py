@@ -88,4 +88,4 @@ class user():
             request.session['user_name'] = user[0].uname
             return response
         else:
-            return render(request, 'user/login.html')
+            return HttpResponseRedirect('user/login.html')
