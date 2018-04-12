@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,HttpResponseRedirect
 from django.http import JsonResponse
 import sys
 from . import models
@@ -77,7 +77,7 @@ class user():
         sha1_upwd = sha1_obj.hexdigest()
         user = models.UserInfo.objects.filter(uname=uname, upwd=sha1_upwd)
         if user:
-            response = render(request, 'goods/')
+            response = HttpResponseRedirect(request, 'goods/')
 
             if jizhu != 0:
                 # 记住用户名勾上的话,如果登录成功,把用户名记录在cookie中
