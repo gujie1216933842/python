@@ -93,5 +93,5 @@ class user():
 
 
     def ucenter(request):
-        return render(request,'user/user_center_info')
+        return render(request,'/user/user_center_info')
 
