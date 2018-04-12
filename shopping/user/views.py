@@ -78,13 +78,15 @@ class user():
         user = models.UserInfo.objects.filter(uname=uname, upwd=sha1_upwd)
         if user:
             response = render(request, 'goods/index.html')
+
             if jizhu != 0:
                 # 记住用户名勾上的话,如果登录成功,把用户名记录在cookie中
                 response.set_cookie('uname', uname)
             else:
                 response.set_cookie('uname', '', max_age=-1)  # max_age 超时时间
+            return response
         else:
             response = render(request, 'user/register.html')
             request.session['user_id'] = user[0].id
             request.session['user_name'] = user[0].uname
-        return response
+            return response
