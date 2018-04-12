@@ -89,3 +89,9 @@ class user():
             return response
         else:
             return HttpResponseRedirect('/user/login')
+
+
+
+    def ucenter(request):
+        return render(request,'user/user_center_info')
+
