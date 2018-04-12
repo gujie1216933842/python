@@ -77,16 +77,15 @@ class user():
         sha1_upwd = sha1_obj.hexdigest()
         user = models.UserInfo.objects.filter(uname=uname, upwd=sha1_upwd)
         if user:
-            response = HttpResponseRedirect(request, 'goods/')
-
+            response = HttpResponseRedirect('/goods/')
             if jizhu != 0:
                 # 记住用户名勾上的话,如果登录成功,把用户名记录在cookie中
                 response.set_cookie('uname', uname)
             else:
                 response.set_cookie('uname', '', max_age=-1)  # max_age 超时时间
-            return response
-        else:
-            response = render(request, 'user/register.html')
+            # 进入这一步表示已经登录成功了,把用户信息写入session
             request.session['user_id'] = user[0].id
             request.session['user_name'] = user[0].uname
             return response
+        else:
+            return render(request, 'user/login.html')
