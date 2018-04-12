@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'register/$', views.user.register),
     url(r'register_handler/$', views.user.register_handler),
     url(r'register_exist/$', views.user.register_exist),
-    url(r'login_handler/$', views.user.login_handler)
+    url(r'login_handler/$', views.user.login_handler),
+    url(r'user_center_info/$', views.user.login_handler)
 
 ]
