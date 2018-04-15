@@ -5,7 +5,7 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.goods.index),
-    url(r'^$', views.goods.detail),
+    url(r'^detail/$', views.goods.detail),
 
 
 ]
