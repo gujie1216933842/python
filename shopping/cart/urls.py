@@ -2,6 +2,6 @@
 from django.conf.urls import url
 from . import views
 
-urlpattern = [
+urlpatterns = [
     url(r'cart/$',views.cart.index)
 ]
