@@ -10,7 +10,7 @@ from django.shortcuts import render
 #控制器中以类的方式
 class goods():
     def index(request):
-        return render(request,'goods/index.html')
+        return render(request,'goods/index.html',{'page_name':1})
 
     def detail(request):
         return render(request,'goods/detail.html')
