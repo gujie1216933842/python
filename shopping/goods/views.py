@@ -16,7 +16,7 @@ class goods():
     def __init__(self, request):
         self.fun1 = goods()
 
-    def index(request,self):
+    def index(self,request):
         # 显示首页信息
         # 时令水果
         res1 = models.goods.objects.filter(delete_flag=0)
