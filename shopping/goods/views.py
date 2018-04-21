@@ -13,7 +13,7 @@ from . import models
 class goods:
 
     def __init__(self, request):
-        self.request = request
+        self.__request = request
 
     def index(self, request):
         # 显示首页信息
