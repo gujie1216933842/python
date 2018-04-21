@@ -13,9 +13,6 @@ from django.views.generic.base import View
 # 控制器中以类的方式
 class goods(View):
 
-    def __init__(self, request):
-        self.__request = request
-
     def index(self, request):
         # 显示首页信息
         # 时令水果
