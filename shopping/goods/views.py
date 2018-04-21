@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from . import models
+from django.views.generic.base import View
 
 
 # Create your views here.
@@ -10,10 +11,10 @@ from . import models
 
 
 # 控制器中以类的方式
-class goods:
+class goods(View):
 
-    def __init__(self, request):
-        self.__request = request
+    # def __init__(self, request):
+    #     self.__request = request
 
     def index(self, request):
         # 显示首页信息
