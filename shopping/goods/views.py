@@ -13,7 +13,7 @@ from . import models
 class goods():
     fun1 = ''
 
-    def __init__(self):
+    def __init__(self, request):
         self.fun1 = goods()
 
     def index(self, request):
