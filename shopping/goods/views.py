@@ -12,8 +12,8 @@ from . import models
 # 控制器中以类的方式
 class goods:
 
-    # def __init__(self, request):
-    #     self.fun1 = goods
+    def __init__(self, request):
+        self.request = request
 
     def index(self, request):
         # 显示首页信息
@@ -26,7 +26,7 @@ class goods:
     def detail(self, request):
         return render(request, 'goods/detail.html')
 
-    def float_control(self, res, decimal_count=2):
+    def float_control(self, res, ndigits=2):
         for i in res:
-            res[i] = round(res['price'], decimal_count)
+            res[i] = round(res['price'], ndigits)
         return res
