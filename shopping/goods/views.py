@@ -14,7 +14,7 @@ class goods():
     fun1 = ''
 
     def __init__(self, request):
-        self.fun1 = goods()
+        self.fun1 = goods
 
     def index(self,request):
         # 显示首页信息
