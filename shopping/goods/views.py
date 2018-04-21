@@ -14,7 +14,7 @@ class goods():
     def index(request):
         # 显示首页信息
         # 时令水果
-        res1 = models.goods.objects.fliter(delete_flag=0)
+        res1 = models.goods.objects.filter(delete_flag=0)
         return render(request, 'goods/index.html', {'guest_cart': 1, 'res1': res1})
 
     def detail(request):
