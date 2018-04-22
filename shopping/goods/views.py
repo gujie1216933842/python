@@ -13,7 +13,7 @@ from django.views.generic.base import View
 # 控制器中以类的方式
 class goods(View):
 
-    def index(self, request):
+    def get(self, request):
         # 显示首页信息
         # 时令水果
         res1 = models.goods.objects.filter(delete_flag=0)
