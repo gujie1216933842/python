@@ -25,6 +25,8 @@ class goods(View):
         return render(request, 'goods/detail.html')
 
     def float_control(self, res, ndigits=2):
+        new_res = []
         for i in res:
-            res[i] = round(res['price'], ndigits)
+            print("****************%s"%(round(res['price'], ndigits)))
+            new_res.append(round(res['price'], ndigits))
         return res
