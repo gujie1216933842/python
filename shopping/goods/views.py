@@ -30,5 +30,9 @@ class goodsDatail(View):
         goods_id = request.GET.get('goods_id', 1)
         # 根据goods_id去查数据库
         ret = models.goods.objects.filter(id=goods_id, delete_flag=0)
-        ret = goodsIndex.float_control(ret)
+        ret = goodsIndex().float_control(ret)
+        '''
+        此处总结:  ret = goodsIndex().float_control(ret)  需要实例化,所以要加()
+                 和ret = goodsIndex.float_control(ret) 报错
+        '''
         return render(request, 'goods/detail.html', {"goods": ret[0]})
