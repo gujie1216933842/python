@@ -35,7 +35,7 @@ class goodsDatail(View):
         此处总结:  ret = goodsIndex().float_control(ret)  需要实例化,所以要加()
                  和ret = goodsIndex.float_control(ret) 报错
         '''
-        print(ret[0])
+        print(ret[0].__dict__)
         logger().createLoder().info(ret[0])
         return render(request, 'goods/detail.html', {"goods": ret[0]})
 
