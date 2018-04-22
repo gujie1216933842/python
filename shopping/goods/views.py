@@ -17,11 +17,7 @@ class goodsIndex(View):
         # 时令水果
         res1 = models.goods.objects.filter(delete_flag=0)
         res1 = self.float_control(res1)
-
         return render(request, 'goods/index.html', {'guest_cart': 1, 'res1': res1})
-
-    def detail(self, request):
-        return render(request, 'goods/detail.html')
 
     def float_control(self, res, ndigits=2):
         for i in range(len(res)):
@@ -30,5 +26,8 @@ class goodsIndex(View):
 
 
 class goodsDatail(View):
-    def get(self,request):
-        return render(request, 'goods/detail.html')
+    def get(self, request):
+        goods_id = request.GET.get('goods_id', 1)
+        # 根据goods_id去查数据库
+        ret = models.goods.objects.filter(id=goods_id, delete_flag=0)
+        return render(request, 'goods/detail.html', {"goods_detail": ret[0]})
