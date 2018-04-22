@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from . import models
 from django.views.generic.base import View
-
+import logging
 
 # Create your views here.
 
@@ -35,4 +35,11 @@ class goodsDatail(View):
         此处总结:  ret = goodsIndex().float_control(ret)  需要实例化,所以要加()
                  和ret = goodsIndex.float_control(ret) 报错
         '''
+        print(ret[0])
+        logger().createLoder().info(ret[0])
         return render(request, 'goods/detail.html', {"goods": ret[0]})
+
+class logger(View):
+    def createLoder(self):
+        logger = logging.getLogger('django')
+        return logger
