@@ -11,8 +11,7 @@ from django.views.generic.base import View
 
 
 # 控制器中以类的方式
-class goods(View):
-
+class goodsIndex(View):
     def get(self, request):
         # 显示首页信息
         # 时令水果
@@ -25,7 +24,11 @@ class goods(View):
         return render(request, 'goods/detail.html')
 
     def float_control(self, res, ndigits=2):
-        new_res = []
-        for k,v in res:
-            res[k] = round(v.price, ndigits)
+        for i in range(len(res)):
+            res[i].price = round(res[i].price, ndigits)
         return res
+
+
+class goodsDatail(View):
+    def get(self,request):
+        return render(request, 'goods/detail.html')
