@@ -2,4 +2,4 @@ from . import models
 from django.contrib import admin
 
 
-admin.site.register(models.goods)
+admin.site.register(models.good)

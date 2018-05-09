@@ -3,7 +3,7 @@ from django.db import models
 
 # Create your models here.
 
-class goods(models.Model):
+class good(models.Model):
     # 定义商品字段
     name = models.CharField(max_length=20, null=False , default="")
     price = models.FloatField(null=False,default='')

@@ -77,7 +77,7 @@ class user():
         sha1_upwd = sha1_obj.hexdigest()
         user = models.UserInfo.objects.filter(uname=uname, upwd=sha1_upwd)
         if user:
-            response = HttpResponseRedirect('/goods/')
+            response = HttpResponseRedirect('/good/')
             if jizhu != 0:
                 # 记住用户名勾上的话,如果登录成功,把用户名记录在cookie中
                 response.set_cookie('uname', uname)
