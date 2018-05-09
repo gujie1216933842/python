@@ -17,7 +17,7 @@ class goodsIndex(View):
         # 时令水果
         res1 = models.goods.objects.filter(delete_flag=0)
         res1 = self.float_control(res1)
-        return render(request, 'goods/index.html', {'guest_cart': 1, 'res1': res1})
+        return render(request, 'goods/index.html', {'guest_cart': 1, 'res1': res1,'title':'首页'})
 
     def float_control(self, res, ndigits=2):
         for i in range(len(res)):
