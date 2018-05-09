@@ -8,7 +8,7 @@ class good(models.Model):
     name = models.CharField(max_length=20, null=False , default="")
     price = models.FloatField(null=False,default='')
     #pic = models.CharField(max_length=50, null=False ,default="")
-    pic = models.ImageField(upload_to='/statics/gooodsImage')
+    pic = models.ImageField(upload_to='adminGoodsImage/')
 
     detail_pic = models.CharField(max_length=50, null=False ,default="")
     unit = models.CharField(max_length=20, null=False ,default="")
