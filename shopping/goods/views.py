@@ -36,10 +36,10 @@ class goodsDatail(View):
                  和ret = goodsIndex.float_control(ret) 报错
         '''
         print(ret[0].__dict__)
-        logger().createLoder().info(ret[0])
+        logger().createLoger().info(ret[0])
         return render(request, 'goods/detail.html', {"goods": ret[0]})
 
 class logger(View):
-    def createLoder(self):
+    def createLoger(self):
         logger = logging.getLogger('django')
         return logger
