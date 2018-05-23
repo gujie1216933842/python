@@ -2,12 +2,18 @@ from django.shortcuts import render
 from . import models
 from django.views.generic.base import View
 import logging
-
+from django.core.mail import send_mail
 # Create your views here.
 
 # 控制器中以方法的方式
 # def index(request):
 #     return  render(request,'good/index.html')
+class send():
+
+    def get(self):
+        send_mail('Subject here', 'Here is the message.', 'from@example.com',
+                  ['to@example.com'], fail_silently=False)
+
 
 
 # 控制器中以类的方式
