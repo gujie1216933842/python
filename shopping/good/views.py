@@ -11,8 +11,8 @@ from django.core.mail import send_mail
 class send():
 
     def get(self):
-        send_mail('Subject here', 'Here is the message.', 'from@example.com',
-                  ['to@example.com'], fail_silently=False)
+        send_mail('Subject here', 'Here is the message.', 'gujientsy@163.com',
+                  ['1216933842@qq.com'], fail_silently=False)
 
 
 
