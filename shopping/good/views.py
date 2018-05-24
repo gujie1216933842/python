@@ -8,7 +8,7 @@ from django.core.mail import send_mail
 # 控制器中以方法的方式
 # def index(request):
 #     return  render(request,'good/index.html')
-class send():
+class send(View):
 
     def get(self,request):
         send_mail('Subject here', 'Here is the message.', 'gujientsy@163.com',
