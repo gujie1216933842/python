@@ -3,6 +3,10 @@ from . import models
 from django.views.generic.base import View
 import logging
 from django.core.mail import send_mail
+from django.conf import settings
+from  django.http import HttpResponse
+
+
 # Create your views here.
 
 # 控制器中以方法的方式
@@ -10,11 +14,12 @@ from django.core.mail import send_mail
 #     return  render(request,'good/index.html')
 class send(View):
 
-    def get(self,request):
-        send_mail('Subject here', 'Here is the message.', 'gujientsy@163.com',
-                  ['1216933842@qq.com'], fail_silently=False)
-        return  render(request, 'good/index.html')
+    def get(self, request):
+        msg = '<a href="http://www.baidu.com" target="_blank">点击激活</a>'
+        send_mail('测试邮件', '', settings.DEFAULT_FROM_EMAIL, msg)
+        return HttpResponse('ok')
 
+      # 　return HttpResponse('ok')
 
 
 # 控制器中以类的方式
@@ -24,7 +29,7 @@ class goodsIndex(View):
         # 时令水果
         res1 = models.good.objects.filter(delete_flag=0)
         res1 = self.float_control(res1)
-        return render(request, 'good/index.html', {'guest_cart': 1, 'res1': res1,'title':'首页'})
+        return render(request, 'good/index.html', {'guest_cart': 1, 'res1': res1, 'title': '首页'})
 
     def float_control(self, res, ndigits=2):
         for i in range(len(res)):
@@ -45,6 +50,7 @@ class goodsDatail(View):
         print(ret[0].__dict__)
         logger().createLoger().info(ret[0])
         return render(request, 'good/detail.html', {"good": ret[0]})
+
 
 class logger(View):
     def createLoger(self):
