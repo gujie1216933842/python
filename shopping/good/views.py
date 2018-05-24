@@ -10,7 +10,7 @@ from django.core.mail import send_mail
 #     return  render(request,'good/index.html')
 class send():
 
-    def get(self):
+    def get(self,request):
         send_mail('Subject here', 'Here is the message.', 'gujientsy@163.com',
                   ['1216933842@qq.com'], fail_silently=False)
         return  render(request, 'good/index.html')
