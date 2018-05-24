@@ -13,6 +13,7 @@ class send():
     def get(self):
         send_mail('Subject here', 'Here is the message.', 'gujientsy@163.com',
                   ['1216933842@qq.com'], fail_silently=False)
+        return  render(request, 'good/index.html')
 
 
 
