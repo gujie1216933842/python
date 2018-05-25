@@ -16,7 +16,7 @@ class send(View):
 
     def get(self, request):
         msg = '<a href="http://www.baidu.com" target="_blank">点击激活</a>'
-        send_mail('测试邮件', '', settings.DEFAULT_FROM_EMAIL, msg)
+        send_mail('测试邮件', '', 'gujientsy@163.com',['1216933842@qq.com'], msg)
         return HttpResponse('ok')
 
       # 　return HttpResponse('ok')

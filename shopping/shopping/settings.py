@@ -185,4 +185,4 @@ EMAIL_HOST = 'smtp.163.com'
 EMAIL_PORT = 25
 EMAIL_HOST_USER = 'gujientsy@163.com'
 EMAIL_HOST_PASSWORD = '86917307xx'
-DEFAULT_FROM_EMAIL = ['gujientsy@163.com']
+DEFAULT_FROM_EMAIL = 'gujientsy@163.com'
