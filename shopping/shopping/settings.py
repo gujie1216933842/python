@@ -184,9 +184,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = False   #是否使用TLS安全传输协议(用于在两个通信应用程序之间提供保密性和数据完整性。)
 EMAIL_USE_SSL = True    #是否使用SSL加密，qq企业邮箱要求使用
 EMAIL_HOST = 'smtp.163.com'
-EMAIL_PORT = 465     #注意:如果django在linux上跑的话,千万不能用25端口,即用ssl方式发送邮件
-                     # 阿里云哪个狗日的,把25端口屏蔽了,
-                     # 搞得我连试里两天,每次都显示超时
+EMAIL_PORT = 465     #注:如果django在linux上跑的话,千万不能用25端口,应该用ssl方式发送邮件,端口号取465
+                     #阿里云那个狗日的,把25端口屏蔽了,网上搜索好多都是信誓旦旦可以的,搞得我连试里两天,每次都显示超时
 EMAIL_HOST_USER = 'gujientsy@163.com'
 EMAIL_HOST_PASSWORD = '86917307x'
 EMAIL_FROM  = 'gujientsy@163.com'
