@@ -22,5 +22,6 @@ urlpatterns = [
     url(r'^user/', include('user.urls')),
     url(r'^cart/', include('cart.urls')),
     url(r'^order/', include('order.urls')),
+    url(r'^mail/', include('mail.urls')),
     url(r'^', include('good.urls')),
 ]
