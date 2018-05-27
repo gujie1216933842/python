@@ -17,7 +17,7 @@ from django.views.generic.base import View
 class sendHandler(View):
 
     def get(self, request):
-        msg = '<a href="http://www.baidu.com" target="_blank">hello , my name is 小熊</a>'
+        msg = '<a href="http://www.baidu.com" target="_blank">hi , my name is 小熊</a>'
         try:
             send_mail('来自小熊linux的邮件', msg, settings.EMAIL_FROM, ['1216933842@qq.com'])
         except Exception as e:
