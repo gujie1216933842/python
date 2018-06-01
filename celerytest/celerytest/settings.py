@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'celerytest.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'tiantian',
+        'NAME': 'celery',
         'USER': 'root',
         'PASSWORD': '123',
         'HOST': 'localhost',
