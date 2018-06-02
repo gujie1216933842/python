@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 import pymysql
+import djcelery
 
 pymysql.install_as_MySQLdb()
 
@@ -126,11 +127,16 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 '''添加RabbitMQ的配置'''
-import djcelery
+
 
 djcelery.setup_loader()
-BROKER_HOST = "localhost"
-BROKER_PORT = 5672
-BROKER_USER = "guest"
-BROKER_PASSWORD = "guest"
-BROKER_VHOST = "/"
+# BROKER_HOST = "localhost"
+# BROKER_PORT = 5672
+# BROKER_USER = "guest"
+# BROKER_PASSWORD = "guest"
+# BROKER_VHOST = "/"
+
+
+djcelery.setup_loader()
+BROKER_URL= 'amqp://guest@localhost//'
+CELERY_RESULT_BACKEND = 'amqp://guest@localhost//'
