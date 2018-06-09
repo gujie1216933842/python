@@ -4,19 +4,17 @@ import logging
 
 
 class Verifycode(object):
-    def __init__(self):
-        width = 200  # 验证码图片长度
-        height = 40  # 验证码图片宽度
-        numbers = 4  # 验证码个数
-        self.veri_code(width, height, numbers)
+    def __init__(self, width, height, num):
+        self.width = width
+        self.height = height
+        self.num = num
 
-    def get(self):
-        width = 200  # 验证码图片长度
-        height = 40  # 验证码图片宽度
-        numbers = 4  # 验证码个数
-        code_lower, image_outs =self.veri_code(width, height, numbers)
-        return code_lower,image_outs
-
+    def getVerifycode(self):
+        width = self.width
+        height = self.height
+        num = self.num
+        code_lower, image_outs = self.veri_code(width, height, num)
+        return code_lower, image_outs
 
     '''
     生成随机码
@@ -63,7 +61,6 @@ class Verifycode(object):
             draw.text((50 * t + 10, 5), code[t], font=font, fill=self.randon_color(32, 127))
             code_lower += code[t].lower()
 
-
         # 模糊滤镜
         # image = image.filter(ImageFilter.BLUR)
 
@@ -71,6 +68,6 @@ class Verifycode(object):
 
         image_out = open('/home/yanzhengma.png', 'rb')
         image_outs = image_out.read()
-        return code_lower,image_outs
+        return code_lower, image_outs
         # self.write(image_outs)
         # self.set_header("Content-Type", "image/png")
