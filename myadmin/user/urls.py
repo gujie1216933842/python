@@ -2,7 +2,7 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    url(r'logout/$',views)
+    url(r'logout/$',views.Logout.as_view())
 
 
 ]
