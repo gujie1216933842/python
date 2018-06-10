@@ -52,8 +52,9 @@
 
             <script type="text/javascript">
 
-                var timestamp = (new Date()).valueOf();
+
                 $('#kanbuq').on('click', function () {
+                    var timestamp = (new Date()).valueOf();
                     $(this).parent().attr('src', '/user/captcha/?random=' + timestamp)
                 })
 
