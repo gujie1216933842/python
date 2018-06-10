@@ -42,7 +42,7 @@ class Verifycode(object):
         image = Image.new('RGB', (width, height), (255, 255, 255))
         # 创建font对象
         logging.info('系统路径:' + os.path.dirname(__file__))
-        ttf = os.path.join(os.path.dirname(__file__), 'fonts/')
+        ttf = os.path.join(os.path.dirname(__file__), 'fonts/Arial.ttf')
         # ttf = '/home/gujie/project/ihome/utils/captcha/fonts/Arial.ttf'
         font = ImageFont.truetype(ttf, 32)
         # 创建画布对象
