@@ -16,4 +16,4 @@ class Logout(View):
 class Captcha(View):
     def get(self):
         captcha = Verifycode(200, 40, 4)
-        return HttpResponse(captcha)
+        return HttpResponse(captcha.getVerifycode())
