@@ -69,6 +69,4 @@ class Verifycode(object):
 
         image_out = open('/home/yanzhengma.png', 'rb')
         image_outs = image_out.read()
-        return code_lower, image_outs
-        # self.write(image_outs)
-        # self.set_header("Content-Type", "image/png")
+        return code_lower, image_outs  # 返回验证码和图片,验证码是需要存储在session中的
