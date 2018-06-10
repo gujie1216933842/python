@@ -48,15 +48,8 @@
       </div>
 
       <script type="text/javascript">
-        $(function () {
-             $('#kanbuq').click(function(){
-            alert('100');
-
-          })
-        })
-          $('#kanbuq').click(function(){
-            alert('100');
-
+          $('#kanbuq').on('click',function(){
+              $(this).attr('src','/user/captcha/')
           })
       </script>
 
