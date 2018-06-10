@@ -4,16 +4,18 @@ import logging
 
 
 class Verifycode(object):
-    def __init__(self, width, height, num):
-        self.width = width
-        self.height = height
-        self.num = num
+    def __init__(self, width, height, num, font_spacing):
+        self.width = width  # 验证码图片宽度
+        self.height = height  # 验证码图片的高度
+        self.num = num  # 验证码图片上字符个数
+        self.font_spacing = font_spacing  # 验证码字符间距
 
     def getVerifycode(self):
         width = self.width
         height = self.height
         num = self.num
-        code_lower, image_outs = self.veri_code(width, height, num)
+        font_spacing = self.font_spacing
+        code_lower, image_outs = self.veri_code(width, height, num, font_spacing)
         return code_lower, image_outs
 
     '''
@@ -37,7 +39,7 @@ class Verifycode(object):
         return (random.randint(begin, end), random.randint(begin, end), random.randint(begin, end))
 
     # 生成图片
-    def veri_code(self, width=160, height=40, length=6):
+    def veri_code(self, width=160, height=40, length=6, font_spacing=40):
         # 创建image对象
         image = Image.new('RGB', (width, height), (255, 255, 255))
         # 创建font对象
@@ -59,7 +61,7 @@ class Verifycode(object):
         code_lower = ''  # 验证码code信息都变成小写
         # 随机颜色验证码写到图片上
         for t in range(length):
-            draw.text((50 * t + 10, 5), code[t], font=font, fill=self.randon_color(32, 127))
+            draw.text((font_spacing * t + 10, 5), code[t], font=font, fill=self.randon_color(32, 127))
             code_lower += code[t].lower()
 
         # 模糊滤镜
