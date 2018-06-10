@@ -15,6 +15,6 @@ class Logout(View):
 
 class Captcha(View):
     def get(self, request):
-        captcha = Verifycode(140, 40, 4, 35)
+        captcha = Verifycode(140, 40, 4, 33)
         code, image = captcha.getVerifycode()
         return HttpResponse(image, content_type='image/png')

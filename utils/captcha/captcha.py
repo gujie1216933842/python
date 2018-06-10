@@ -61,7 +61,7 @@ class Verifycode(object):
         code_lower = ''  # 验证码code信息都变成小写
         # 随机颜色验证码写到图片上
         for t in range(length):
-            draw.text((font_spacing * t + 10, 5), code[t], font=font, fill=self.randon_color(32, 127))
+            draw.text((font_spacing * t + 10, 4), code[t], font=font, fill=self.randon_color(32, 127))
             code_lower += code[t].lower()
 
         # 模糊滤镜
