@@ -66,9 +66,8 @@ class Verifycode(object):
 
         # 模糊滤镜
         # image = image.filter(ImageFilter.BLUR)
-
-        image.save('/home/yanzhengma.png')
-
-        image_out = open('/home/yanzhengma.png', 'rb')
+        image_save_path = os.path.join(os.path.dirname(__file__), 'yanzhengma.png')
+        image.save(image_save_path)
+        image_out = open(image_save_path, 'rb')
         image_outs = image_out.read()
         return code_lower, image_outs  # 返回验证码和图片,验证码是需要存储在session中的

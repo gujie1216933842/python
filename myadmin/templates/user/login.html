@@ -47,7 +47,7 @@
                     <input class="input-text size-L" type="text" placeholder="验证码"
                            onblur="if(this.value==''){this.value='验证码:'}"
                            onclick="if(this.value=='验证码:'){this.value='';}" value="验证码:" style="width:150px;">
-                    <img src="/user/captcha/"> <a id="kanbuq" href="javascript:;">看不清，换一张</a></div>
+                    <img src="/user/captcha/" id="captcha_timestamp"> <a id="kanbuq" href="javascript:;">看不清，换一张</a></div>
             </div>
 
             <script type="text/javascript">
@@ -55,7 +55,7 @@
 
                 $('#kanbuq').on('click', function () {
                     var timestamp = (new Date()).valueOf();
-                    $(this).parent().attr('src', '/user/captcha/?random=' + timestamp)
+                    $("#captcha_timestamp").attr('src', '/user/captcha/?random=' + timestamp)
                 })
 
 
