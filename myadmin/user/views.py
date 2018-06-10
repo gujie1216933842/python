@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse,redirect
 from django.views.generic.base import View
 import os, sys
 
@@ -11,6 +11,17 @@ from utils.captcha.captcha import Verifycode
 class Logout(View):
     def get(self, request):
         return render(request, 'user/login.html')
+
+
+class Login(View):
+    def post(self, request):
+        username = request.POST.get('username', '')
+        password = request.POST.get('password', '')
+        if username == "admin" and password == 'admin':
+
+            return redirect('/index/')
+        else:
+            return HttpResponse('用户名和密码不正确!')
 
 
 class Captcha(View):
