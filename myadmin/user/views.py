@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse,redirect
+from django.shortcuts import render, HttpResponse, redirect
 from django.views.generic.base import View
 import os, sys
 
@@ -6,6 +6,7 @@ import os, sys
 file_path = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 sys.path.insert(0, file_path)
 from utils.captcha.captcha import Verifycode
+from . import models
 
 
 class Logout(View):
@@ -17,8 +18,9 @@ class Login(View):
     def post(self, request):
         username = request.POST.get('username', '')
         password = request.POST.get('password', '')
-        if username == "admin" and password == 'admin':
-
+        user = models.User()
+        ret = user.userLogin(username, password)
+        if not ret[0]:
             return redirect('/index/')
         else:
             return HttpResponse('用户名和密码不正确!')
