@@ -1,3 +1,8 @@
+import sys,os
+file_path = os.path.join(os.path.dirname(os.path.dirname(__file__)),'base/')
+print(file_path)
+sys.path.insert(0,file_path)
+
 from myadmin.base import mode1
 
 class User(mode1.Base):
