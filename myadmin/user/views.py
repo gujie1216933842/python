@@ -6,7 +6,7 @@ import os, sys
 file_path = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 sys.path.insert(0, file_path)
 from utils.captcha.captcha import Verifycode
-from . import models
+from . import mymodels
 
 
 class Logout(View):
@@ -18,7 +18,7 @@ class Login(View):
     def post(self, request):
         username = request.POST.get('username', '')
         password = request.POST.get('password', '')
-        user = models.User()
+        user = mymodels.User()
         ret = user.userLogin(username, password)
         if not ret[0]:
             return redirect('/index/')
