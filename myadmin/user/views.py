@@ -20,7 +20,7 @@ class Login(View):
         password = request.POST.get('password', '')
         user = mymodels.User()
         ret = user.userLogin(username, password)
-        if not ret[0]:
+        if ret:
             return redirect('/index/')
         else:
             return HttpResponse('用户名和密码不正确!')

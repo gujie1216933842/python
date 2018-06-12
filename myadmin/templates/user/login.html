@@ -20,6 +20,7 @@
     <script>DD_belatedPNG.fix('*');</script>
     <![endif]-->
     <script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="/static/js/md5.js"></script>
     <title>后台登录 - H-ui.admin v3.1</title>
     <meta name="keywords" content="H-ui.admin v3.1,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
     <meta name="description" content="H-ui.admin v3.1，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
@@ -29,7 +30,7 @@
 <div class="header"></div>
 <div class="loginWraper">
     <div id="loginform" class="loginBox">
-        <form class="form form-horizontal" action="/user/login/" method="post">
+        <form class="form form-horizontal" action="/user/login/" method="post" onsubmit="return checkInput()">
             {% csrf_token %}
             <div class="row cl">
                 <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60d;</i></label>
@@ -48,7 +49,8 @@
                     <input class="input-text size-L" type="text" placeholder="验证码"
                            onblur="if(this.value==''){this.value='验证码:'}"
                            onclick="if(this.value=='验证码:'){this.value='';}" value="验证码:" style="width:150px;">
-                    <img src="/user/captcha/" id="captcha_timestamp"> <a id="kanbuq" href="javascript:;">看不清，换一张</a></div>
+                    <img src="/user/captcha/" id="captcha_timestamp"> <a id="kanbuq" href="javascript:;">看不清，换一张</a>
+                </div>
             </div>
 
             <script type="text/javascript">
@@ -84,6 +86,18 @@
 <script type="text/javascript" src="/static/lib/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="/static/h-ui/js/H-ui.min.js"></script>
 <!--此乃百度统计代码，请自行删除-->
+
+<script type="text/javascript">
+    function checkInput() {
+        $("#password").val(hex_md5($("#password").val()));
+        return true
+
+    }
+
+
+</script>
+
+
 <script>
     var _hmt = _hmt || [];
     (function () {

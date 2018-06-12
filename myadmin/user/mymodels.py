@@ -19,7 +19,7 @@ class User(Base):
         return ret
 
 
-if __name__ == "__main__":
-    user = User()
-    ret = user.getUserInfo(1)
-    print(ret)
+# if __name__ == "__main__":
+#     user = User()
+#     ret = user.getUserInfo(1)
+#     print(ret)
