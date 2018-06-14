@@ -26,10 +26,10 @@ class Login(View):
         # 密码sha1加密
         sha1_obj = sha1()
         password_secret = "%s%s" % (password, settings.PRIVATE_KEY)
-        print(password_secret)
         sha1_obj.update(password_secret.encode())
-
-        userItem = models.UserInfo.objects.filter(username=username, password=password)
+        password_sha1 = sha1_obj.hexdigest()
+        print(password_sha1)
+        userItem = models.UserInfo.objects.filter(username=username, password=password_sha1)
 
         # 把信息用户名和密码信息存入session中,如果使用django,则需要migration
         # se = requests.session()
