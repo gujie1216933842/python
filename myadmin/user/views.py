@@ -7,6 +7,8 @@ file_path = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 sys.path.insert(0, file_path)
 from utils.captcha.captcha import Verifycode
 from . import mymodels
+import requests
+from . import models
 
 
 class Logout(View):
@@ -20,6 +22,11 @@ class Login(View):
         password = request.POST.get('password', '')
         user = mymodels.User()
         ret = user.userLogin(username, password)
+        #把信息用户名和密码信息存入session中,如果使用django,则需要migration
+        # se = requests.session()
+        # request.session['username'] = username
+        # request.session['password'] = password
+        # print(request.session)
         if ret:
             return redirect('/index/')
         else:

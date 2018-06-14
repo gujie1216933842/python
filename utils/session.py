@@ -2,7 +2,6 @@
 import uuid  # UUID是128位的全局唯一标识符，通常由32字节的字母串表示。它可以保证时间和空间的唯一性，也称为GUID。
 import json
 import logging
-import config
 
 
 class Session(object):
