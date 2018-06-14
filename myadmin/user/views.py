@@ -9,6 +9,8 @@ from utils.captcha.captcha import Verifycode
 from . import mymodels
 import requests
 from . import models
+from hashlib import sha1
+from django.conf import settings
 
 
 class Logout(View):
@@ -20,6 +22,12 @@ class Login(View):
     def post(self, request):
         username = request.POST.get('username', '')
         password = request.POST.get('password', '')
+
+        # 密码sha1加密
+        sha1_obj = sha1()
+        print(settings.PRIVATE_KEY+'sssssssssssssssssssssssss')
+        sha1_obj.update(password + settings.PRIVATE_KEY)
+
         userItem = models.UserInfo.objects.filter(username=username, password=password)
 
         # 把信息用户名和密码信息存入session中,如果使用django,则需要migration
