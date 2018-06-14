@@ -20,14 +20,14 @@ class Login(View):
     def post(self, request):
         username = request.POST.get('username', '')
         password = request.POST.get('password', '')
-        user = mymodels.User()
-        ret = user.userLogin(username, password)
-        #把信息用户名和密码信息存入session中,如果使用django,则需要migration
+        userItem = models.UserInfo.objects.filter(username=username, password=password)
+
+        # 把信息用户名和密码信息存入session中,如果使用django,则需要migration
         # se = requests.session()
         # request.session['username'] = username
         # request.session['password'] = password
         # print(request.session)
-        if ret:
+        if userItem:
             return redirect('/index/')
         else:
             return HttpResponse('用户名和密码不正确!')
