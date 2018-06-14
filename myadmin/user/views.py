@@ -31,11 +31,18 @@ class Login(View):
         userItem = models.UserInfo.objects.filter(username=username, password=password_sha1)
 
         #把信息用户名和密码信息存入session中,如果使用django,则需要migration
-        se = requests.session()
         request.session['username'] = username
-        #request.session['password'] = password
-        print(request.session['username'])
-        print(request.session)
+        request.session.set_expiry('5')
+        '''
+        把sessionstore对象打印出来,程序调试过程中会用到
+        print(dict(request.session))
+        删除session
+        del request[key]
+        
+        '''
+
+
+
         if userItem:
             return redirect('/index/')
         else:
