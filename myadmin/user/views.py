@@ -15,6 +15,7 @@ from django.conf import settings
 
 class Logout(View):
     def get(self, request):
+        request.session['login'] = 'loginvalue'
         return render(request, 'user/login.html')
 
 
