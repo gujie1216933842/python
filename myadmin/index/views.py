@@ -6,6 +6,7 @@ from django.views.generic.base import View
 
 class Index(View):
     def get(self, request):
+        request.session['index'] = 'indexvalue'
         print('index首页中查看的session:%s' % dict(request.session))
         # return HttpResponse('ok')
         return render(request, 'index/index.html')
