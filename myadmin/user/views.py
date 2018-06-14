@@ -25,8 +25,9 @@ class Login(View):
 
         # 密码sha1加密
         sha1_obj = sha1()
-        print(settings.PRIVATE_KEY+'sssssssssssssssssssssssss')
-        sha1_obj.update(password + settings.PRIVATE_KEY)
+        password_secret = "%s%s" % (password, settings.PRIVATE_KEY)
+        print(password_secret)
+        sha1_obj.update(password_secret.encode())
 
         userItem = models.UserInfo.objects.filter(username=username, password=password)
 
