@@ -33,7 +33,8 @@ class Login(View):
         #把信息用户名和密码信息存入session中,如果使用django,则需要migration
         se = requests.session()
         request.session['username'] = username
-        request.session['password'] = password
+        #request.session['password'] = password
+        print(request.session['username'])
         print(request.session)
         if userItem:
             return redirect('/index/')
