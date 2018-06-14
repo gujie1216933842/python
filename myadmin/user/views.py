@@ -32,7 +32,7 @@ class Login(View):
 
         #把信息用户名和密码信息存入session中,如果使用django,则需要migration
         request.session['username'] = username
-        request.session.set_expiry('5')
+        request.session.set_expiry(5)
         '''
         把sessionstore对象打印出来,程序调试过程中会用到
         print(dict(request.session))
