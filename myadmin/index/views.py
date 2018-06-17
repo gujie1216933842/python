@@ -12,5 +12,7 @@ class Index(View):
 
 
 class Welcome(View):
+
+
     def get(self, request):
         return render(request, 'index/welcome.html')
