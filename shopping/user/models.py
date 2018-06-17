@@ -18,3 +18,5 @@ class UserInfo(models.Model):
     uemail = models.CharField(max_length=30)
     type = models.CharField(choices=Type, max_length=30)
     raw_add_time = models.DateTimeField()
+
+
