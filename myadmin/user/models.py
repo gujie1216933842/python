@@ -1,10 +1,5 @@
 from django.db import models
 
-Type = {
-    '1': '新',
-    '2': '老',
-    '3': '外联用户',
-}
 USER_CHOICES = (
         (1, '新'),
         (2, '老'),
