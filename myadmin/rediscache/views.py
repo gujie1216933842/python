@@ -6,8 +6,12 @@ from django.core.cache import cache
 import json
 from django.shortcuts import HttpResponse
 
+'''
+测试把redis当成django项目的缓存
+
+'''
 def getCache(self):
-    key = 'gujie11'
+    key = 'xiaoming'
     value = cache.get(key)
     if value == None:
         data = None
@@ -17,6 +21,5 @@ def getCache(self):
 
 
 def setCache(self):
-    cache.set('xiaoming','gujie',settings.NEVER_REDIS_TIMEOUT)
+    cache.set('xiaoming', 'gujie', settings.NEVER_REDIS_TIMEOUT)
     return HttpResponse('ok')
-
