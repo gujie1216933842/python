@@ -147,8 +147,12 @@ CACHES = {
     }
 }
 
-SESSION_ENGINE = "django.contrib.sessions.backends.cache"
-SESSION_CACHE_ALIAS = "default"
+SESSION_ENGINE = 'redis_sessions.session'
+SESSION_REDIS_HOST = '127.0.0.1'
+SESSION_REDIS_PORT = 6379
+SESSION_REDIS_DB = 4
+SESSION_REDIS_PASSWORD = ''
+SESSION_REDIS_PREFIX = 'session'
 
 
 REDIS_TIMEOUT=7*24*60*60
