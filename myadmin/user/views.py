@@ -11,6 +11,7 @@ import requests
 from . import models
 from hashlib import sha1
 from django.conf import settings
+import redis
 
 
 class Logout(View):
@@ -41,9 +42,6 @@ class Login(View):
         del request[key]
         
         '''
-
-
-
         if userItem:
             return redirect('/index/')
         else:
@@ -59,17 +57,3 @@ class Captcha(View):
 
 
 
-class GetSession(View):
-    def get(self, request):
-        # 用户名测试redis
-        redis_username = request.session.get('usename')
-        return HttpResponse(redis_username)
-
-
-
-class SetSession(View):
-    def get(self, request):
-        # 用户名测试redis
-        redis_username = request.GET.get('usename')
-        request.session['username'] = redis_username
-        return HttpResponse('保存session数据成功')
