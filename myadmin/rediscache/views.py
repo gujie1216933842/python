@@ -18,4 +18,5 @@ def getCache(self):
 
 def setCache(self):
     cache.set('xiaoming','gujie',settings.NEVER_REDIS_TIMEOUT)
+    return HttpResponse('ok')
 
