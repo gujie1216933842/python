@@ -4,15 +4,16 @@ from django.shortcuts import render
 from django.conf import settings
 from django.core.cache import cache
 import json
+from django.shortcuts import HttpResponse
 
 def getCache(self):
-    key = 'gujie'
+    key = 'gujie11'
     value = cache.get(key)
     if value == None:
         data = None
     else:
         data = json.loads(value)
-    return data
+    return HttpResponse(data)
 
 
 def setCache(self):
