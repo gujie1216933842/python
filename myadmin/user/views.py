@@ -55,3 +55,21 @@ class Captcha(View):
         captcha = Verifycode(140, 40, 4, 33)
         code, image = captcha.getVerifycode()
         return HttpResponse(image, content_type='image/png')
+
+
+
+
+class GetSession(View):
+    def get(self, request):
+        # 用户名测试redis
+        redis_username = request.session.get('usename')
+        return HttpResponse(redis_username)
+
+
+
+class SetSession(View):
+    def get(self, request):
+        # 用户名测试redis
+        redis_username = request.GET.get('usename')
+        request.session['username'] = redis_username
+        return HttpResponse('保存session数据成功')

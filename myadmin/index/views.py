@@ -16,8 +16,4 @@ class Welcome(View):
         return render(request, 'index/welcome.html')
 
 
-class GetSession(View):
-    def get(self, request):
-        # 用户名测试redis
-        redis_username = request.session.get('usename')
-        return HttpResponse(redis_username)
+
