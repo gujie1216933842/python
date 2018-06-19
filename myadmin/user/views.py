@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.views.generic.base import View
-import os, sys
+import os, sys , json
 
 # 找到当前目录的路径
 file_path = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
@@ -24,6 +24,16 @@ class Login(View):
     def post(self, request):
         username = request.POST.get('username', '')
         password = request.POST.get('password', '')
+        captcha = request.POST.get('captcha', '')
+        captcha_key = request.POST.get('captcha_key', '')
+
+        # 检查验证码是否正确
+        # redis中获取的验证码
+        cache_captcha = cache.get(captcha_key)
+        if captcha is None:
+            return HttpResponse('验证码已经过期,请刷新后重新输入!')
+        elif captcha != cache_captcha.encode():
+            return HttpResponse('验证码不正确!,请重新输入')
 
         # 密码sha1加密
         sha1_obj = sha1()
@@ -32,17 +42,16 @@ class Login(View):
         password_sha1 = sha1_obj.hexdigest()
         userItem = models.UserInfo.objects.filter(username=username, password=password_sha1)
 
-        # 把信息用户名和密码信息存入session中,如果使用django,则需要migration
-        request.session['username'] = username
-        request.session['username'].set_expiry(5)
-        '''
-        把sessionstore对象打印出来,程序调试过程中会用到
-        print(dict(request.session))
-        删除session
-        del request[key]
-        
-        '''
         if userItem:
+            # 把信息用户名和密码信息存入session中,如果使用django,则需要migration
+            '''
+            把sessionstore对象打印出来,程序调试过程中会用到
+            print(dict(request.session))
+            删除session
+            del request[key]
+            '''
+            userInfo = dict(username=username, userId=userItem[0]['id'])
+            request.session['userInfo'] = json.loads(userInfo)
             return redirect('/index/')
         else:
             return HttpResponse('用户名和密码不正确!')
