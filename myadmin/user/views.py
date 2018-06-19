@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.views.generic.base import View
-import os, sys , json
+import os, sys, json, random, time
 
 # 找到当前目录的路径
 file_path = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
@@ -17,7 +17,9 @@ from django.core.cache import cache
 class Logout(View):
     def get(self, request):
         request.session['login'] = 'loginvalue'
-        return render(request, 'user/login.html')
+        # 生成一个随机数字,这里用时间戳来替换
+        random_num = int(time.time())
+        return render(request, 'user/login.html', {'random': random})
 
 
 class Login(View):
