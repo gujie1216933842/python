@@ -11,7 +11,7 @@ import requests
 from . import models
 from hashlib import sha1
 from django.conf import settings
-import redis
+from django.core.cache import cache
 
 
 class Logout(View):
@@ -32,7 +32,7 @@ class Login(View):
         password_sha1 = sha1_obj.hexdigest()
         userItem = models.UserInfo.objects.filter(username=username, password=password_sha1)
 
-        #把信息用户名和密码信息存入session中,如果使用django,则需要migration
+        # 把信息用户名和密码信息存入session中,如果使用django,则需要migration
         request.session['username'] = username
         request.session['username'].set_expiry(5)
         '''
@@ -50,10 +50,11 @@ class Login(View):
 
 class Captcha(View):
     def get(self, request):
+        random_num = request.GET.get('random', '')
         captcha = Verifycode(140, 40, 4, 33)
         code, image = captcha.getVerifycode()
+        '''
+        把code存入redis
+        '''
+        cache.set('captcha_%s' % random_num, code, settings.CAPTCHA_TIMEOUT)
         return HttpResponse(image, content_type='image/png')
-
-
-
-
