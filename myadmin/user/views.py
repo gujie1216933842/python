@@ -19,7 +19,7 @@ class Logout(View):
         request.session['login'] = 'loginvalue'
         # 生成一个随机数字,这里用时间戳来替换
         random_num = int(time.time())
-        return render(request, 'user/login.html', {'random': random})
+        return render(request, 'user/login.html', {'random_num': random_num})
 
 
 class Login(View):
