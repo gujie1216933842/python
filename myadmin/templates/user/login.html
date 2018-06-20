@@ -60,7 +60,7 @@
 
                 $('#kanbuq').on('click', function () {
                     var timestamp = (new Date()).valueOf();
-                    $("#captcha_timestamp").attr('src', '/user/captcha/?random=' + timestamp)
+                    $("#captcha_timestamp").attr('src', '/user/captcha/?random=' + timestamp);
                     $("#captcha_key").val(timestamp);
                 });
                 $(function () {
