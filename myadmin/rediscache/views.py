@@ -10,7 +10,7 @@ from django.shortcuts import HttpResponse
 测试把redis当成django项目的缓存
 
 '''
-def getCache():
+def getCache(request):
     key = 'xiaoming'
     value = cache.get(key)
     if value == None:
@@ -20,7 +20,7 @@ def getCache():
     return HttpResponse(data)
 
 
-def setCache():
+def setCache(request):
     cache.set('xiaoming', 'gujie', settings.NEVER_REDIS_TIMEOUT)
     return HttpResponse('ok')
 
