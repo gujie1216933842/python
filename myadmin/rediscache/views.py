@@ -16,7 +16,8 @@ def getCache(request):
     if value == None:
         data = None
     else:
-        data = json.loads(value)
+        #data = json.loads(value)  #如果是字典格式数据需要序列化
+        data = value
     return HttpResponse(data)
 
 
