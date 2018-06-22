@@ -55,7 +55,7 @@ class Login(View):
             del request[key]
             '''
             userInfo = dict(username=username, userId=userItem[0].id)
-            request.session['userInfo'] = json.loads(userInfo)
+            request.session['userInfo'] = userInfo
             return redirect('/index/')
         else:
             return HttpResponse('用户名和密码不正确!')
