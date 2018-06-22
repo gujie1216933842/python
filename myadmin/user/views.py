@@ -54,7 +54,7 @@ class Login(View):
             删除session
             del request[key]
             '''
-            userInfo = dict(username=username, userId=userItem[0]['id'])
+            userInfo = dict(username=username, userId=userItem[0].id)
             request.session['userInfo'] = json.loads(userInfo)
             return redirect('/index/')
         else:
