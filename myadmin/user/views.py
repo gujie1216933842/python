@@ -31,10 +31,11 @@ class Login(View):
 
         # 检查验证码是否正确
         # redis中获取的验证码
-        cache_captcha = cache.get(captcha_key)
-        if captcha is None:
+        cache_captcha = cache.get("captcha_%s" % captcha_key)
+        print(cache_captcha)
+        if cache_captcha is None:
             return HttpResponse('验证码已经过期,请刷新后重新输入!')
-        elif captcha != cache_captcha.encode():
+        elif cache_captcha != cache_captcha.encode():
             return HttpResponse('验证码不正确!,请重新输入')
 
         # 密码sha1加密
