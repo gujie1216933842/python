@@ -32,7 +32,8 @@ class Login(View):
         # 检查验证码是否正确
         # redis中获取的验证码
         cache_captcha = cache.get("captcha_%s" % captcha_key)
-        print(cache_captcha)
+        print('前端页面传过来的%s' % captcha)
+        print('缓存中取得值%s' % cache_captcha)
         if cache_captcha is None:
             return HttpResponse('验证码已经过期,请刷新后重新输入!')
         elif captcha != cache_captcha.encode():
