@@ -36,7 +36,7 @@ class Login(View):
         print('缓存中取得值%s' % cache_captcha)
         if cache_captcha is None:
             return HttpResponse('验证码已经过期,请刷新后重新输入!')
-        elif captcha != cache_captcha.encode():
+        elif captcha != cache_captcha:
             return HttpResponse('验证码不正确!,请重新输入')
 
         # 密码sha1加密
