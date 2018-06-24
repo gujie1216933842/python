@@ -71,3 +71,10 @@ class Captcha(View):
         '''
         cache.set('captcha_%s' % random_num, code, settings.CAPTCHA_TIMEOUT)
         return HttpResponse(image, content_type='image/png')
+
+
+
+
+class UserList(View):
+    def get(self,request):
+        return render(request,'index/user_list.html')
