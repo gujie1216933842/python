@@ -95,4 +95,4 @@ class UserAdd(View):
         print('username:%s' % username)
         print('password:%s' % password)
         print('gender:%s' % gender)
-        pass
+        return HttpResponse('add ok!')
