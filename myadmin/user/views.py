@@ -78,3 +78,8 @@ class Captcha(View):
 class UserList(View):
     def get(self,request):
         return render(request,'user/user_list.html')
+
+
+class UserAdd(View):
+    def get(self,request):
+        return render(request,'user/user_add.html')
