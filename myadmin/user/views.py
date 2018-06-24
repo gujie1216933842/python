@@ -77,4 +77,4 @@ class Captcha(View):
 
 class UserList(View):
     def get(self,request):
-        return render(request,'index/user_list.html')
+        return render(request,'user/user_list.html')
