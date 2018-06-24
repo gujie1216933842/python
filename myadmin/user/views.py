@@ -73,13 +73,26 @@ class Captcha(View):
         return HttpResponse(image, content_type='image/png')
 
 
-
-
 class UserList(View):
-    def get(self,request):
-        return render(request,'user/user_list.html')
+    def get(self, request):
+        return render(request, 'user/user_list.html')
 
 
 class UserAdd(View):
-    def get(self,request):
-        return render(request,'user/user_add.html')
+    def get(self, request):
+        return render(request, 'user/user_add.html')
+
+    def post(self, request):
+        '''
+        添加数据接口
+        1.获取数据
+
+        '''
+        username = request.POST.get('username', '')
+        password = request.POST.get('username', '')
+        gender = request.POST.get('gender', '')
+
+        print('username:%s' % username)
+        print('password:%s' % password)
+        print('gender:%s' % gender)
+        pass
