@@ -89,7 +89,7 @@ class UserAdd(View):
 
         '''
         username = request.POST.get('username', '')
-        password = request.POST.get('username', '')
+        password = request.POST.get('password', '')
         gender = request.POST.get('gender', '')
 
         print('username:%s' % username)
