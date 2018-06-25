@@ -37,7 +37,7 @@
 
         <div class="row cl">
             <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                <input class="btn btn-primary radius" type="submit" id="btn" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
             </div>
         </div>
     </form>
@@ -92,17 +92,17 @@
         // 	focusCleanup:true,
         // 	success:"valid",
         // 	submitHandler:function(form){
-        // 		//$(form).ajaxSubmit();
+        // 		//$(form).ajaxSubmit();y
         // 		var index = parent.layer.getFrameIndex(window.name);
         // 		//parent.$('.btn-refresh').click();
         // 		parent.layer.close(index);
         // 	}
         // });
 
-        $('input[name="submit"]').on('click', function () {
-            var username = $("#username").value();
-            var password = $("#password").value();
-            var gender = $('input[name="sex"]:checked').value();
+        $('#btn').on('click', function () {
+            var username = $("#username").val();
+            var password = $("#password").val();
+            var gender = $('input[name="sex"]:checked').val();
             console.log('gender:' + gender);
             alert(gender);
 
