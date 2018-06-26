@@ -6,10 +6,10 @@ import os, sys, json, random, time
 file_path = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 sys.path.insert(0, file_path)
 from utils.captcha.captcha import Verifycode
-from . import mymodels
+from . import mymodels, models
 import requests
 from . import models
-from hashlib import sha1
+from hashlib import sha1, md5
 from django.conf import settings
 from django.core.cache import cache
 
@@ -86,6 +86,7 @@ class UserAdd(View):
         '''
         添加数据接口
         1.获取数据
+        2.数据入口
 
         '''
         username = request.POST.get('username', '')
@@ -95,4 +96,26 @@ class UserAdd(View):
         print('username:%s' % username)
         print('password:%s' % password)
         print('gender:%s' % gender)
+
+        # 密码处理
+        '''
+        1.md5加密
+        2.拼接秘钥
+        3.sha1加密
+        '''
+        md5_obj = md5()
+        md5_obj.update(password.encode('utf-8'))
+        password = password.hexdigest()
+        password = "%s%s" % (password, settings.PRIVATE_KEY)
+
+        sha1_obj = sha1()
+        sha1_obj.update(password.encode())
+        password = password.hexdigest()   #返回摘要，作为十六进制数据字符串值
+
+        # 实例化对象
+        userInfo = models.UserInfo()
+        userInfo.username = username
+        userInfo.password = password
+        userInfo.save()
+
         return HttpResponse('add ok!')
