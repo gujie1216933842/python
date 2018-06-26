@@ -104,13 +104,13 @@ class UserAdd(View):
         3.sha1加密
         '''
         md5_obj = md5()
-        md5_obj.update(password.encode('utf-8'))
-        password = password.hexdigest()
+        md5_obj.update(password.encode())
+        password = md5_obj.hexdigest()
         password = "%s%s" % (password, settings.PRIVATE_KEY)
 
         sha1_obj = sha1()
         sha1_obj.update(password.encode())
-        password = password.hexdigest()   #返回摘要，作为十六进制数据字符串值
+        password = sha1_obj.hexdigest()   #返回摘要，作为十六进制数据字符串值
 
         # 实例化对象
         userInfo = models.UserInfo()
