@@ -32,8 +32,8 @@ class ResourceCatalog(models.Model):
     '''
     资源和目录关系表
     '''
-    resource_id = models.IntegerField(max_length=11, null=False, default=0)
-    catalog_id = models.IntegerField(max_length=11, null=False, default=0)
+    resource_id = models.IntegerField(null=False, default=0)
+    catalog_id = models.IntegerField(null=False, default=0)
     delete_flag = models.BooleanField(null=False, default=False)
     raw_add_time = models.DateTimeField(auto_now_add=True, null=False)
     raw_update_time = models.DateTimeField(auto_now=True)
@@ -43,8 +43,8 @@ class UserResource(models.Model):
     '''
     资源和用户id关系表
     '''
-    user_id = models.IntegerField(max_length=11, null=False, default=0)
-    resource_id = models.IntegerField(max_length=11, null=False, default=0)
+    user_id = models.IntegerField(null=False, default=0)
+    resource_id = models.IntegerField(null=False, default=0)
     delete_flag = models.BooleanField(null=False, default=False)
     raw_add_time = models.DateTimeField(auto_now_add=True, null=False)
     raw_update_time = models.DateTimeField(auto_now=True)
