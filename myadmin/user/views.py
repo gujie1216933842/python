@@ -84,7 +84,7 @@ class UserList(View):
         # for item in userItems:
         #     print(item.username)
 
-        return render(request, 'user/user_list.html', {'userItems', userItems})
+        return render(request, 'user/user_list.html', {'userItems': userItems})
 
 
 class UserAdd(View):
