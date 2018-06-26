@@ -75,6 +75,14 @@ class Captcha(View):
 
 class UserList(View):
     def get(self, request):
+        '''
+        1.查询所有数据
+        '''
+
+        userItems = models.UserInfo.objects.all()
+        print(userItems)
+
+
         return render(request, 'user/user_list.html')
 
 
