@@ -81,9 +81,10 @@ class UserList(View):
 
         userItems = models.UserInfo.objects.all()
         print(userItems)
+        # for item in userItems:
+        #     print(item.username)
 
-
-        return render(request, 'user/user_list.html')
+        return render(request, 'user/user_list.html', {'userItems', userItems})
 
 
 class UserAdd(View):
@@ -118,7 +119,7 @@ class UserAdd(View):
 
         sha1_obj = sha1()
         sha1_obj.update(password.encode())
-        password = sha1_obj.hexdigest()   #返回摘要，作为十六进制数据字符串值
+        password = sha1_obj.hexdigest()  # 返回摘要，作为十六进制数据字符串值
 
         # 实例化对象
         userInfo = models.UserInfo()
