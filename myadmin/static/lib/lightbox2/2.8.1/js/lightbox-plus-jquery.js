@@ -9515,7 +9515,7 @@ return jQuery;
     }
   };
 
-  // Display the image and its details and begin preload neighboring images.
+  // Display the image and its details and begin preload neighboring image.
   Lightbox.prototype.showImage = function() {
     this.$lightbox.find('.lb-loader').stop(true).hide();
     this.$lightbox.find('.lb-image').fadeIn('slow');
@@ -9596,7 +9596,7 @@ return jQuery;
     });
   };
 
-  // Preload previous and next images in set.
+  // Preload previous and next image in set.
   Lightbox.prototype.preloadNeighboringImages = function() {
     if (this.album.length > this.currentImageIndex + 1) {
       var preloadNext = new Image();

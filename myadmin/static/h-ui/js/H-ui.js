@@ -1485,7 +1485,7 @@ function stopDefault(e) {
 
 /* =======================================================================
  * jQuery.lazyload v1.9.3
- * Lazy Load - jQuery plugin for lazy loading images
+ * Lazy Load - jQuery plugin for lazy loading image
  * Copyright (c) 2007-2013 Mika Tuupola
  * Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
  * Project home: http://www.appelsiini.net/projects/lazyload
@@ -1614,7 +1614,7 @@ function stopDefault(e) {
 			update();
 		});
 
-		/* With IOS5 force loading images when navigating with back button. */
+		/* With IOS5 force loading image when navigating with back button. */
 		/* Non optimal workaround. */
 		if ((/(?:iphone|ipod|ipad).*os 5/gi).test(navigator.appVersion)) {
 			$window.on("pageshow",
@@ -1627,7 +1627,7 @@ function stopDefault(e) {
 			});
 		}
 
-		/* Force initial check if images should appear. */
+		/* Force initial check if image should appear. */
 		$(document).ready(function() {
 			update();
 		});
@@ -3854,7 +3854,7 @@ function stopDefault(e) {
 		mouseover: undefined,
 		noRatedMsg: '没有额定',
 		number: 10,
-		path: 'images/',
+		path: 'image/',
 		precision: false,
 		round: {
 			down: .25,

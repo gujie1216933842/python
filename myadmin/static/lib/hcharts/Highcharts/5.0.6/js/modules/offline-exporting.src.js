@@ -327,7 +327,7 @@
             }
         };
 
-        // Get SVG of chart prepared for client side export. This converts embedded images in the SVG to data URIs.
+        // Get SVG of chart prepared for client side export. This converts embedded image in the SVG to data URIs.
         // The options and chartOptions arguments are passed to the getSVGForExport function.
         Highcharts.Chart.prototype.getSVGForLocalExport = function(options, chartOptions, failCallback, successCallback) {
             var chart = this,
@@ -375,13 +375,13 @@
             images = chartCopyContainer.getElementsByTagName('image');
 
             try {
-                // If there are no images to embed, the SVG is okay now.
+                // If there are no image to embed, the SVG is okay now.
                 if (!images.length) {
                     successCallback(sanitize(chartCopyContainer.innerHTML)); // Use SVG of chart copy
                     return;
                 }
 
-                // Go through the images we want to embed
+                // Go through the image we want to embed
                 for (i = 0, l = images.length; i < l; ++i) {
                     el = images[i];
                     Highcharts.imageToDataUrl(el.getAttributeNS('http://www.w3.org/1999/xlink', 'href'), 'image/png', {
@@ -431,7 +431,7 @@
                     }
                 };
 
-            // If we have embedded images and are exporting to JPEG/PNG, Microsoft 
+            // If we have embedded image and are exporting to JPEG/PNG, Microsoft
             // browsers won't handle it, so fall back.
             if (
                 (isMSBrowser && options.type !== 'image/svg+xml' ||
