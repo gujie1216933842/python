@@ -2072,7 +2072,7 @@ img-responsive 响应式    .radius 圆角图片    .round 圆形图片   .thumb
 
 /*3.6.3 头像
 	Name:			mod_avatar
-	Example:		<i class="avatar avatar-L radius"><img src="static/h-ui/image/ucenter/avatar-default.jpg"></i>
+	Example:		<i class="avatar avatar-L radius"><img src="static/h-ui/images/ucenter/avatar-default.jpg"></i>
 */
 .avatar{display:inline-block;position:relative; overflow:hidden}
 .avatar img{ display:block}
@@ -4022,7 +4022,7 @@ a.label:hover, a.label:focus, a.badge:hover, a.badge:focus{color: #fff;text-deco
 	Sample:
 	<ul class="commentList">
 	  <li class="item clearfix">
-	    <a href="#"><i class="avatar avatar-L radius"><img alt="" src="static/h-ui/image/ucenter/avatar-default.jpg"></i></a>
+	    <a href="#"><i class="avatar avatar-L radius"><img alt="" src="static/h-ui/images/ucenter/avatar-default.jpg"></i></a>
 		<div class="comment-main">
 		  <header class="comment-header">
 		    <div class="comment-meta"><a class="comment-author" href="#">辉哥</a> 评论于 <time title="2014年8月31日 下午3:20" datetime="2014-08-31T03:54:20">2014-8-31 15:20</time></div>
