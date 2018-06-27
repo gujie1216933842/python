@@ -80,10 +80,6 @@ class UserList(View):
         '''
 
         userItems = models.UserInfo.objects.all()
-        print(userItems)
-        # for item in userItems:
-        #     print(item.username)
-
         return render(request, 'user/user_list.html', {'userItems': userItems})
 
 
