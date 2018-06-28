@@ -1,1 +1,340 @@
 ﻿
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>欢迎访问游戏后台管理系统</title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<link rel="Shortcut Icon" href="/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="/files/js/jquery.easyui/themes/gray/easyui.css">
+	<link rel="stylesheet" type="text/css" href="/files/js/jquery.easyui/themes/icon.css">
+	<script type="text/javascript" src="/files/js/jquery.js?v=201710231602"></script>
+	<script type="text/javascript" src="/files/js/jquery.easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="/files/js/jquery.easyui/locale/easyui-lang-zh_CN.js"></script>
+	<link href="/files/css/reset.css?v=201710231602" rel="stylesheet" type="text/css" />
+	<link href="/files/css/basic.css?v=201710231602" rel="stylesheet" type="text/css" />
+<style type="text/css">
+.no{color:red;}
+
+.content{
+	border:1px solid #ddd;
+	width:100%;
+	height: 200px;
+	background: #fff;
+	*position: relative;
+	*z-index: 10;
+}
+.tab_clearfix{
+	width: 100%;
+	height: 30px;
+	list-style: none;
+	margin-bottom: -1px;
+	*position: relative;
+	*z-index: 20;
+	overflow: hidden;
+}
+.tab_clearfix li{
+	float: left;
+	height: 28px;
+	padding: 0 25px;
+	border-left: 1px solid #DDDDDD;
+	border-right: 1px solid #DDDDDD;
+	margin-right: 5px;
+	line-height: 30px;
+	cursor: pointer;
+	background: #FAFAFA;
+	color: #0461B1;
+	font-size: 14px;
+}
+.tab_clearfix .tab-active{
+	border-bottom:none;
+	border-top-width: 2px;
+	height: 28px;
+	background: #fff;
+	color: #333333;
+	font-weight: bold;
+}
+</style>
+</head>
+<body>
+<div class="main_nav">
+	<div id="top" class="menu_box">
+    	<div class="top_c" style="">
+    		hi, 游戏中心欢迎您！ <a href="/?act=index&st=login">请登录</a>       	<div class="clear"></div>
+        </div>
+    </div>
+</div>
+
+
+
+	<style type="text/css" media="screen">
+td{height:36px}
+input{height:24px}
+td.filed{text-align: right;}
+td.f_value {text-align: left; padding-left: 4px;}
+</style>
+<script type="text/javascript" src="/files/js/md5.js"></script>
+<script type="text/javascript" src="/files/js/base64.js"></script>
+<script type="text/javascript">
+if (window!=top) // 判断当前的window对象是否是top对象
+top.location.href =window.location.href; // 如果不是，将top对象的网址自动导向被嵌入网页的网址
+
+/**
+ *刷新验证码
+ */
+function changeCode(){
+	$("#image_code").attr('src','/?act=index&st=imageCode&t='+Math.random());
+}
+
+
+
+</script>
+<div style="width:100%; height:565px; padding-top: 100px;position:relative; clear: both;">
+	<div style="width:400px; height: auto;margin:0 auto">
+
+		<div class="easyui-panel" title="管理员登录" style="width:400px;position:relative;">
+			<div style="padding:15px; text-align: center">
+		    <form id="ff" method="post" action="/index.php?act=index&st=login" method="post">
+		    	<table>
+		    		<tr>
+		    			<td style="width: 70px;" class="filed">用户名:</td>
+		    			<td class="f_value"><input class="easyui-validatebox" type="text" name="username" id="username" data-options="required:true" />
+		    				<span class="no">*</span>
+		    			</td>
+		    		</tr>
+		    		<tr>
+		    			<td  class="filed">密码:</td>
+		    			<td class="f_value"><input class="easyui-validatebox" type="password" id="password" name="password" data-options="required:true"/>
+		    				<span class="no">*</span>
+		    			</td>
+		    		</tr>
+                    		    		<tr>
+		    			<td class="filed">验证码:</td>
+		    			<td class="f_value">
+		    				<input class="easyui-validatebox" type="text" name="image_code" style="width:58px"/>
+							<span class="no">*</span>
+                            <span>
+		    				    <img id="image_code" width="90" height="30" src="/?act=index&st=imageCode" onclick="changeCode()" style="cursor: pointer; float: right" alt="点击更换验证码"/>
+                            </span>
+
+		    			</td>
+		    		</tr>
+		    	</table>
+		    </form>
+		    </div>
+		    <div style="text-align:center;padding:5px;">
+		    	<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">登录</a>
+		    	<a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">重置</a>
+		    </div>
+            <input type="hidden" id="id_optcode_status" name="id_optcode_status" value="0">
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+//登陆
+var OLD_PASSWORD ='';
+var SUBMIT_LOCK = false;
+//用户名失去焦点后的action,获取管理员的手机号码
+function getuserinfo(async){
+    var username = $("#username").val();
+    var mobile = '';
+   // $("#username_text_flag").text('');
+    $("#span_mobild_text").html('');
+    $("#span_send_mobild_text").text('');
+    $("#span_get_user_status").text('');
+    var errorcode = false;
+    if(username){
+       // $("#username_text_flag").text('权限检测中，请稍等~');
+        $.ajax({
+            type: "POST",
+            url: "/?act=index&st=login",
+            data: {ajax_flag:"getmobile",username:username},
+            dataType:'json',
+            success: function(data){
+                //手机验证码输入次数达到上限
+                if(data.mobile_flag == 1){
+                    alert("手机验证码输入次数达到上限，请2小时后获取");
+                    $("#div_adminlogin_id").hide();
+                    $("#id_optcode").attr("disabled", "disabled");
+                    errorcode = true;
+                    return false;
+                }else{
+                    $("#id_optcode").removeAttr("disabled");
+                }
+                $("#div_adminlogin_id").show();
+                mobile = data.mobile;
+                if(mobile){
+                    var mphone =mobile.substr(3,4);
+                    var lphone = mobile.replace(mphone,"****");
+                    $("#span_mobild_text").html(lphone + "&nbsp;&nbsp;若要更换手机请联系超级管理员");
+                    $("#span_send_mobild_text").text(mobile);
+                }else{
+                    $("#span_mobild_text").html("手机号码为空，请联系超级管理员~~");
+                }
+               // $("#span_get_user_status").text(data.status);
+
+                if(data.code == 500){
+                    errorcode = true;
+                    return false;
+                }
+            }
+        });
+        if(errorcode){
+            return true
+        }
+        else{
+            return false;
+        }
+    }
+}
+
+var int;
+var totaltime = 120;
+//点击获取手机验证码按钮后，倒计时开始。
+
+
+//万里通otp接口，发送短信验证码
+$("#id_optcode").click(function(){
+    //intb = setInterval("set_ipcode_status()", 1000);
+    $("#id_optcode_status").val(1);
+    //clearInterval(intb);
+
+    var mobile = $("#span_send_mobild_text").text();
+    var uname = $("#username").val();
+
+    if(mobile == ""){
+        alert("对不起，手机号码不能为空，请联系超级管理员~~");
+        return false;
+    }
+
+    if(totaltime <= 0){
+        totaltime = 120;
+    }
+
+    $("#id_optcode").attr('disabled', 'disabled');
+    $("#id_optcode").val("(" + totaltime + ")秒后再次获取");
+
+    //发送手机短信
+    $.ajax({
+        type: "POST",
+        url: "/?act=index&st=login",
+        data: {ajax_flag:"send_code",mobile:mobile,uname:uname},
+        dataType:'json',
+        success: function(data){
+            if(data.code == 500){
+                alert(data.msg);
+                return false;
+            }
+        }
+    });
+
+    int = setInterval("otpcodetime()", 1000);
+});
+
+//发送手机短信验证码
+function otpcodetime(){
+    totaltime--;
+    if(totaltime>0){
+        $("#id_optcode").val("(" + totaltime + ")秒后再次获取");
+    }
+    else{
+        $("#id_optcode_status").val(0);
+        //intb = setInterval("set_ipcode_status()", 1000);
+        clearInterval(int);
+        $("#id_optcode").val("再次获取");
+        $("#id_optcode").removeAttr('disabled', '');
+    }
+}
+
+//置灰获取手机验证码按钮
+function set_ipcode_status(){
+    var username = $("#username").val();
+    var id_optcode_status = $("#id_optcode_status").val();
+
+    if(id_optcode_status == 1){
+        return false;
+    }
+
+    $.ajax({
+        type: "POST",
+        url: "/?act=index&st=get_login_code_error_count",
+        data: {username : username},
+        dataType:'json',
+        async: false,
+        cache:false,
+        success: function(data){
+            if(data.flag == 1){
+                $("#id_optcode").attr("disabled", "disabled");
+            }
+            else{
+                $("#id_optcode").removeAttr("disabled");
+            }
+        }
+    });
+}
+
+function submitForm(){
+	if(SUBMIT_LOCK){
+		return;
+	}
+	else{
+		SUBMIT_LOCK=true;
+	}
+	OLD_PASSWORD = $('#password').val();
+    // $('#password').val(hex_md5($('#password').val()));
+	$('#password').val(base64encode(utf16to8(OLD_PASSWORD)));
+	var formData = $("#ff").serialize();
+	$.ajax({
+		data:formData,
+		type:'post',
+		success:function(result){
+			if(result.status == 1){
+        		document.location.href = '/?act=index&st=main';
+        	}else if(result.status == 2){
+                alert('你现有的密码不符合新的密码规则，请修改密码！');
+                document.location.href = '/?act=index&st=password#main';
+                return;
+            }else{
+        		$('#password').val(OLD_PASSWORD);
+        		SUBMIT_LOCK = false;
+        		alert(result.msg);
+        		changeCode();
+        	}
+		},
+		dataType:"json"
+	});
+}
+
+//重置
+function clearForm(){
+	$("#ff").form('clear');
+}
+
+//enter event
+$(function () {
+	$("input[name='username']").focus();
+	$(document).keydown(function (e) {
+    	var ev = e || window.event;
+	    if(ev.keyCode==13) {
+	           submitForm();
+     	}
+	});
+});
+</script>
+<div style="clear: both;zoom: 1;" class="footer">
+			<div class="footer_c">
+				<div class="footer_r">
+					<p>移动平安网:  <a href="http://wap.pingan.com">wap.pingan.com</a>  /
+					<a href="http://m.pingan.com">m.pingan.com</a>  /
+					<a href="http://pingan.cn">pingan.cn</a></p>
+					<p><a target="_blank" href="http://www.miitbeian.gov.cn/">粤ICP备13001452号</a></p>
+				</div>
+				<p>版权所有 &copy; 中国平安保险（集团）股份有限公司 未经许可不得复制、转载或摘编，违者必究!</p>
+
+				<p style="font-size:10px;">Copyright &copy; PING AN INSURANCE (GROUP) COMPANY OF CHINA ,LTD. All Rights Reserved</p>
+				<div class="clear"></div>
+			</div>
+		</div>
+</body>
+</html>
