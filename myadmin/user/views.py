@@ -83,7 +83,7 @@ class UserList(View):
         '''
         userItems = models.UserInfo.objects.all()
         json_data = dict(rows=userItems, total=3)
-        return HttpResponse(json.dump(json_data), content_type="application/json")
+        return HttpResponse(json.dumps(json_data), content_type="application/json")
 
 
 class UserAdd(View):
