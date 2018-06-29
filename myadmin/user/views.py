@@ -75,12 +75,15 @@ class Captcha(View):
 
 class UserList(View):
     def get(self, request):
+        return render(request, 'user/user_list.html')
+
+    def post(self, request):
         '''
         1.查询所有数据
         '''
-
         userItems = models.UserInfo.objects.all()
-        return render(request, 'user/user_list.html', {'userItems': userItems})
+        json_data = dict(rows=userItems, total=3)
+        return HttpResponse(json.dump(json_data), content_type="application/json")
 
 
 class UserAdd(View):
