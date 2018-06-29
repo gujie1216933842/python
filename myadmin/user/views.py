@@ -12,6 +12,7 @@ from . import models
 from hashlib import sha1, md5
 from django.conf import settings
 from django.core.cache import cache
+from django.core.serializers import serialize
 
 
 class Logout(View):
@@ -82,7 +83,8 @@ class UserList(View):
         1.查询所有数据
         '''
         userItems = models.UserInfo.objects.all()
-        json_data = dict(rows=userItems, total=3)
+        ss = serialize('list', userItems)
+        json_data = dict(rows=ss, total=3)
         return HttpResponse(json.dumps(json_data), content_type="application/json")
 
 
