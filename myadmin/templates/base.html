@@ -1,55 +1,95 @@
-
 {% block head %}
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="content-type" content="text/html;charset=utf-8">
-	<title>游戏后台管理中心</title>
-	<style type="text/css">
-		.no{color:red;}
-		.tips{color:#999999}
-		.form-table{}
-		.form-table td{height:30px;}
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <title>游戏后台管理中心</title>
+    <style type="text/css">
+        .no {
+            color: red;
+        }
 
-	</style>
-	<link rel="stylesheet" type="text/css" href="/static/files/js/jquery.easyui/themes/gray/easyui.css">
-	<link rel="stylesheet" type="text/css" href="/static/files/js/jquery.easyui/themes/icon.css">
-	<script type="text/javascript" src="/static/files/js/jquery.js"></script>
-	<script type="text/javascript" src="/static/files/js/jquery.easyui/jquery.easyui.min.js"></script>
-	<script type="text/javascript" src="/static/files/js/jquery.easyui/locale/easyui-lang-zh_CN.js"></script>
-	<script type="text/javascript" src="/static/files/js/My97DatePicker/WdatePicker.js"></script>
-	<script type="text/javascript" src="/static/files/js/validator.js"></script>
-	<script type="text/javascript" src="/static/files/js/datecheck.js"></script>
+        .tips {
+            color: #999999
+        }
+
+        .form-table {
+        }
+
+        .form-table td {
+            height: 30px;
+        }
+
+    </style>
+    <link rel="stylesheet" type="text/css" href="/static/files/js/jquery.easyui/themes/gray/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/static/files/js/jquery.easyui/themes/icon.css">
+    <script type="text/javascript" src="/static/files/js/jquery.js"></script>
+    <script type="text/javascript" src="/static/files/js/jquery.easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/static/files/js/jquery.easyui/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="/static/files/js/My97DatePicker/WdatePicker.js"></script>
+    <script type="text/javascript" src="/static/files/js/validator.js"></script>
+    <script type="text/javascript" src="/static/files/js/datecheck.js"></script>
     <script type="text/javascript">
         /**
          * 日期转换成时间
          * @param date_str
          * @returns {Date}
          */
-        function strToDate(date_str){
-            if(date_str.length>0){
-                var dateTemp=date_str.split(' ');
-                var date_arr_1=dateTemp[0].split('-');
-                var date_arr_2=dateTemp[1].split(':');
-                return new Date(date_arr_1[0],date_arr_1[1],date_arr_1[2],date_arr_2[0],date_arr_2[1],date_arr_2[2]);
+        function strToDate(date_str) {
+            if (date_str.length > 0) {
+                var dateTemp = date_str.split(' ');
+                var date_arr_1 = dateTemp[0].split('-');
+                var date_arr_2 = dateTemp[1].split(':');
+                return new Date(date_arr_1[0], date_arr_1[1], date_arr_1[2], date_arr_2[0], date_arr_2[1], date_arr_2[2]);
             }
         }
     </script>
 
 
     <script type="text/javascript">
+        $(function () {
+            $(document).ajaxSend(function (event, xhr, settings) {
+                function getCookie(name) {
+                    var cookieValue = null;
+                    if (document.cookie && document.cookie != '') {
+                        var cookies = document.cookie.split(';');
+                        for (var i = 0; i < cookies.length; i++) {
+                            var cookie = jQuery.trim(cookies[i]);
+                            // Does this cookie string begin with the name we want?
+                            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                break;
+                            }
+                        }
+                    }
+                    return cookieValue;
+                }
 
+                function sameOrigin(url) {
+                    // url could be relative or scheme relative or absolute
+                    var host = document.location.host; // host + port
+                    var protocol = document.location.protocol;
+                    var sr_origin = '//' + host;
+                    var origin = protocol + sr_origin;
+                    // Allow absolute or scheme relative URLs to same origin
+                    return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+                        (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+                        // or any other URL that isn't scheme relative or absolute i.e relative.
+                        !(/^(\/\/|http:|https:).*/.test(url));
+                }
 
+                function safeMethod(method) {
+                    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+                }
 
+                if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
+                    xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+                }
+            });
+        })
 
 
     </script>
-
-
-
-
-
-
 
 
 </head>
