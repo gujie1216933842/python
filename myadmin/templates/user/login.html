@@ -84,7 +84,7 @@ top.location.href =window.location.href; // 如果不是，将top对象的网址
  *刷新验证码
  */
 function changeCode(){
-	$("#image_code").attr('src','/?act=index&st=imageCode&t='+Math.random());
+	$("#image_code").attr('src','/user/captcha/?&t='+Math.random());
 }
 
 
