@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.views.generic.base import View
-import os, sys, json, random, time
+import os, sys, json, random, time, datetime
 
 # 找到当前目录的路径
 file_path = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
@@ -13,6 +13,8 @@ from hashlib import sha1, md5
 from django.conf import settings
 from django.core.cache import cache
 from django.core.serializers import serialize
+
+from django.forms.models import model_to_dict
 
 
 class Logout(View):
@@ -82,10 +84,20 @@ class UserList(View):
         '''
         1.查询所有数据
         '''
+
         userItems = models.UserInfo.objects.all()
-        ss = serialize('list', userItems)
-        json_data = dict(rows=ss, total=3)
-        return HttpResponse(json.dumps(json_data), content_type="application/json")
+
+        new_list = []
+        for item in userItems:
+            new_item = model_to_dict(item)
+            if new_item['raw_add_time'] is None:
+                new_item['raw_add_time'] = ""
+            else:
+                new_item['raw_add_time'] = new_item['raw_add_time'].strftime("%Y-%m-%d %H:%M:%S")
+            new_list.append(new_item)
+
+        user_dict = dict(rows=new_list, total=3)
+        return HttpResponse(json.dumps(user_dict))
 
 
 class UserAdd(View):
