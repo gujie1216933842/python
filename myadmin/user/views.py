@@ -20,11 +20,18 @@ class Logout(View):
     def get(self, request):
         request.session['login'] = 'loginvalue'
         # 生成一个随机数字,这里用时间戳来替换
-        random_num = int(time.time())
-        return render(request, 'user/login.html', {'random_num': random_num})
+        return redirect('/user/login/')
 
 
 class Login(View):
+
+    def get(self, request):
+        '''
+        显示登录页面
+        '''
+        random_num = int(time.time())
+        return render(request, 'user/login.html', {'random_num': random_num})
+
     def post(self, request):
         username = request.POST.get('username', '')
         password = request.POST.get('password', '')
