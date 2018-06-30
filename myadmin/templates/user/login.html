@@ -1,4 +1,8 @@
 ﻿{% extends 'base.html' %}
+{% block head %}
+{% endblock head %}
+
+{% block body %}
 <style type="text/css">
 .no{color:red;}
 
@@ -116,6 +120,7 @@ function changeCode(){
 		</div>
 	</div>
 </div>
+
 <script type="text/javascript">
 
 
@@ -125,6 +130,9 @@ function changeCode(){
 
 
 </script>
+{% endblock body %}
+
+{% block foot %}
 <div style="clear: both;zoom: 1;" class="footer">
 			<div class="footer_c">
 				<div class="footer_r">
@@ -141,3 +149,4 @@ function changeCode(){
 		</div>
 </body>
 </html>
+{% endblock foot %}
