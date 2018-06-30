@@ -14,7 +14,7 @@
 .easyui-tree li{margin-top: 5px;}
 .easyui-tree .tree-folder{font-size: width:18px;height:18px;}
 
-.footer {background: url("/files/images/pa_footer_bg.jpg") repeat-x scroll 0 0 transparent;color: #FFFFFF; font-family: Arial; height: 60px; text-align: left;}
+.footer {background: url("/static/files/images/pa_footer_bg.jpg") repeat-x scroll 0 0 transparent;color: #FFFFFF; font-family: Arial; height: 60px; text-align: left;}
 .footer_c { margin: 0 auto; padding-top: 15px; width: 950px;}
 .footer_l { float: left; width: 500px;}
 .footer_r { float: right;  width: 350px;}
