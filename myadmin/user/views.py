@@ -93,7 +93,7 @@ class UserList(View):
         end = start + rows - 1
 
         userItems = models.UserInfo.objects.all()[start: end]
-        count = userItems.count()
+        count = models.UserInfo.objects.all().count()
 
         new_list = []
         for item in userItems:
