@@ -87,10 +87,12 @@ class UserList(View):
 
         page = request.POST.get('page', 1)
         rows = request.POST.get('rows', 10)
+        page = int(page)
+        rows = int(rows)
         start = rows * (page - 1)
         end = start + rows - 1
 
-        userItems = models.UserInfo.objects.all()[start, end]
+        userItems = models.UserInfo.objects.all()[start: end]
         count = userItems.count()
 
         new_list = []
@@ -102,7 +104,7 @@ class UserList(View):
                 new_item['raw_add_time'] = new_item['raw_add_time'].strftime("%Y-%m-%d %H:%M:%S")
             new_list.append(new_item)
 
-        user_dict = dict(rows=new_list, total=3)
+        user_dict = dict(rows=new_list, total=count)
         return HttpResponse(json.dumps(user_dict))
 
 
