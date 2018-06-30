@@ -6,6 +6,7 @@ import os, sys, json, random, time, datetime
 file_path = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 sys.path.insert(0, file_path)
 from utils.captcha.captcha import Verifycode
+from utils.common import django_model_opration
 from . import mymodels, models
 import requests
 from . import models
@@ -13,8 +14,6 @@ from hashlib import sha1, md5
 from django.conf import settings
 from django.core.cache import cache
 from django.core.serializers import serialize
-
-from django.forms.models import model_to_dict
 
 
 class Logout(View):
@@ -91,20 +90,10 @@ class UserList(View):
         rows = int(rows)
         start = rows * (page - 1)
         end = start + rows - 1
-
         userItems = models.UserInfo.objects.all()[start: end]
+        useList = django_model_opration(userItems)
         count = models.UserInfo.objects.all().count()
-
-        new_list = []
-        for item in userItems:
-            new_item = model_to_dict(item)
-            if new_item['raw_add_time'] is None:
-                new_item['raw_add_time'] = ""
-            else:
-                new_item['raw_add_time'] = new_item['raw_add_time'].strftime("%Y-%m-%d %H:%M:%S")
-            new_list.append(new_item)
-
-        user_dict = dict(rows=new_list, total=count)
+        user_dict = dict(rows=useList, total=count)
         return HttpResponse(json.dumps(user_dict))
 
 

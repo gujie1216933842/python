@@ -3,7 +3,8 @@
 装饰器
 '''
 import functools
-import logging
+import logging ,datetime
+from django.forms.models import model_to_dict
 
 
 def require_logined(fun):
@@ -21,4 +22,16 @@ def require_logined(fun):
     return wrapper
 
 
+
+def django_model_opration(Items):
+    new_list = []
+    for item in Items:
+        new_item = model_to_dict(item)
+        if new_item['raw_add_time'] is None:
+            new_item['raw_add_time'] = ""
+        else:
+            new_item['raw_add_time'] = new_item['raw_add_time'].strftime("%Y-%m-%d %H:%M:%S")
+        new_list.append(new_item)
+
+    return new_list
 
