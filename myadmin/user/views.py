@@ -85,7 +85,13 @@ class UserList(View):
         1.查询所有数据
         '''
 
-        userItems = models.UserInfo.objects.all()
+        page = request.POST.get('page', 1)
+        rows = request.POST.get('rows', 10)
+        start = rows * (page - 1)
+        end = start + rows - 1
+
+        userItems = models.UserInfo.objects.all()[start, end]
+        count = userItems.count()
 
         new_list = []
         for item in userItems:
