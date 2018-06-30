@@ -88,7 +88,7 @@
      *刷新验证码
      */
     function changeCode() {
-        $("#image_code").attr('src', '/user/captcha/?&t=' + Math.random());
+        $("#captcha_code").attr('src', '/user/captcha/?&t=' + Math.random());
     }
 
 
@@ -117,10 +117,11 @@
                         <tr>
                             <td class="filed">验证码:</td>
                             <td class="f_value">
-                                <input class="easyui-validatebox" type="text" name="image_code" style="width:58px"/>
+                                <input class="easyui-validatebox" type="text" name="captcha_code" id="captcha_code" style="width:58px"/>
+                                <input type="hidden" id="captcha_code_key">
                                 <span class="no">*</span>
                                 <span>
-		    				    <img id="image_code" width="90" height="30" src="/user/captcha/" onclick="changeCode()"
+		    				    <img id="captcha_image" width="90" height="30" src="/user/captcha/" onclick="changeCode()"
                                      style="cursor: pointer; float: right" alt="点击更换验证码"/>
                             </span>
 
@@ -137,18 +138,44 @@
         </div>
     </div>
 </div>
-
+<script type="text/javascript" src="/static/js/md5.js"></script>
 <script type="text/javascript">
+    var username = $("#username").val();
+    var password = $("#password").val(hex_md5($("#password").val()));
+    var captcha = $("#image_code").val();
     $.ajax({
-        'url':'/user/login/',
-        'type':'post',
-        'data':{},
-        'dataType':'json',
-        'success':function (data) {
+        'url': '/user/login/',
+        'type': 'post',
+        'data': {username: username, password: password, captcha: captcha, captcha_key: captcha_key},
+        'dataType': 'json',
+        'success': function (data) {
 
         }
 
-    })
+    });
+
+
+    $('#captcha_code').on('click', function () {
+        $("#captcha_timestamp").attr('src', '/user/captcha/?random=' + timestamp);
+        $("#captcha_key").val(timestamp);
+    });
+    $(function () {
+
+        $captcha_url = $("#captcha_timestamp").attr('src');
+        random_param = GetQueryString($captcha_url, 'random');
+        $("#captcha_key").val(random_param);
+
+
+    });
+
+    /*js获取url参数*/
+    function GetQueryString(url, name)      //如果是当前网址,url = window.location.search
+    {
+        var reg = new RegExp("(^|&|/?)" + name + "=([^&]*)(&|$)");
+        var r = url.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    }
 
 
 </script>
