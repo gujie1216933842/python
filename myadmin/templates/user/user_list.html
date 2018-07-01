@@ -131,56 +131,44 @@
     }
 
     function save() {
-        var package_name = $('#package_name').val();
+        var username = $('#username').val();
         if (package_name == '' || package_name == undefined) {
-            alert('包名不能为空');
+            alert('用户名不能为空');
             return false;
         }
 
-        var name = $('#name').val();
-        if (name == '' || name == undefined) {
-            alert('客户端名称不能为空');
+
+        var password = $('#password').val();
+        if (password == '' || password == undefined) {
+            alert('密码不能为空');
             return false;
         }
 
-        var type = $('input[name="type"]:checked').val();
-        if (type == '' || type == undefined) {
-            alert('类型不能为空');
+        var confirm_password = $('#confirm_password').val();
+        if (confirm_password == '' || confirm_password == undefined) {
+            alert('确认密码不能为空');
             return false;
         }
-
-        var qudao_type = $('input[name="qudao_type"]:checked').val();
-        if (qudao_type == '' || qudao_type == undefined) {
-            alert('渠道类型不能为空');
-            return false;
-        }
-
-        var sort = $('#sort').val();
-        if (sort == '' || sort == undefined) {
-            alert('排序不能为空');
-            return false;
-        }
-
 
         var url;
         var id = $('#hidden_id').val();
         if (isNaN(id) || id == '') {
-            url = '/?act=apppush_package&st=add';
+            url = '/?act=/user/useradd/';
         } else {
-            url = '/?act=apppush_package&st=edit';
+            var old_password = $('#password').val();
+            if (password == '' || password == undefined) {
+                alert('原密码不能为空');
+                return false;
+            }
+            url = '/?act=/user/useredit/';
         }
-        edit_add_ajax(id, package_name, name, type, qudao_type, url, sort)
-    }
-
-    function edit_add_ajax(id, package_name, name, type, qudao_type, url, sort) {
         $.post(
             url, {
                 id: id,
-                package_name: package_name,
-                name: name,
-                type: type,
-                qudao_type: qudao_type,
-                sort: sort
+                username: username,
+                password: password,
+                old_password: old_password,
+                confirm_password: confirm_password
             },
             function (result) {
                 if (result.code == '00') {
@@ -191,16 +179,7 @@
                     alert(result.msg);
                 }
             }, 'json');
-
     }
-
-
-    function caozuoqudao(value, row, index) {
-        qudao_type = row.qudao_type == 1 ? "ios" : "android";
-        return qudao_type;
-    }
-
-
 
 
 </script>
@@ -243,7 +222,8 @@
                 <tr>
                     <td width="100" align="right">确认密码:</td>
                     <td>
-                        <input type="text" id="confirm_password" name="confirm_password" style="width:200px;height:auto;">
+                        <input type="password" id="confirm_password" name="confirm_password"
+                               style="width:200px;height:auto;">
                         <span class="no">*</span>
                     </td>
                 </tr>

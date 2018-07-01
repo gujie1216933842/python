@@ -110,8 +110,52 @@ class UserList(View):
 
 
 class UserAdd(View):
-    def get(self, request):
-        return render(request, 'user/user_add.html')
+
+    def post(self, request):
+        '''
+        添加数据接口
+        1.获取数据
+        2.数据入口
+
+        '''
+        username = request.POST.get('username', '')
+        password = request.POST.get('password', '')
+        confirm_password = request.POST.get('confirm_password', '')
+        gender = request.POST.get('gender', '')
+
+        print('username:%s' % username)
+        print('password:%s' % password)
+        print('gender:%s' % gender)
+
+        # 密码处理
+        '''
+        1.md5加密
+        2.拼接秘钥
+        3.sha1加密
+        '''
+        if confirm_password != password:
+            resp = {'code': '01', 'msg': '密码与确认密码不一致请重新输入!'}
+            return HttpResponse(json.dumps(resp))
+
+        md5_obj = md5()
+        md5_obj.update(password.encode())
+        password = md5_obj.hexdigest()
+        password = "%s%s" % (password, settings.PRIVATE_KEY)
+
+        sha1_obj = sha1()
+        sha1_obj.update(password.encode())
+        password = sha1_obj.hexdigest()  # 返回摘要，作为十六进制数据字符串值
+
+        # 实例化对象
+        userInfo = models.UserInfo()
+        userInfo.username = username
+        userInfo.password = password
+        userInfo.save()
+
+        return HttpResponse('add ok!')
+
+
+class UserEdit(View):
 
     def post(self, request):
         '''
