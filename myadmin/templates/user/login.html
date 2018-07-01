@@ -129,7 +129,6 @@
                 <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">登录</a>
                 <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">重置</a>
             </div>
-            <input type="hidden" id="id_optcode_status" name="id_optcode_status" value="0">
         </div>
     </div>
 </div>
@@ -160,7 +159,7 @@
      */
     function changeCode() {
         var random = Math.random();
-        $("#captcha_code").attr('src', '/user/captcha/?&t=' + random);
+        $("#captcha_image").attr('src', '/user/captcha/?&random=' + random);
         $("#captcha_key").val(random);
     }
 
