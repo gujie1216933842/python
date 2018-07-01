@@ -153,14 +153,14 @@
         var url;
         var id = $('#hidden_id').val();
         if (isNaN(id) || id == '') {
-            url = '/?act=/user/useradd/';
+            url = '/user/useradd/';
         } else {
             var old_password = $('#password').val();
             if (password == '' || password == undefined) {
                 alert('原密码不能为空');
                 return false;
             }
-            url = '/?act=/user/useredit/';
+            url = '/user/useredit/';
         }
         $.post(
             url, {
