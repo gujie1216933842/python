@@ -183,9 +183,9 @@ class UserEdit(View):
         sha1_obj.update(old_password.encode())
         old_password = sha1_obj.hexdigest()  # 返回摘要，作为十六进制数据字符串值
         # 通过id查询老密码
-        model_password_obj = models.UserInfo.objects.filter(id=id).values("password")
+        model_password_obj = models.UserInfo.objects.filter(id=id).values("password")[0]
         print('model_password_obj:%s' % model_password_obj)
-        model_password = model_password_obj.password
+        model_password = model_password_obj['password']
 
         print('model_password:%s' % model_password)
         print('old_password:%s' % old_password)
