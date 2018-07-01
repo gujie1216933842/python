@@ -201,11 +201,23 @@ class UserEdit(View):
             resp = {'code': '03', 'msg': '两次输入的新密码不一致,请重新输入!'}
             return HttpResponse(json.dumps(resp))
 
+        # 加密新密码
+        new_password = password
+        # md5,sha1加密处理老密码
+        md5_obj = md5()
+        md5_obj.update(new_password.encode())
+        new_password = md5_obj.hexdigest()
+        new_password = "%s%s" % (new_password, settings.PRIVATE_KEY)
+
+        sha1_obj = sha1()
+        sha1_obj.update(new_password.encode())
+        new_password = sha1_obj.hexdigest()  # 返回摘要，作为十六进制数据字符串值
+
         # 更新密码和用户名
         try:
             # 当前时间
             raw_update_time = datetime.datetime.today().strftime("%Y-%m-%d %H:%M:%S")
-            models.UserInfo.objects.filter(id=id).update(username=username, password=password,
+            models.UserInfo.objects.filter(id=id).update(username=username, password=new_password,
                                                          raw_update_time=raw_update_time)
         except Exception as  e:
             print('编辑异常:%s' % e)
