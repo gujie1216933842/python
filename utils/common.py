@@ -27,15 +27,14 @@ def django_model_opration(Items):
     new_list = []
     for item in Items:
         new_item = model_to_dict(item)
-
-        if item.raw_add_time is None:
-            new_item['raw_add_time'] = ""
-        else:
+        if hasattr(item, 'raw_add_time'):
             new_item['raw_add_time'] = item.raw_add_time.strftime("%Y-%m-%d %H:%M:%S")
-
-        if item.raw_update_time is None:
-            new_item['raw_update_time'] = ""
         else:
-            new_item['raw_update_time'] = item.raw_add_time.strftime("%Y-%m-%d %H:%M:%S")
+            new_item['raw_add_time'] = ""
+
+        if hasattr(item, 'raw_update_time'):
+            new_item['raw_update_time'] = item.raw_update_time.strftime("%Y-%m-%d %H:%M:%S")
+        else:
+            new_item['raw_update_time'] = ""
         new_list.append(new_item)
     return new_list
