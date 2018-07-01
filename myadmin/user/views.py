@@ -38,17 +38,21 @@ class Login(View):
         captcha = request.POST.get('captcha', '')
         captcha_key = request.POST.get('captcha_key', '')
 
+        if not captcha:
+            resp = {'code': '01', 'msg': '请输入图片验证码!'}
+            return HttpResponse(json.dumps(resp))
+
         # 检查验证码是否正确
         # redis中获取的验证码
         cache_captcha = cache.get("captcha_%s" % captcha_key)
         print('前端页面传过来的%s' % captcha)
         print('缓存中取得值%s' % cache_captcha)
         if cache_captcha is None:
-            resp = {'code': '01', 'msg': '验证码已经过期,请刷新后重新输入!'}
+            resp = {'code': '02', 'msg': '验证码已经过期,请刷新后重新输入!'}
             return HttpResponse(json.dumps(resp))
 
         if captcha != cache_captcha:
-            resp = {'code': '02', 'msg': '验证码不正确,请重新输入!'}
+            resp = {'code': '03', 'msg': '验证码不正确,请重新输入!'}
             return HttpResponse(json.dumps(resp))
 
         # 密码sha1加密
@@ -68,10 +72,10 @@ class Login(View):
             '''
             userInfo = dict(username=username, userId=userItem[0].id)
             request.session['userInfo'] = userInfo
-            resp = {'code': '00', 'msg': '登录成功!'}
+            resp = {'code': '04', 'msg': '登录成功!'}
             return HttpResponse(json.dumps(resp))
         else:
-            resp = {'code': '02', 'msg': '用户名或密码不正确,请重新输入!'}
+            resp = {'code': '05', 'msg': '用户名或密码不正确,请重新输入!'}
             return HttpResponse(json.dumps(resp))
 
 
