@@ -121,11 +121,6 @@ class UserAdd(View):
         username = request.POST.get('username', '')
         password = request.POST.get('password', '')
         confirm_password = request.POST.get('confirm_password', '')
-        gender = request.POST.get('gender', '')
-
-        print('username:%s' % username)
-        print('password:%s' % password)
-        print('gender:%s' % gender)
 
         # 密码处理
         '''
@@ -171,13 +166,37 @@ class UserEdit(View):
         2.数据入口
 
         '''
+        id = request.POST.get('id', '')
         username = request.POST.get('username', '')
+        old_password = request.POST.get('old_password', '')
         password = request.POST.get('password', '')
-        gender = request.POST.get('gender', '')
+        confirm_password = request.POST.get('confirm_password', '')
 
         print('username:%s' % username)
+        print('old_password:%s' % old_password)
         print('password:%s' % password)
-        print('gender:%s' % gender)
+        print('confirm_password:%s' % confirm_password)
+
+        # 查询id对应的数据库密码是否与老密码相等
+        # md5,sha1加密处理老密码
+        md5_obj = md5()
+        md5_obj.update(old_password.encode())
+        old_password = md5_obj.hexdigest()
+        old_password = "%s%s" % (old_password, settings.PRIVATE_KEY)
+
+        sha1_obj = sha1()
+        sha1_obj.update(old_password.encode())
+        old_password = sha1_obj.hexdigest()  # 返回摘要，作为十六进制数据字符串值
+        # 通过id查询老密码
+        model_password = models.UserInfo.objects.filter(id=id).values("password")
+        if model_password != old_password:
+            resp = {'code': '01', 'msg': '原密码不正确,请重新输入!'}
+            return HttpResponse(json.dumps(resp))
+
+
+        return HttpResponse('ok')
+
+
 
         # 密码处理
         '''
@@ -200,4 +219,4 @@ class UserEdit(View):
         userInfo.password = password
         userInfo.save()
 
-        return HttpResponse('add ok!')
+
