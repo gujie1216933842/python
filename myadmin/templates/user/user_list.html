@@ -117,13 +117,13 @@
 
     //搜索
     function searchClick() {
-        var search_package_name = $('#search_package_name').val();
+        var search_username = $('#search_username').val();
 
         $('#dg').datagrid({
             method: 'post',
             url: '/?act=apppush_package&st=getList',
             queryParams: {
-                search_package_name: search_package_name
+                search_username: search_username
             }
         });
 
@@ -132,7 +132,7 @@
 
     function save() {
         var username = $('#username').val();
-        if (package_name == '' || package_name == undefined) {
+        if (username == '' || username == undefined) {
             alert('用户名不能为空');
             return false;
         }
