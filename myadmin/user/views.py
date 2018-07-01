@@ -138,7 +138,7 @@ class UserAdd(View):
             return HttpResponse(json.dumps(resp))
 
         # 判断用户名是否已经在数据库中存在
-        count = models.UserInfo.objects.get(username=username).count()
+        count = models.UserInfo.objects.filter(username=username).count()
         if count >= 1:
             resp = {'code': '02', 'msg': '用户名已经存在,请重新输入!'}
             return HttpResponse(json.dumps(resp))
