@@ -172,6 +172,7 @@ class UserEdit(View):
         password = request.POST.get('password', '')
         confirm_password = request.POST.get('confirm_password', '')
 
+        compare_password = old_password
         # 查询id对应的数据库密码是否与老密码相等
         # md5,sha1加密处理老密码
         md5_obj = md5()
@@ -191,7 +192,7 @@ class UserEdit(View):
             return HttpResponse(json.dumps(resp))
 
         # 判断新密码和老密码是否一致
-        if password != old_password:
+        if password == compare_password:
             resp = {'code': '02', 'msg': '新密码与老密码应不一致,请重新输入!'}
             return HttpResponse(json.dumps(resp))
 
