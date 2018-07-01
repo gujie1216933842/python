@@ -12,3 +12,4 @@ class UserInfo(models.Model):
     type = models.CharField(choices=USER_CHOICES,max_length=10)
 
     raw_add_time = models.DateTimeField()
+    raw_update_time = models.DateTimeField()
