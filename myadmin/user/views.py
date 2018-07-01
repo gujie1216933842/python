@@ -102,7 +102,7 @@ class UserList(View):
         rows = int(rows)
         start = rows * (page - 1)
         end = start + rows - 1
-        userItems = models.UserInfo.objects.all()[start: end]
+        userItems = models.UserInfo.objects.all().order_by('-id')[start: end]
         useList = django_model_opration(userItems)
         count = models.UserInfo.objects.all().count()
         user_dict = dict(rows=useList, total=count)
