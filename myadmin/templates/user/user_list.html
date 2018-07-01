@@ -3,78 +3,78 @@
 
 {% block body %}
 <script type="text/javascript">
-//新增
-function add() {
-    openDialog('添加渠道');
-    $('#view-ff').form('clear');
+    //新增
+    function add() {
+        openDialog('添加渠道');
+        $('#view-ff').form('clear');
 
-}
-
-// 更新(编辑)
-function edit() {
-    $('#view-ff').form('clear');
-
-    var rows = $('#dg').datagrid('getSelections');
-    var row = $('#dg').datagrid('getSelected');
-
-    if (rows.length > 1) {
-        alert('您好，请选择单行进行编辑！');
-        $('#dg').datagrid('unselectAll');
-        return false;
     }
 
-    if (!row) {
-        alert('您好，请选中要编辑的行！');
-        return false;
+    // 更新(编辑)
+    function edit() {
+        $('#view-ff').form('clear');
+
+        var rows = $('#dg').datagrid('getSelections');
+        var row = $('#dg').datagrid('getSelected');
+
+        if (rows.length > 1) {
+            alert('您好，请选择单行进行编辑！');
+            $('#dg').datagrid('unselectAll');
+            return false;
+        }
+
+        if (!row) {
+            alert('您好，请选中要编辑的行！');
+            return false;
+        }
+
+
+        row.qudao_type == 1 ? $('input[name="qudao_type"]').eq(0).attr('checked', true) : $('input[name="qudao_type"]').eq(1).attr('checked', true);
+
+        //类型
+        if (row.type == 1) {
+            $('input[name="type"]').eq(0).attr('checked', true)
+        } else if (row.type == 2) {
+            $('input[name="type"]').eq(1).attr('checked', true)
+        } else if (row.type == 3) {
+            $('input[name="type"]').eq(2).attr('checked', true)
+        } else {
+            $('input[name="type"]').eq(0).attr('checked', true)
+        }
+
+        $('#hidden_id').val(row.id);
+        $('#package_name').val(row.package_name);
+        $('#sort').val(row.sort);
+        $('#name').val(row.name);
+        $('#qudao_type').val(row.qudao_type);
+        $('#type').val(row.type);
+        openDialog('编辑');
     }
 
 
-    row.qudao_type == 1 ? $('input[name="qudao_type"]').eq(0).attr('checked', true) : $('input[name="qudao_type"]').eq(1).attr('checked', true);
+    // 删除
+    function del() {
+        var rows = $('#dg').datagrid('getChecked');
+        var ids = '';
+        for (var k in rows) {
+            var id = rows[k]['id'];
+            ids += id + ',';
+        }
+        ids = ids.substring(0, ids.length - 1);
 
-    //类型
-    if (row.type == 1) {
-        $('input[name="type"]').eq(0).attr('checked', true)
-    } else if (row.type == 2) {
-        $('input[name="type"]').eq(1).attr('checked', true)
-    } else if (row.type == 3) {
-        $('input[name="type"]').eq(2).attr('checked', true)
-    } else {
-        $('input[name="type"]').eq(0).attr('checked', true)
-    }
+        if (!rows) {
+            alert('您好，请选中要删除的行！');
+            return false;
+        }
+        if (rows.length <= 0) {
+            alert('请选择行再删除');
+            return false;
+        }
+        if (!confirm('确认要删除当前选中的' + rows.length + '条记录吗')) {
+            return false;
+        }
 
-    $('#hidden_id').val(row.id);
-    $('#package_name').val(row.package_name);
-    $('#sort').val(row.sort);
-    $('#name').val(row.name);
-    $('#qudao_type').val(row.qudao_type);
-    $('#type').val(row.type);
-    openDialog('编辑');
-}
-
-
-// 删除
-function del() {
-    var rows = $('#dg').datagrid('getChecked');
-    var ids = '';
-    for (var k in rows) {
-        var id = rows[k]['id'];
-        ids += id + ',';
-    }
-    ids = ids.substring(0, ids.length - 1);
-
-    if (!rows) {
-        alert('您好，请选中要删除的行！');
-        return false;
-    }
-    if (rows.length <= 0) {
-        alert('请选择行再删除');
-        return false;
-    }
-    if (!confirm('确认要删除当前选中的' + rows.length + '条记录吗')) {
-        return false;
-    }
-
-    $.post('/?act=apppush_package&st=del',
+        $.post('/?act=apppush_package&st=del',
             {
                 ids: ids
             },
@@ -82,23 +82,23 @@ function del() {
                 alert(result.msg);
                 location.reload(true);
             }, 'json');
-}
+    }
 
 
-//取消选择
-function cancel() {
-    $('#dg').datagrid('unselectAll');
-}
+    //取消选择
+    function cancel() {
+        $('#dg').datagrid('unselectAll');
+    }
 
-//刷新
-function reflesh() {
-    $('#dg').datagrid('reload');
-    $('#parent_id').combotree('reload');
-}
+    //刷新
+    function reflesh() {
+        $('#dg').datagrid('reload');
+        $('#parent_id').combotree('reload');
+    }
 
-//打开编辑框
-function openDialog(title) {
-    $('#dlg').dialog(
+    //打开编辑框
+    function openDialog(title) {
+        $('#dlg').dialog(
             {
                 title: title,
                 width: 800,
@@ -111,75 +111,75 @@ function openDialog(title) {
                 collapsible: true,
                 resizable: true
             }
-    );
-    $('#dlg').dialog('open');
-    var ad_img = $('#img_url').val();
-    if (ad_img) {
-        $('.uploadimg-item').addClass('uploaded');
-    } else {
-        $('.uploadimg-item').removeClass('uploaded');
-    }
-}
-
-//搜索
-function searchClick() {
-    var search_package_name = $('#search_package_name').val();
-
-    $('#dg').datagrid({
-        method: 'post',
-        url: '/?act=apppush_package&st=getList',
-        queryParams: {
-            search_package_name: search_package_name
+        );
+        $('#dlg').dialog('open');
+        var ad_img = $('#img_url').val();
+        if (ad_img) {
+            $('.uploadimg-item').addClass('uploaded');
+        } else {
+            $('.uploadimg-item').removeClass('uploaded');
         }
-    });
-
-
-}
-
-function save() {
-    var package_name = $('#package_name').val();
-    if (package_name == '' || package_name == undefined) {
-        alert('包名不能为空');
-        return false;
     }
 
-    var name = $('#name').val();
-    if (name == '' || name == undefined) {
-        alert('客户端名称不能为空');
-        return false;
+    //搜索
+    function searchClick() {
+        var search_package_name = $('#search_package_name').val();
+
+        $('#dg').datagrid({
+            method: 'post',
+            url: '/?act=apppush_package&st=getList',
+            queryParams: {
+                search_package_name: search_package_name
+            }
+        });
+
+
     }
 
-    var type = $('input[name="type"]:checked').val();
-    if (type == '' || type == undefined) {
-        alert('类型不能为空');
-        return false;
+    function save() {
+        var package_name = $('#package_name').val();
+        if (package_name == '' || package_name == undefined) {
+            alert('包名不能为空');
+            return false;
+        }
+
+        var name = $('#name').val();
+        if (name == '' || name == undefined) {
+            alert('客户端名称不能为空');
+            return false;
+        }
+
+        var type = $('input[name="type"]:checked').val();
+        if (type == '' || type == undefined) {
+            alert('类型不能为空');
+            return false;
+        }
+
+        var qudao_type = $('input[name="qudao_type"]:checked').val();
+        if (qudao_type == '' || qudao_type == undefined) {
+            alert('渠道类型不能为空');
+            return false;
+        }
+
+        var sort = $('#sort').val();
+        if (sort == '' || sort == undefined) {
+            alert('排序不能为空');
+            return false;
+        }
+
+
+        var url;
+        var id = $('#hidden_id').val();
+        if (isNaN(id) || id == '') {
+            url = '/?act=apppush_package&st=add';
+        } else {
+            url = '/?act=apppush_package&st=edit';
+        }
+        edit_add_ajax(id, package_name, name, type, qudao_type, url, sort)
     }
 
-    var qudao_type = $('input[name="qudao_type"]:checked').val();
-    if (qudao_type == '' || qudao_type == undefined) {
-        alert('渠道类型不能为空');
-        return false;
-    }
-
-    var sort = $('#sort').val();
-    if (sort == '' || sort == undefined) {
-        alert('排序不能为空');
-        return false;
-    }
-
-
-    var url;
-    var id = $('#hidden_id').val();
-    if (isNaN(id) || id == '') {
-        url = '/?act=apppush_package&st=add';
-    } else {
-        url = '/?act=apppush_package&st=edit';
-    }
-    edit_add_ajax(id, package_name, name, type, qudao_type, url, sort)
-}
-
-function edit_add_ajax(id, package_name, name, type, qudao_type, url, sort) {
-    $.post(
+    function edit_add_ajax(id, package_name, name, type, qudao_type, url, sort) {
+        $.post(
             url, {
                 id: id,
                 package_name: package_name,
@@ -198,27 +198,18 @@ function edit_add_ajax(id, package_name, name, type, qudao_type, url, sort) {
                 }
             }, 'json');
 
-}
-
-
-function caozuoqudao(value, row, index) {
-    qudao_type = row.qudao_type == 1 ? "ios" : "android";
-    return qudao_type;
-}
-
-function caozuoqudao1(value, row, index) {
-    qudao_type = row.type == 1 ? "ios" : "android";
-    if (row.type == 1) {
-        type = "房卡类";
-    } else if (row.type == 2) {
-        type = "单款包";
-    } else if (row.type == 3) {
-        type = "平台";
-    } else {
-        type = "单款包";
     }
-    return type;
-}
+
+
+    function caozuoqudao(value, row, index) {
+        qudao_type = row.qudao_type == 1 ? "ios" : "android";
+        return qudao_type;
+    }
+
+    function caozuo(value, row, index) {
+        var password = "●●●●●●";
+        return password;
+    }
 
 
 </script>
@@ -284,15 +275,13 @@ function caozuoqudao1(value, row, index) {
 </div>
 
 
-
 <div id="dlg-buttons">
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel"
        onclick="javascript:$('#dlg').dialog('close')">取消</a>
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="save()">保存</a>
 </div>
 
-<table id="dg" class="easyui-datagrid" title="包名管理" style="width:auto;height:auto"
-       data-options="fitColumns:false,singleSelect:false,
+<table id="dg" class="easyui-datagrid" title="用户管理" style="width:auto;height:auto" data-options="fitColumns:false,singleSelect:false,
 idField:'id',collapsible:false,url:'/user/user_list/',method:'post',
 toolbar:'#toolbar',pagination:true,pageSize:10,pageList:[10,20,30]">
     <thead>
@@ -300,7 +289,7 @@ toolbar:'#toolbar',pagination:true,pageSize:10,pageList:[10,20,30]">
         <th data-options="checkbox:true"></th>
         <th data-options="field:'id'">ID</th>
         <th data-options="field:'username'">用户名</th>
-        <th data-options="field:'password'">密码</th>
+        <th data-options="field:'password',formatter:caozuo">密码</th>
         <th data-options="field:'raw_add_time'">记录添加时间</th>
     </tr>
     </thead>
