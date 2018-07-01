@@ -44,10 +44,10 @@ class Login(View):
         print('前端页面传过来的%s' % captcha)
         print('缓存中取得值%s' % cache_captcha)
         if cache_captcha is None:
-            return HttpResponse('验证码已经过期,请刷新后重新输入!')
+            return HttpResponse({'code': '01', 'msg': '验证码已经过期,请刷新后重新输入!'})
 
         if captcha != cache_captcha:
-            return HttpResponse('验证码不正确!,请重新输入')
+            return HttpResponse({'code': '02', 'msg': '验证码不正确,请重新输入!'})
 
         # 密码sha1加密
         sha1_obj = sha1()
@@ -66,9 +66,9 @@ class Login(View):
             '''
             userInfo = dict(username=username, userId=userItem[0].id)
             request.session['userInfo'] = userInfo
-            return redirect('/index/')
+            return HttpResponse({'code': '00', 'msg': '登录成功!'})
         else:
-            return HttpResponse('用户名和密码不正确!')
+            return HttpResponse({'code': '02', 'msg': '用户名或密码不正确,请重新输入!'})
 
 
 class Captcha(View):

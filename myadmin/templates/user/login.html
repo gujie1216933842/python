@@ -146,7 +146,12 @@
             'data': {username: username, password: password, captcha: captcha, captcha_key: captcha_key},
             'dataType': 'json',
             'success': function (data) {
-
+                alert(data.msg);
+                if (data.code == '00') {
+                    window.location.href = "/index/";
+                } else {
+                    window.location.reload();
+                }
             }
 
         });
