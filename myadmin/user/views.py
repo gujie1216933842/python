@@ -188,15 +188,13 @@ class UserEdit(View):
         sha1_obj.update(old_password.encode())
         old_password = sha1_obj.hexdigest()  # 返回摘要，作为十六进制数据字符串值
         # 通过id查询老密码
-        model_password = models.UserInfo.objects.filter(id=id).values("password")
+        model_password_tuple = models.UserInfo.objects.filter(id=id).values("password")
+        model_password = model_password_tuple[0]
         if model_password != old_password:
             resp = {'code': '01', 'msg': '原密码不正确,请重新输入!'}
             return HttpResponse(json.dumps(resp))
 
-
         return HttpResponse('ok')
-
-
 
         # 密码处理
         '''
@@ -218,5 +216,3 @@ class UserEdit(View):
         userInfo.username = username
         userInfo.password = password
         userInfo.save()
-
-
