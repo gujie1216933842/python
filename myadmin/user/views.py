@@ -152,7 +152,8 @@ class UserAdd(View):
         userInfo.password = password
         userInfo.save()
 
-        return HttpResponse('add ok!')
+        resp = {'code': '00', 'msg': '添加成功!'}
+        return HttpResponse(json.dumps(resp))
 
 
 class UserEdit(View):
