@@ -98,7 +98,7 @@
 
         <div class="easyui-panel" title="管理员登录" style="width:400px;position:relative;">
             <div style="padding:15px; text-align: center">
-                <form id="ff" method="post" action="/index.php?act=index&st=login" method="post">
+                <form id="ff" method="post" action="" method="post">
                     <table>
                         <tr>
                             <td style="width: 70px;" class="filed">用户名:</td>
@@ -117,11 +117,13 @@
                         <tr>
                             <td class="filed">验证码:</td>
                             <td class="f_value">
-                                <input class="easyui-validatebox" type="text" name="captcha_code" id="captcha_code" style="width:58px"/>
-                                <input type="hidden" id="captcha_code_key">
+                                <input class="easyui-validatebox" type="text" name="captcha" id="captcha"
+                                       style="width:58px"/>
+                                <input type="hidden" id="captcha_key">
                                 <span class="no">*</span>
                                 <span>
-		    				    <img id="captcha_image" width="90" height="30" src="/user/captcha/" onclick="changeCode()"
+		    				    <img id="captcha_image" width="90" height="30" src="/user/captcha/"
+                                     onclick="changeCode()"
                                      style="cursor: pointer; float: right" alt="点击更换验证码"/>
                             </span>
 
@@ -140,24 +142,30 @@
 </div>
 <script type="text/javascript" src="/static/js/md5.js"></script>
 <script type="text/javascript">
-    var username = $("#username").val();
-    var password = $("#password").val(hex_md5($("#password").val()));
-    var captcha = $("#image_code").val();
-    $.ajax({
-        'url': '/user/login/',
-        'type': 'post',
-        'data': {username: username, password: password, captcha: captcha, captcha_key: captcha_key},
-        'dataType': 'json',
-        'success': function (data) {
 
-        }
+    function submitForm() {
 
-    });
 
+        var username = $("#username").val();
+        var password = $("#password").val(hex_md5($("#password").val()));
+        var captcha = $("#captcha").val();
+        var captcha_key = $("#captcha_key").val();
+        $.ajax({
+            'url': '/user/login/',
+            'type': 'post',
+            'data': {username: username, password: password, captcha: captcha, captcha_key: captcha_key},
+            'dataType': 'json',
+            'success': function (data) {
+
+            }
+
+        });
+    }
 
     $('#captcha_code').on('click', function () {
-        $("#captcha_timestamp").attr('src', '/user/captcha/?random=' + timestamp);
-        $("#captcha_key").val(timestamp);
+        var random = Math.random();
+        $("#captcha_timestamp").attr('src', '/user/captcha/?random=' + random);
+        $("#captcha_key").val(random);
     });
     $(function () {
 
