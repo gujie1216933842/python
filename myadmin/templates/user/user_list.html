@@ -5,6 +5,7 @@
 <script type="text/javascript">
     //新增
     function add() {
+        $("#tr_old_pass").hide();
         openDialog('添加渠道');
         $('#view-ff').form('clear');
 
@@ -12,6 +13,8 @@
 
     // 更新(编辑)
     function edit() {
+        $("#tr_old_pass").show();
+
         $('#view-ff').form('clear');
 
         var rows = $('#dg').datagrid('getSelections');
@@ -28,19 +31,6 @@
             return false;
         }
 
-
-        row.qudao_type == 1 ? $('input[name="qudao_type"]').eq(0).attr('checked', true) : $('input[name="qudao_type"]').eq(1).attr('checked', true);
-
-        //类型
-        if (row.type == 1) {
-            $('input[name="type"]').eq(0).attr('checked', true)
-        } else if (row.type == 2) {
-            $('input[name="type"]').eq(1).attr('checked', true)
-        } else if (row.type == 3) {
-            $('input[name="type"]').eq(2).attr('checked', true)
-        } else {
-            $('input[name="type"]').eq(0).attr('checked', true)
-        }
 
         $('#hidden_id').val(row.id);
         $('#package_name').val(row.package_name);
@@ -203,7 +193,7 @@
                     </td>
                 </tr>
 
-                <tr>
+                <tr style="display: none" id="tr_old_pass">
                     <td width="100" align="right">原密码:</td>
                     <td>
                         <input type="password" id="old_password" name="old_password" style="width:200px;height:auto;">
