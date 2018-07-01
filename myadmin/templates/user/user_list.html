@@ -113,12 +113,6 @@
             }
         );
         $('#dlg').dialog('open');
-        var ad_img = $('#img_url').val();
-        if (ad_img) {
-            $('.uploadimg-item').addClass('uploaded');
-        } else {
-            $('.uploadimg-item').removeClass('uploaded');
-        }
     }
 
     //搜索
@@ -206,10 +200,7 @@
         return qudao_type;
     }
 
-    function caozuo(value, row, index) {
-        var password = "●●●●●●";
-        return password;
-    }
+
 
 
 </script>
@@ -226,7 +217,7 @@
                 </tr>
 
                 <tr>
-                    <td width="50" align="right">客户端名称:</td>
+                    <td width="50" align="right">用户名:</td>
                     <td>
                         <input type="text" id="name" name="name" style="width:200px;height:auto;">
                         <span class="no">*</span>
@@ -234,38 +225,28 @@
                 </tr>
 
                 <tr>
-                    <td width="50" align="right">包名:</td>
+                    <td width="50" align="right">原密码:</td>
                     <td>
-                        <input type="text" id="package_name" name="package_name" style="width:200px;height:auto;">
+                        <input type="password" id="old_password" name="old_password" style="width:200px;height:auto;">
                         <span class="no">*andriod对应package_name,ios对应bundleId</span>
                     </td>
                 </tr>
 
                 <tr>
-                    <td width="100" align="right">类型:</td>
+                    <td width="50" align="right">密码:</td>
                     <td>
-                        <input type="radio" name="type" value="1" checked="checked"/>房卡类
-                        <input type="radio" name="type" value="2"/>单款包
-                        <input type="radio" name="type" value="3"/>平台
+                        <input type="password" id="password" name="password" style="width:200px;height:auto;">
+                        <span class="no">*andriod对应package_name,ios对应bundleId</span>
                     </td>
                 </tr>
 
                 <tr>
-                    <td width="100" align="right">渠道类型:</td>
+                    <td width="50" align="right">确认密码:</td>
                     <td>
-                        <input type="radio" name="qudao_type" value="1" checked="checked"/>ios
-                        <input type="radio" name="qudao_type" value="2"/>安卓
+                        <input type="text" id="confirm_password" name="confirm_password" style="width:200px;height:auto;">
+                        <span class="no">*andriod对应package_name,ios对应bundleId</span>
                     </td>
                 </tr>
-
-                <tr>
-                    <td width="50" align="right">排序:</td>
-                    <td>
-                        <input type="text" id="sort" name="sort" style="width:200px;height:auto;">
-                        <span class="no">*</span>
-                    </td>
-                </tr>
-
 
             </table>
             <input id="id" name="id" type="hidden" value=""/>
@@ -289,8 +270,8 @@ toolbar:'#toolbar',pagination:true,pageSize:10,pageList:[10,20,30]">
         <th data-options="checkbox:true"></th>
         <th data-options="field:'id'">ID</th>
         <th data-options="field:'username'">用户名</th>
-        <th data-options="field:'password',formatter:caozuo">密码</th>
-        <th data-options="field:'raw_add_time'">记录添加时间</th>
+        <th data-options="field:'raw_add_time'">添加时间</th>
+        <th data-options="field:'raw_update_time'">更新时间</th>
     </tr>
     </thead>
 </table>

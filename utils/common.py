@@ -31,7 +31,11 @@ def django_model_opration(Items):
             new_item['raw_add_time'] = ""
         else:
             new_item['raw_add_time'] = new_item['raw_add_time'].strftime("%Y-%m-%d %H:%M:%S")
-        new_list.append(new_item)
 
+        if new_item['raw_update_time'] is None:
+            new_item['raw_update_time'] = ""
+        else:
+            new_item['raw_update_time'] = new_item['raw_update_time'].strftime("%Y-%m-%d %H:%M:%S")
+        new_list.append(new_item)
     return new_list
 
