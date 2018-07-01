@@ -204,6 +204,14 @@ class UserEdit(View):
         # 更新密码和用户名
         try:
             models.UserInfo.objects.get(id=id).update(username=username, password=password)
+            # 实例化对象
+            userInfo = models.UserInfo()
+            userInfo.username = username
+            userInfo.password = password
+            userInfo.id = id
+            userInfo.save()
+
+
         except Exception as  e:
             print('编辑异常:%s' % e)
             resp = {'code': '04', 'msg': '编辑失败!'}
