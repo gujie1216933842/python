@@ -134,7 +134,13 @@ class UserAdd(View):
         3.sha1加密
         '''
         if confirm_password != password:
-            resp = {'code': '01', 'msg': '密码与确认密码不一致请重新输入!'}
+            resp = {'code': '01', 'msg': '密码与确认密码不一致,请重新输入!'}
+            return HttpResponse(json.dumps(resp))
+
+        # 判断用户名是否已经在数据库中存在
+        count = models.UserInfo.objects.get(username=username).count()
+        if count >= 1:
+            resp = {'code': '02', 'msg': '用户名已经存在,请重新输入!'}
             return HttpResponse(json.dumps(resp))
 
         md5_obj = md5()
