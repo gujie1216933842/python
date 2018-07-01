@@ -184,35 +184,29 @@ class UserEdit(View):
         old_password = sha1_obj.hexdigest()  # 返回摘要，作为十六进制数据字符串值
         # 通过id查询老密码
         model_password_obj = models.UserInfo.objects.filter(id=id).values("password")[0]
-        print('model_password_obj:%s' % model_password_obj)
         model_password = model_password_obj['password']
-
-        print('model_password:%s' % model_password)
-        print('old_password:%s' % old_password)
 
         if model_password != old_password:
             resp = {'code': '01', 'msg': '原密码不正确,请重新输入!'}
             return HttpResponse(json.dumps(resp))
 
-        return HttpResponse('ok')
+        # 判断新密码和老密码是否一致
+        if password != old_password:
+            resp = {'code': '02', 'msg': '新密码与老密码应不一致,请重新输入!'}
+            return HttpResponse(json.dumps(resp))
 
-        # 密码处理
-        '''
-        1.md5加密
-        2.拼接秘钥
-        3.sha1加密
-        '''
-        md5_obj = md5()
-        md5_obj.update(password.encode())
-        password = md5_obj.hexdigest()
-        password = "%s%s" % (password, settings.PRIVATE_KEY)
+        # 判断两次输入的新密码是否一致
+        if password != confirm_password:
+            resp = {'code': '03', 'msg': '两次输入的新密码不一致,请重新输入!'}
+            return HttpResponse(json.dumps(resp))
 
-        sha1_obj = sha1()
-        sha1_obj.update(password.encode())
-        password = sha1_obj.hexdigest()  # 返回摘要，作为十六进制数据字符串值
-
-        # 实例化对象
-        userInfo = models.UserInfo()
-        userInfo.username = username
-        userInfo.password = password
-        userInfo.save()
+        # 更新密码和用户名
+        try:
+            models.UserInfo.objects.get(id=id).update(username=username, password=password)
+        except Exception as  e:
+            print('编辑异常:%s' % e)
+            resp = {'code': '04', 'msg': '编辑失败!'}
+            return HttpResponse(json.dumps(resp))
+        else:
+            resp = {'code': '00', 'msg': '编辑成功!'}
+            return HttpResponse(json.dumps(resp))
