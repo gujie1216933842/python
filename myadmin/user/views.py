@@ -172,11 +172,6 @@ class UserEdit(View):
         password = request.POST.get('password', '')
         confirm_password = request.POST.get('confirm_password', '')
 
-        print('username:%s' % username)
-        print('old_password:%s' % old_password)
-        print('password:%s' % password)
-        print('confirm_password:%s' % confirm_password)
-
         # 查询id对应的数据库密码是否与老密码相等
         # md5,sha1加密处理老密码
         md5_obj = md5()
@@ -188,8 +183,13 @@ class UserEdit(View):
         sha1_obj.update(old_password.encode())
         old_password = sha1_obj.hexdigest()  # 返回摘要，作为十六进制数据字符串值
         # 通过id查询老密码
-        model_password_tuple = models.UserInfo.objects.filter(id=id).values("password")
-        model_password = model_password_tuple[0]
+        model_password_obj = models.UserInfo.objects.filter(id=id).values("password")
+        print('model_password_obj:%s' % model_password_obj)
+        model_password = model_password_obj.password
+
+        print('model_password:%s' % model_password)
+        print('old_password:%s' % old_password)
+
         if model_password != old_password:
             resp = {'code': '01', 'msg': '原密码不正确,请重新输入!'}
             return HttpResponse(json.dumps(resp))
