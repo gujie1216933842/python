@@ -14,6 +14,14 @@ from hashlib import sha1, md5
 from django.conf import settings
 from django.core.cache import cache
 from django.core.serializers import serialize
+from myadmin.rediscache.views import getCache
+
+
+class Test(View):
+    def get(self,request):
+        getCache(request)
+
+
 
 
 class Logout(View):
