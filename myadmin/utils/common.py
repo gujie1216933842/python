@@ -13,7 +13,7 @@ from django.http import HttpResponseRedirect
 def require_logined(func):
     def login_fun(obj,request,*args,**kwargs):
         if request.session.get('userInfo'):
-            return func(request,*args,**kwargs)
+            return func(obj,request,*args,**kwargs)
         else:
             red = HttpResponseRedirect('/user/login')
             red.set_cookie('url',request.get_full_path)
