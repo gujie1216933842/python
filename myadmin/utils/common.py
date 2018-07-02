@@ -3,23 +3,26 @@
 装饰器
 '''
 import functools
-import logging, datetime
 from django.forms.models import model_to_dict
 from django.shortcuts import redirect
+from django.http import HttpResponseRedirect
 
 
-def require_logined(fun):
-    @functools.wraps(fun)
-    def wrapper(request_handler_obj, *args, **kwargs):
-        # 如果get_current_user()方法返回的不是一个空字典,证明用户已经登录过,保存了用户的session数据
-        # logging.info(request_handler_obj.get_current_user())
-        if request_handler_obj.session['userInfo']:
-            fun(request_handler_obj, *args, **kwargs)
 
-        # 返回的是空字典,代表用户未登录过,没有保存用户的session数据
+#如果登录则转到登录页面
+def require_logined(func):
+    def login_fun(request,*args,**kwargs):
+        if request.session.get('user_id'):
+            return func(request,*args,**kwargs)
         else:
-            redirect("/user/login/")
-    return wrapper
+            red = HttpResponseRedirect('/user/login')
+            red.set_cookie('url',request.get_full_path)
+            return red
+    return login_fun
+
+
+
+
 
 
 def django_model_opration(Items):

@@ -2,9 +2,6 @@ from django.shortcuts import render, HttpResponse, redirect
 from django.views.generic.base import View
 import os, sys, json, random, time, datetime
 
-# # 找到当前目录的路径
-# file_path = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-# sys.path.insert(0, file_path)
 from utils.captcha.captcha import Verifycode
 from utils.common import django_model_opration
 
