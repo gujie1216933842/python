@@ -1,10 +1,11 @@
 from django.shortcuts import render, HttpResponse
 from django.views.generic.base import View
-
+from utils.common import require_logined
 
 # Create your views here.
 
 class Index(View):
+    @require_logined
     def get(self, request):
         print('index首页中查看的session:%s' % dict(request.session))
         # return HttpResponse('ok')

@@ -18,7 +18,7 @@ from django.core.serializers import serialize
 
 class Logout(View):
     def get(self, request):
-        request.session['login'] = 'loginvalue'
+        request.session['userInfo'] = ''
         # 生成一个随机数字,这里用时间戳来替换
         return redirect('/user/login/')
 
@@ -29,8 +29,7 @@ class Login(View):
         '''
         显示登录页面
         '''
-        random_num = int(time.time())
-        return render(request, 'user/login.html', {'random_num': random_num})
+        return render(request, 'user/login.html')
 
     def post(self, request):
         username = request.POST.get('username', '')
