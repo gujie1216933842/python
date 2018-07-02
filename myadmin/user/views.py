@@ -17,7 +17,7 @@ from rediscache.views import getCache
 
 class Test(View):
     def get(self,request):
-        getCache(request)
+        return getCache(request)
 
 
 
