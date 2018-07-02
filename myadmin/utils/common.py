@@ -11,8 +11,8 @@ from django.http import HttpResponseRedirect
 
 #如果登录则转到登录页面
 def require_logined(func):
-    def login_fun(request,*args,**kwargs):
-        if request.session.get('user_id'):
+    def login_fun(obj,request,*args,**kwargs):
+        if request.session.get('userInfo'):
             return func(request,*args,**kwargs)
         else:
             red = HttpResponseRedirect('/user/login')
