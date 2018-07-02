@@ -72,10 +72,10 @@ class Login(View):
             '''
             userInfo = dict(username=username, userId=userItem[0].id)
             request.session['userInfo'] = userInfo
-            resp = {'code': '04', 'msg': '登录成功!'}
+            resp = {'code': '00', 'msg': '登录成功!'}
             return HttpResponse(json.dumps(resp))
         else:
-            resp = {'code': '05', 'msg': '用户名或密码不正确,请重新输入!'}
+            resp = {'code': '04', 'msg': '用户名或密码不正确,请重新输入!'}
             return HttpResponse(json.dumps(resp))
 
 
