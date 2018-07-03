@@ -19,7 +19,7 @@ class Resource(models.Model):
     )
     name = models.CharField(max_length=50, null=False, default='')
     link = models.CharField(max_length=50, null=False, default='')
-    category = models.CharField(max_length=5, choices=type, default=1)
+    category = models.CharField(max_length=5, choices=type, default=1) #枚举类型字段,default 一定写,不然makemigration的时候,会报错
     delete_flag = models.BooleanField(null=False, default=False)
     raw_add_time = models.DateTimeField(auto_now_add=True)
     raw_update_time = models.DateTimeField(auto_now=True)
