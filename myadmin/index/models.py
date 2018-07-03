@@ -19,7 +19,7 @@ class Resource(models.Model):
     '''
     name = models.CharField(max_length=50, null=False, default='')
     link = models.CharField(max_length=50, null=False, default='')
-    category = models.CharField(choices=type,null=False,)
+    category = models.PositiveIntegerField(choices=type,null=False,)
     delete_flag = models.BooleanField(null=False, default=False)
     raw_add_time = models.DateTimeField(auto_now_add=True, null=False)
     raw_update_time = models.DateTimeField(auto_now=True)
