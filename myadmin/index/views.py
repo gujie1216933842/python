@@ -11,8 +11,9 @@ class Index(View):
     @require_logined
     def get(self, request):
         print('index首页中查看的session:%s' % dict(request.session))
+        username = request.session.get('username')
         # return HttpResponse('ok')
-        return render(request, 'index/index.html')
+        return render(request, 'index/index.html',{'username':username})
 
 
 class Welcome(View):
