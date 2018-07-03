@@ -5,7 +5,6 @@ import os, sys, json, random, time, datetime
 from utils.captcha.captcha import Verifycode
 from utils.common import django_model_opration
 
-from . import mymodels, models
 import requests
 from . import models
 from hashlib import sha1, md5
