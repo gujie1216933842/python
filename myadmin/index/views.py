@@ -1,9 +1,7 @@
 from django.shortcuts import render, HttpResponse
 from django.views.generic.base import View
-import os, sys
-file_path = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-sys.path.insert(0, file_path)
 from utils.common import require_logined
+
 
 # Create your views here.
 
@@ -13,7 +11,7 @@ class Index(View):
         print('index首页中查看的session:%s' % dict(request.session))
         username = request.session.get('userInfo').get('username')
         # return HttpResponse('ok')
-        return render(request, 'index/index.html',{'username':username})
+        return render(request, 'index/index.html', {'username': username})
 
 
 class Welcome(View):
@@ -21,7 +19,6 @@ class Welcome(View):
         return render(request, 'index/welcome.html')
 
 
-
-
-
-
+class Source(View):
+    def get(self, request):
+        return render(request, 'index/source.html')
