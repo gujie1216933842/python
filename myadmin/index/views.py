@@ -34,7 +34,7 @@ class Resource(View):
         start = rows * (page - 1)
         end = start + rows - 1
         # 获取数据
-        sourceItems = models.Resource.objects.all()[start, end]
+        sourceItems = models.Resource.objects.all()[start: end]
         sourceList = django_model_opration(sourceItems)
         count = models.Resource.objects.all().count()
         return JsonResponse({"rows": sourceList, 'total': count})
