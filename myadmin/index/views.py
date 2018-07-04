@@ -15,6 +15,10 @@ class Index(View):
         print('index首页中查看的session:%s' % dict(request.session))
         username = request.session.get('userInfo').get('username')
         # return HttpResponse('ok')
+
+
+
+
         return render(request, 'index/index.html', {'username': username})
 
 
