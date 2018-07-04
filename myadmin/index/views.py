@@ -27,8 +27,8 @@ class Resource(View):
         return render(request, 'index/resource.html')
 
     def post(self, request):
-        page = request.GET.get('page', 1)
-        rows = request.GET.get('rows', 10)
+        page = request.POST.get('page', 1)
+        rows = request.POST.get('rows', 10)
         page = int(page)
         rows = int(rows)
         start = rows * (page - 1)
