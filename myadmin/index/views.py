@@ -20,5 +20,12 @@ class Welcome(View):
 
 
 class Source(View):
+    @require_logined
     def get(self, request):
         return render(request, 'index/source.html')
+
+
+
+
+
+
