@@ -21,10 +21,10 @@ class Welcome(View):
         return render(request, 'index/welcome.html')
 
 
-class Source(View):
+class Resource(View):
     @require_logined
     def get(self, request):
-        return render(request, 'index/source.html')
+        return render(request, 'index/resource.html')
 
     def post(self, request):
         page = request.GET.get('page', 1)
