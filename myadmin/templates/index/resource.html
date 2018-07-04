@@ -238,7 +238,7 @@ toolbar:'#toolbar',pagination:true,pageSize:10,pageList:[10,20,30]">
         <th data-options="field:'id'">ID</th>
         <th data-options="field:'name'">资源名称</th>
         <th data-options="field:'link'">资源链接</th>
-        <th data-options="field:'category'">资源所属类别</th>
+        <th data-options="field:'category',formatter:operator">资源所属类别</th>
         <th data-options="field:'raw_add_time'">添加时间</th>
         <th data-options="field:'raw_update_time'">更新时间</th>
     </tr>
@@ -267,6 +267,44 @@ toolbar:'#toolbar',pagination:true,pageSize:10,pageList:[10,20,30]">
     </div>
 
 </div>
+
+
+    <script type="text/javascript">
+    function operator(value,row,index){
+
+        var value = parseInt(value);
+        switch (value) {
+            case 1:
+                return "系统管理";
+                break;
+            case 2:
+                return "游戏管理";
+                break;
+
+            case 3:
+                return "商城管理";
+                break;
+
+            case 4:
+                return "爬虫管理";
+                break;
+
+            case 5:
+                return "数据分析";
+                break;
+
+            default :
+                return "无";
+
+        }
+
+
+    }
+
+
+
+
+    </script>
 
 
 {% endblock body %}
