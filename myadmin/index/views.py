@@ -17,7 +17,7 @@ class Index(View):
         username = request.session.get('userInfo').get('username')
         # 获取资源信息
         id = request.GET.get('id', '')
-        resource = models.Resource.objects.filter(id=id)
+        resource = models.Resource.objects.all()
 
         return render(request, 'index/index.html', {'username': username, 'resource': resource})
 
