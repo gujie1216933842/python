@@ -4,6 +4,8 @@ from utils.common import require_logined, django_model_opration
 from . import models
 from django.http import JsonResponse
 
+import datetime
+
 
 # Create your views here.
 
@@ -38,3 +40,39 @@ class Resource(View):
         sourceList = django_model_opration(sourceItems)
         count = models.Resource.objects.all().count()
         return JsonResponse({"rows": sourceList, 'total': count})
+
+
+class ResourceAdd(View):
+    def post(self, request):
+        name = request.POST.get('name', '')
+        link = request.POST.get('link', '')
+        category = request.POST.get('category', '')
+        # 数据入库
+        resourceObj = models.Resource()
+        resourceObj.name = name
+        resourceObj.link = link
+        resourceObj.category = category
+        try:
+            resourceObj.save()
+        except Exception as e:
+            return JsonResponse({'code': '01', 'msg': '添加失败'})
+
+        return JsonResponse({'code': '00', 'msg': '添加成功'})
+
+
+class ResourceEdit(View):
+    def post(self, request):
+        id = request.POST.get('id', '')
+        name = request.POST.get('name', '')
+        link = request.POST.get('link', '')
+        category = request.POST.get('category', '')
+        raw_update_time = datetime.datetime.today().strftime("%Y-%m-%d %H:%M:%S")
+        try:
+            models.Resource.objects.filter(id=id).update(name=name, link=link, category=category,
+                                                         raw_update_time=raw_update_time)
+        except Exception as e:
+            return JsonResponse({'code': '01', 'msg': '编辑失败'})
+
+        return JsonResponse({'code': '00', 'msg': '编辑成功'})
+
+
