@@ -16,8 +16,8 @@ class Index(View):
         print('index首页中查看的session:%s' % dict(request.session))
         username = request.session.get('userInfo').get('username')
         # 获取资源信息
-        id = request.GET.get('id', '')
-        resource = models.Resource.objects.all()
+        category = request.GET.get('selectId', 1)
+        resource = models.Resource.objects.filter(category=category)
 
         return render(request, 'index/index.html', {'username': username, 'resource': resource})
 
