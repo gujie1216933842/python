@@ -5,6 +5,7 @@ from . import models
 from django.http import JsonResponse
 
 import datetime
+from django.forms.models import model_to_dict
 
 
 # Create your views here.
@@ -14,12 +15,11 @@ class Index(View):
     def get(self, request):
         print('index首页中查看的session:%s' % dict(request.session))
         username = request.session.get('userInfo').get('username')
-        # return HttpResponse('ok')
+        # 获取资源信息
+        id = request.GET.get('id', '')
+        resource = models.Resource.objects.filter(id=id)
 
-
-
-
-        return render(request, 'index/index.html', {'username': username})
+        return render(request, 'index/index.html', {'username': username, 'resource': resource})
 
 
 class Welcome(View):
@@ -78,5 +78,3 @@ class ResourceEdit(View):
             return JsonResponse({'code': '01', 'msg': '编辑失败'})
 
         return JsonResponse({'code': '00', 'msg': '编辑成功'})
-
-
