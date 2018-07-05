@@ -42,28 +42,20 @@
     // 删除
     function del() {
         var rows = $('#dg').datagrid('getChecked');
-        var ids = '';
-        for (var k in rows) {
-            var id = rows[k]['id'];
-            ids += id + ',';
-        }
-        ids = ids.substring(0, ids.length - 1);
 
-        if (!rows) {
-            alert('您好，请选中要删除的行！');
-            return false;
-        }
+        id = rows.id;
+
         if (rows.length <= 0) {
             alert('请选择行再删除');
             return false;
         }
-        if (!confirm('确认要删除当前选中的' + rows.length + '条记录吗')) {
+        if (!confirm('确认要删除当前选中的记录吗')) {
             return false;
         }
 
-        $.post('/?act=apppush_package&st=del',
+        $.post('/user/userdel/',
             {
-                ids: ids
+                id: id
             },
             function (result) {
                 alert(result.msg);
@@ -127,13 +119,13 @@
 
         var password = $('#password').val();
         if (password == '' || password == undefined) {
-            alert('密码不能为空');
+            alert('新密码不能为空');
             return false;
         }
 
         var confirm_password = $('#confirm_password').val();
         if (confirm_password == '' || confirm_password == undefined) {
-            alert('确认密码不能为空');
+            alert('确认新密码不能为空');
             return false;
         }
 
@@ -199,7 +191,7 @@
                 </tr>
 
                 <tr>
-                    <td width="100" align="right">密码:</td>
+                    <td width="100" align="right">新密码:</td>
                     <td>
                         <input type="password" id="password" name="password" style="width:200px;height:auto;">
                         <span class="no">*</span>
@@ -207,7 +199,7 @@
                 </tr>
 
                 <tr>
-                    <td width="100" align="right">确认密码:</td>
+                    <td width="100" align="right">确认新密码:</td>
                     <td>
                         <input type="password" id="confirm_password" name="confirm_password"
                                style="width:200px;height:auto;">
@@ -234,8 +226,8 @@ idField:'id',collapsible:false,url:'/user/user_list/',method:'post',
 toolbar:'#toolbar',pagination:true,pageSize:10,pageList:[10,20,30]">
     <thead>
     <tr>
-        <th data-options="checkbox:true"></th>
-        <th data-options="field:'id'">ID</th>
+        <th data-options="checkbox:false"></th>
+        <th data-options="field:'id'">用户ID</th>
         <th data-options="field:'username'">用户名</th>
         <th data-options="field:'raw_add_time'">添加时间</th>
         <th data-options="field:'raw_update_time'">更新时间</th>
