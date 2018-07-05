@@ -145,8 +145,7 @@
                 {% if username == 'admin' %}
 
                     {% for item in resource %}
-                        <li data-options="state:'closed'"><span class="tree-icon tree-file"></span><span><a
-                                href="{{ item.link }}">{{ item.name }}</a></span></li>
+                        <li><span><a href="{{ item.link }}">{{ item.name }}</a></span></li>
                     {% endfor %}
 
                 {% else %}
