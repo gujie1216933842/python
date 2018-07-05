@@ -106,21 +106,6 @@
             $('#dlg').dialog('open');
         }
 
-        //搜索
-        function searchClick() {
-            var search_username = $('#search_username').val();
-
-            $('#dg').datagrid({
-                method: 'post',
-                url: '/?act=apppush_package&st=getList',
-                queryParams: {
-                    search_username: search_username
-                }
-            });
-
-
-        }
-
         function save() {
             var name = $('#name').val();
             if (name == '' || name == undefined) {
@@ -250,12 +235,6 @@ toolbar:'#toolbar',pagination:true,pageSize:10,pageList:[10,20,30]">
             <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-reload" onclick="reflesh();"
                plain="true">刷新页面</a>
 
-            <div style="padding-top:6px; padding-bottom:6px; padding-left:6px;">
-                包名:
-                <input type="text" id="search_package_name" name="search_package_name" value=""/>
-                <a href="#" class="easyui-linkbutton" iconCls="icon-search"
-                   onclick="javascript:searchClick();return false;">查询</a>
-            </div>
 
         </div>
 
