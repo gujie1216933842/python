@@ -151,8 +151,7 @@
                 {% else %}
                     {% for item in resource %}
                         {% if item.name != '用户管理' %}
-                            <li data-options="state:'closed'"><span class="tree-icon tree-file"></span><span><a
-                                    href="{{ item.link }}">{{ item.name }}</a></span></li>
+                            <li><span><a href="{{ item.link }}">{{ item.name }}</a></span></li>
                         {% endif %}
                     {% endfor %}
                 {% endif %}
