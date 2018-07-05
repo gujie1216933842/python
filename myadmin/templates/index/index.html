@@ -1,117 +1,100 @@
 {% extends "base.html" %}
 
 {% block body %}
-<link href="/static/css/reset.css" rel="stylesheet" type="text/css"/>
-<link href="/static/css/basic.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/css/reset.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/css/basic.css" rel="stylesheet" type="text/css"/>
 
-<style type="text/css">
-    .no {
-        color: red;
-    }
+    <style type="text/css">
+        .no {
+            color: red;
+        }
 
-    .content {
-        border: 1px solid #ddd;
-        width: 100%;
-        height: 200px;
-        background: #fff;
-        *position: relative;
-        *z-index: 10;
-    }
+        .content {
+            border: 1px solid #ddd;
+            width: 100%;
+            height: 200px;
+            background: #fff;
+            *position: relative;
+            *z-index: 10;
+        }
 
-    .tab_clearfix {
-        width: 100%;
-        height: 30px;
-        list-style: none;
-        margin-bottom: -1px;
-        *position: relative;
-        *z-index: 20;
-        overflow: hidden;
-    }
+        .tab_clearfix {
+            width: 100%;
+            height: 30px;
+            list-style: none;
+            margin-bottom: -1px;
+            *position: relative;
+            *z-index: 20;
+            overflow: hidden;
+        }
 
-    .tab_clearfix li {
-        float: left;
-        height: 28px;
-        padding: 0 25px;
-        border-left: 1px solid #DDDDDD;
-        border-right: 1px solid #DDDDDD;
-        margin-right: 5px;
-        line-height: 30px;
-        cursor: pointer;
-        background: #FAFAFA;
-        color: #0461B1;
-        font-size: 14px;
-    }
+        .tab_clearfix li {
+            float: left;
+            height: 28px;
+            padding: 0 25px;
+            border-left: 1px solid #DDDDDD;
+            border-right: 1px solid #DDDDDD;
+            margin-right: 5px;
+            line-height: 30px;
+            cursor: pointer;
+            background: #FAFAFA;
+            color: #0461B1;
+            font-size: 14px;
+        }
 
-    .tab_clearfix .tab-active {
-        border-bottom: none;
-        border-top-width: 2px;
-        height: 28px;
-        background: #fff;
-        color: #333333;
-        font-weight: bold;
-    }
-</style>
-</head>
-<body>
-<div class="main_nav">
-    <div id="top" class="menu_box">
-        <div class="top_c" style="">
-            hi, <a href="#">{{ username }}</a>, 游戏中心欢迎您！ <a href="#"
-                                                   onclick="javascript:loadUrl('/?act=index&st=password','修改密码');return false;">修改密码</a>
-            <a href="/user/logout/">退出 </a>
-            <div class="clear"></div>
+        .tab_clearfix .tab-active {
+            border-bottom: none;
+            border-top-width: 2px;
+            height: 28px;
+            background: #fff;
+            color: #333333;
+            font-weight: bold;
+        }
+    </style>
+    </head>
+    <body>
+    <div class="main_nav">
+        <div id="top" class="menu_box">
+            <div class="top_c" style="">
+                hi, <a href="#">{{ username }}</a>, 游戏中心欢迎您！ <a href="#"
+                                                                onclick="javascript:loadUrl('/?act=index&st=password','修改密码');return false;">修改密码</a>
+                <a href="/user/logout/">退出 </a>
+
+                <div class="clear"></div>
+            </div>
         </div>
     </div>
-</div>
 
 
-<ul class="tab_clearfix">
-    <li id='1' class="tab-active">系统管理</li>
-    <li id='2'>游戏管理</li>
-    <li id='3'>商城管理</li>
-    <li id='4'>爬虫管理</li>
-    <li id='5'>数据分析</li>
+    <ul class="tab_clearfix">
+        <li id='1' class="tab-active">系统管理</li>
+        <li id='2'>游戏管理</li>
+        <li id='3'>商城管理</li>
+        <li id='4'>爬虫管理</li>
+        <li id='5'>数据分析</li>
 
-</ul>
-<script type="text/javascript">
-    //顶级标签选择start
-    $(function () {
-        $('.tab_clearfix li').click(function () {
-            window.location.href = '/?selectId=' + $(this).attr('id');
-        });
-    });
-    //顶级标签选择end
-    if (window != top) // 判断当前的window对象是否是top对象
-        top.location.href = window.location.href; // 如果不是，将top对象的网址自动导向被嵌入网页的网址
-</script>
-<script type="text/javascript">
-    //加载内容页面
-    function loadUrl(url, title) {
-        var height = "920";//主要内容的高度 单位 PX 实际内容超出此值会有滚动条
-        if (url == '' || url.indexOf('#') >= 0) {
-            return;
-        }
-        var iframeIdx = $('#tt ul.tabs li').size();
-        var strHtml = '<iframe name="if_content" id="iframe-id-' + iframeIdx + '" src="' + url + '" width="100%" frameborder="0" style="height:' + height + 'px; border:0px;"></inframe>';
-        if ($('#tt').tabs('exists', title)) {
-            $('#tt').tabs('select', title);
-            var tab = $('#tt').tabs('getSelected');
-            $('#tt').tabs('update', {
-                tab: tab,
-                options: {
-                    content: strHtml
-                }
+    </ul>
+    <script type="text/javascript">
+        //顶级标签选择start
+        $(function () {
+            $('.tab_clearfix li').click(function () {
+                window.location.href = '/?selectId=' + $(this).attr('id');
             });
-        }
-        else {
-            try {
-                $('#tt').tabs('add', {
-                    title: title,
-                    closable: true,
-                    content: strHtml
-                });
+        });
+        //顶级标签选择end
+        if (window != top) // 判断当前的window对象是否是top对象
+            top.location.href = window.location.href; // 如果不是，将top对象的网址自动导向被嵌入网页的网址
+    </script>
+    <script type="text/javascript">
+        //加载内容页面
+        function loadUrl(url, title) {
+            var height = "920";//主要内容的高度 单位 PX 实际内容超出此值会有滚动条
+            if (url == '' || url.indexOf('#') >= 0) {
+                return;
             }
-            catch (e) {
+            var iframeIdx = $('#tt ul.tabs li').size();
+            var strHtml = '<iframe name="if_content" id="iframe-id-' + iframeIdx + '" src="' + url + '" width="100%" frameborder="0" style="height:' + height + 'px; border:0px;"></inframe>';
+            if ($('#tt').tabs('exists', title)) {
                 $('#tt').tabs('select', title);
                 var tab = $('#tt').tabs('getSelected');
                 $('#tt').tabs('update', {
@@ -121,63 +104,94 @@
                     }
                 });
             }
-        }
-    };
-    $(function () {
-        $('#tt').tabs({
-            onSelect: function (title, index) {
-                $("#main").layout('panel', 'center').panel({title: '您的位置：' + title});
-            }
-        });
-
-        $("#left_menu a").click(function () {
-            loadUrl(this.href, this.innerHTML);
-            return false;
-        });
-        loadUrl('/index/welcome/', '欢迎页');
-    });
-</script>
-<div id="main" class="easyui-layout" style="width:100%;height:1000px;">
-    <div data-options="region:'west',split:true" title="功能菜单" style="width:180px;">
-        <ul class="easyui-tree" id="left_menu">
-            {% if username == 'admin' %}
-                <li data-options="state:'closed'"><span class="tree-icon tree-file"></span><span><a href="/user/user_list/">用户管理</a></span></li>
-            {% endif %}
-            {% for item in resource %}
-            <li data-options="state:'closed'"><span class="tree-icon tree-file"></span><span><a href="{{ item.link }}">{{ item.name }}</a></span></li>
-            {% endfor %}
-        </ul>
-    </div>
-    <div data-options="region:'center',title:'您的位置：管理首页'" style="width:1200px;">
-        <script type="text/javascript">
-            if (navigator.userAgent.indexOf('MSIE 8.0') > 0) {
-                document.write('<div id="tt" class="easyui-tabs"  style="width:1160px;"></div>');
-            }
             else {
-                document.write('<div id="tt" class="easyui-tabs"></div>');
+                try {
+                    $('#tt').tabs('add', {
+                        title: title,
+                        closable: true,
+                        content: strHtml
+                    });
+                }
+                catch (e) {
+                    $('#tt').tabs('select', title);
+                    var tab = $('#tt').tabs('getSelected');
+                    $('#tt').tabs('update', {
+                        tab: tab,
+                        options: {
+                            content: strHtml
+                        }
+                    });
+                }
             }
-        </script>
+        }
+        ;
+        $(function () {
+            $('#tt').tabs({
+                onSelect: function (title, index) {
+                    $("#main").layout('panel', 'center').panel({title: '您的位置：' + title});
+                }
+            });
+
+            $("#left_menu a").click(function () {
+                loadUrl(this.href, this.innerHTML);
+                return false;
+            });
+            loadUrl('/index/welcome/', '欢迎页');
+        });
+    </script>
+    <div id="main" class="easyui-layout" style="width:100%;height:1000px;">
+        <div data-options="region:'west',split:true" title="功能菜单" style="width:180px;">
+            <ul class="easyui-tree" id="left_menu">
+                {% if username == 'admin' %}
+
+                    {% for item in resource %}
+                        <li data-options="state:'closed'"><span class="tree-icon tree-file"></span><span><a
+                                href="{{ item.link }}">{{ item.name }}</a></span></li>
+                    {% endfor %}
+
+                {% else %}
+                    {% for item in resource %}
+                        {% if item.name != '用户管理' %}
+                            <li data-options="state:'closed'"><span class="tree-icon tree-file"></span><span><a
+                                    href="{{ item.link }}">{{ item.name }}</a></span></li>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+
+            </ul>
+        </div>
+        <div data-options="region:'center',title:'您的位置：管理首页'" style="width:1200px;">
+            <script type="text/javascript">
+                if (navigator.userAgent.indexOf('MSIE 8.0') > 0) {
+                    document.write('<div id="tt" class="easyui-tabs"  style="width:1160px;"></div>');
+                }
+                else {
+                    document.write('<div id="tt" class="easyui-tabs"></div>');
+                }
+            </script>
+        </div>
     </div>
-</div>
 {% endblock body %}
 
 
 {% block foot %}
-<div style="clear: both;zoom: 1;" class="footer">
-    <div class="footer_c">
-        <div class="footer_r">
-            <p>移动平安网: <a href="http://wap.pingan.com">wap.pingan.com</a> /
-                <a href="http://m.pingan.com">m.pingan.com</a> /
-                <a href="http://pingan.cn">pingan.cn</a></p>
-            <p><a target="_blank" href="http://www.miitbeian.gov.cn/">粤ICP备13001452号</a></p>
-        </div>
-        <p>版权所有 &copy; 中国平安保险（集团）股份有限公司 未经许可不得复制、转载或摘编，违者必究!</p>
+    <div style="clear: both;zoom: 1;" class="footer">
+        <div class="footer_c">
+            <div class="footer_r">
+                <p>移动平安网: <a href="http://wap.pingan.com">wap.pingan.com</a> /
+                    <a href="http://m.pingan.com">m.pingan.com</a> /
+                    <a href="http://pingan.cn">pingan.cn</a></p>
 
-        <p style="font-size:10px;">Copyright &copy; PING AN INSURANCE (GROUP) COMPANY OF CHINA ,LTD. All Rights
-            Reserved</p>
-        <div class="clear"></div>
+                <p><a target="_blank" href="http://www.miitbeian.gov.cn/">粤ICP备13001452号</a></p>
+            </div>
+            <p>版权所有 &copy; 中国平安保险（集团）股份有限公司 未经许可不得复制、转载或摘编，违者必究!</p>
+
+            <p style="font-size:10px;">Copyright &copy; PING AN INSURANCE (GROUP) COMPANY OF CHINA ,LTD. All Rights
+                Reserved</p>
+
+            <div class="clear"></div>
+        </div>
     </div>
-</div>
-</body>
-</html>
+    </body>
+    </html>
 {% endblock foot %}
