@@ -12,13 +12,12 @@ from django.conf import settings
 from django.core.cache import cache
 from django.core.serializers import serialize
 from rediscache.views import getCache
+from django.http import JsonResponse
 
 
 class Test(View):
-    def get(self,request):
+    def get(self, request):
         return getCache(request)
-
-
 
 
 class Logout(View):
@@ -110,7 +109,7 @@ class UserList(View):
         rows = int(rows)
         start = rows * (page - 1)
         end = start + rows - 1
-        userItems = models.UserInfo.objects.all().order_by('-id')[start: end]
+        userItems = models.UserInfo.objects.filter(delete_flag=False).order_by('-id')[start: end]
         useList = django_model_opration(userItems)
         count = models.UserInfo.objects.all().count()
         user_dict = dict(rows=useList, total=count)
@@ -234,3 +233,16 @@ class UserEdit(View):
         else:
             resp = {'code': '00', 'msg': '编辑成功!'}
             return HttpResponse(json.dumps(resp))
+
+
+class UserDel(View):
+    def post(self, request):
+        id = request.POST.get('id', '')
+        raw_update_time = datetime.datetime.today().strftime("%Y-%m-%d %H:%M:%S")
+        try:
+            models.UserInfo.objects.filter(id=id).update(delete_flag=True, raw_update_time=raw_update_time)
+        except Exception as e:
+            resp = {'code': '01', 'msg': '删除失败!'}
+            return JsonResponse(resp)
+        resp = {'code': '01', 'msg': '删除成功!'}
+        return JsonResponse(resp)
