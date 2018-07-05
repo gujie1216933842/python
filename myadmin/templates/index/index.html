@@ -67,11 +67,11 @@
 
 
     <ul class="tab_clearfix">
-        <li id='1' class="tab-active">系统管理</li>
-        <li id='2'>游戏管理</li>
-        <li id='3'>商城管理</li>
-        <li id='4'>爬虫管理</li>
-        <li id='5'>数据分析</li>
+        <li id='1' {% if category == "1" %} class="tab-active" {% endif %}>系统管理</li>
+        <li id='2' {% if category == "2" %} class="tab-active" {% endif %}>游戏管理</li>
+        <li id='3' {% if category == "3" %} class="tab-active" {% endif %}>商城管理</li>
+        <li id='4' {% if category == "4" %} class="tab-active" {% endif %}>爬虫管理</li>
+        <li id='5' {% if category == "5" %} class="tab-active" {% endif %}>数据分析</li>
 
     </ul>
     <script type="text/javascript">
