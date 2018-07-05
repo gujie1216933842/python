@@ -113,13 +113,13 @@
 
             var password = $('#password').val();
             if (password == '' || password == undefined) {
-                alert('密码不能为空');
+                alert('新密码不能为空');
                 return false;
             }
 
             var confirm_password = $('#confirm_password').val();
             if (confirm_password == '' || confirm_password == undefined) {
-                alert('确认密码不能为空');
+                alert('确认新密码不能为空');
                 return false;
             }
 
@@ -186,7 +186,7 @@
                     </tr>
 
                     <tr>
-                        <td width="100" align="right">密码:</td>
+                        <td width="100" align="right">新密码:</td>
                         <td>
                             <input type="password" id="password" name="password" style="width:200px;height:auto;">
                             <span class="no">*</span>
@@ -194,7 +194,7 @@
                     </tr>
 
                     <tr>
-                        <td width="100" align="right">确认密码:</td>
+                        <td width="100" align="right">确认新密码:</td>
                         <td>
                             <input type="password" id="confirm_password" name="confirm_password"
                                    style="width:200px;height:auto;">
