@@ -19,7 +19,7 @@ class Index(View):
         category = request.GET.get('selectId', 1)
         resource = models.Resource.objects.filter(category=category)
 
-        return render(request, 'index/index.html', {'username': username, 'resource': resource})
+        return render(request, 'index/index.html', {'username': username, 'resource': resource, 'category': category})
 
 
 class Welcome(View):

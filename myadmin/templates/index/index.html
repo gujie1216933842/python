@@ -140,6 +140,9 @@
 <div id="main" class="easyui-layout" style="width:100%;height:1000px;">
     <div data-options="region:'west',split:true" title="功能菜单" style="width:180px;">
         <ul class="easyui-tree" id="left_menu">
+            {% if category == 1 and username == 'admin' %}
+            <li data-options="state:'closed'"><span class="tree-icon tree-file"></span><span><a href="/user/user_list/">用户管理</a></span></li>
+            {% endif %}
             {% for item in resource %}
             <li data-options="state:'closed'"><span class="tree-icon tree-file"></span><span><a href="{{ item.link }}">{{ item.name }}</a></span></li>
             {% endfor %}
