@@ -42,28 +42,18 @@
     // 删除
     function del() {
         var rows = $('#dg').datagrid('getChecked');
-        var ids = '';
-        for (var k in rows) {
-            var id = rows[k]['id'];
-            ids += id + ',';
-        }
-        ids = ids.substring(0, ids.length - 1);
-
-        if (!rows) {
-            alert('您好，请选中要删除的行！');
-            return false;
-        }
+        var id = rows[0].id;
         if (rows.length <= 0) {
             alert('请选择行再删除');
             return false;
         }
-        if (!confirm('确认要删除当前选中的' + rows.length + '条记录吗')) {
+        if (!confirm('确认要删除当前选中的记录吗')) {
             return false;
         }
 
         $.post('/?act=apppush_package&st=del',
             {
-                ids: ids
+                id: id
             },
             function (result) {
                 alert(result.msg);
