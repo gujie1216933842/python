@@ -105,13 +105,22 @@ class UserList(View):
 
         page = request.POST.get('page', 1)
         rows = request.POST.get('rows', 10)
+        search_username = request.POST.get('search_username', '')
+
         page = int(page)
         rows = int(rows)
         start = rows * (page - 1)
         end = start + rows - 1
-        userItems = models.UserInfo.objects.filter(delete_flag=False).order_by('-id')[start: end]
-        useList = django_model_opration(userItems)
-        count = models.UserInfo.objects.all().count()
+
+        if search_username:
+            userItems = models.UserInfo.objects.filter(delete_flag=False, username__contains=search_username).order_by(
+                '-id')[start: end]
+            useList = django_model_opration(userItems)
+            count = models.UserInfo.objects.filter(delete_flag=False, username__contains=search_username).count()
+        else:
+            userItems = models.UserInfo.objects.filter(delete_flag=False).order_by('-id')[start: end]
+            useList = django_model_opration(userItems)
+            count = models.UserInfo.objects.filter(delete_flag=False).count()
         user_dict = dict(rows=useList, total=count)
         return HttpResponse(json.dumps(user_dict))
 

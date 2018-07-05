@@ -1,259 +1,257 @@
-{%extends 'base.html'%}
+{% extends 'base.html' %}
 
 
 {% block body %}
-<script type="text/javascript">
-    //新增
-    function add() {
-        $("#tr_old_pass").hide();
-        openDialog('添加渠道');
-        $('#view-ff').form('clear');
+    <script type="text/javascript">
+        //新增
+        function add() {
+            $("#tr_old_pass").hide();
+            openDialog('添加渠道');
+            $('#view-ff').form('clear');
 
-    }
-
-    // 更新(编辑)
-    function edit() {
-        $("#tr_old_pass").show();
-
-        $('#view-ff').form('clear');
-
-        var rows = $('#dg').datagrid('getSelections');
-        var row = $('#dg').datagrid('getSelected');
-
-        if (rows.length > 1) {
-            alert('您好，请选择单行进行编辑！');
-            $('#dg').datagrid('unselectAll');
-            return false;
         }
 
-        if (!row) {
-            alert('您好，请选中要编辑的行！');
-            return false;
-        }
+        // 更新(编辑)
+        function edit() {
+            $("#tr_old_pass").show();
 
+            $('#view-ff').form('clear');
 
-        $('#hidden_id').val(row.id);
-        $('#username').val(row.username);
+            var rows = $('#dg').datagrid('getSelections');
+            var row = $('#dg').datagrid('getSelected');
 
-        openDialog('编辑');
-    }
-
-
-    // 删除
-    function del() {
-        var rows = $('#dg').datagrid('getChecked');
-        var id = rows[0].id;
-        if (rows.length <= 0) {
-            alert('请选择行再删除');
-            return false;
-        }
-        if (!confirm('确认要删除当前选中的记录吗')) {
-            return false;
-        }
-
-        $.post('/user/userdel/',
-            {
-                id: id
-            },
-            function (result) {
-                alert(result.msg);
-                location.reload(true);
-            }, 'json');
-    }
-
-
-    //取消选择
-    function cancel() {
-        $('#dg').datagrid('unselectAll');
-    }
-
-    //刷新
-    function reflesh() {
-        $('#dg').datagrid('reload');
-        $('#parent_id').combotree('reload');
-    }
-
-    //打开编辑框
-    function openDialog(title) {
-        $('#dlg').dialog(
-            {
-                title: title,
-                width: 800,
-                height: 400,
-                left: 100,
-                top: 10,
-                cache: false,
-                modal: true,
-                maximizable: true,
-                collapsible: true,
-                resizable: true
-            }
-        );
-        $('#dlg').dialog('open');
-    }
-
-    //搜索
-    function searchClick() {
-        var search_username = $('#search_username').val();
-
-        $('#dg').datagrid({
-            method: 'post',
-            url: '/?act=apppush_package&st=getList',
-            queryParams: {
-                search_username: search_username
-            }
-        });
-
-
-    }
-
-    function save() {
-        var username = $('#username').val();
-        if (username == '' || username == undefined) {
-            alert('用户名不能为空');
-            return false;
-        }
-
-
-        var password = $('#password').val();
-        if (password == '' || password == undefined) {
-            alert('密码不能为空');
-            return false;
-        }
-
-        var confirm_password = $('#confirm_password').val();
-        if (confirm_password == '' || confirm_password == undefined) {
-            alert('确认密码不能为空');
-            return false;
-        }
-
-        var url;
-        var id = $('#hidden_id').val();
-        if (isNaN(id) || id == '') {
-            url = '/user/useradd/';
-        } else {
-            var old_password = $('#old_password').val();
-            if (password == '' || password == undefined) {
-                alert('原密码不能为空');
+            if (rows.length > 1) {
+                alert('您好，请选择单行进行编辑！');
+                $('#dg').datagrid('unselectAll');
                 return false;
             }
-            url = '/user/useredit/';
+
+            if (!row) {
+                alert('您好，请选中要编辑的行！');
+                return false;
+            }
+
+
+            $('#hidden_id').val(row.id);
+            $('#username').val(row.username);
+
+            openDialog('编辑');
         }
-        $.post(
-            url, {
-                id: id,
-                username: username,
-                password: password,
-                old_password: old_password,
-                confirm_password: confirm_password
-            },
-            function (result) {
-                if (result.code == '00') {
-                    $('#dlg').dialog('close');
-                    $('#dg').datagrid('reload');
+
+
+        // 删除
+        function del() {
+            var rows = $('#dg').datagrid('getChecked');
+            var id = rows[0].id;
+            if (rows.length <= 0) {
+                alert('请选择行再删除');
+                return false;
+            }
+            if (!confirm('确认要删除当前选中的记录吗')) {
+                return false;
+            }
+
+            $.post('/user/userdel/',
+                {
+                    id: id
+                },
+                function (result) {
                     alert(result.msg);
-                } else {
-                    alert(result.msg);
+                    location.reload(true);
+                }, 'json');
+        }
+
+
+        //取消选择
+        function cancel() {
+            $('#dg').datagrid('unselectAll');
+        }
+
+        //刷新
+        function reflesh() {
+            $('#dg').datagrid('reload');
+            $('#parent_id').combotree('reload');
+        }
+
+        //打开编辑框
+        function openDialog(title) {
+            $('#dlg').dialog(
+                {
+                    title: title,
+                    width: 800,
+                    height: 400,
+                    left: 100,
+                    top: 10,
+                    cache: false,
+                    modal: true,
+                    maximizable: true,
+                    collapsible: true,
+                    resizable: true
                 }
-            }, 'json');
-    }
+            );
+            $('#dlg').dialog('open');
+        }
+
+        //搜索
+        function searchClick() {
+            var search_username = $('#search_username').val();
+            $('#dg').datagrid('load', {
+                search_username: search_username
+            });
 
 
-</script>
-<div id="dlg" class="easyui-dialog" title="Basic Dialog"
-     data-options="iconCls:'icon-save',closed:true, buttons:'#dlg-buttons'"
-     style="width:850px;height:200px; padding:10px;">
-    <div style="padding:10px 0 10px 60px">
-        <form id="view-ff" method="post">
-            <table class="form-table">
-                <tr>
-                    <td>
-                        <input type="hidden" id="hidden_id" name="id">
-                    </td>
-                </tr>
-
-                <tr>
-                    <td width="100" align="right">用户名:</td>
-                    <td>
-                        <input type="text" id="username" name="username" style="width:200px;height:auto;">
-                        <span class="no">*</span>
-                    </td>
-                </tr>
-
-                <tr style="display: none" id="tr_old_pass">
-                    <td width="100" align="right">原密码:</td>
-                    <td>
-                        <input type="password" id="old_password" name="old_password" style="width:200px;height:auto;">
-                        <span class="no">*</span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td width="100" align="right">密码:</td>
-                    <td>
-                        <input type="password" id="password" name="password" style="width:200px;height:auto;">
-                        <span class="no">*</span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td width="100" align="right">确认密码:</td>
-                    <td>
-                        <input type="password" id="confirm_password" name="confirm_password"
-                               style="width:200px;height:auto;">
-                        <span class="no">*</span>
-                    </td>
-                </tr>
-
-            </table>
-            <input id="id" name="id" type="hidden" value=""/>
-        </form>
-    </div>
-
-</div>
+        }
 
 
-<div id="dlg-buttons">
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel"
-       onclick="javascript:$('#dlg').dialog('close')">取消</a>
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="save()">保存</a>
-</div>
+        function save() {
+            var username = $('#username').val();
+            if (username == '' || username == undefined) {
+                alert('用户名不能为空');
+                return false;
+            }
 
-<table id="dg" class="easyui-datagrid" title="用户管理" style="width:auto;height:auto" data-options="fitColumns:false,singleSelect:true,
-idField:'id',collapsible:false,url:'/user/user_list/',method:'post',
-toolbar:'#toolbar',pagination:true,pageSize:10,pageList:[10,20,30]">
-    <thead>
-    <tr>
-        <th data-options="field:'id'">用户ID</th>
-        <th data-options="field:'username'">用户名</th>
-        <th data-options="field:'raw_add_time'">添加时间</th>
-        <th data-options="field:'raw_update_time'">更新时间</th>
-    </tr>
-    </thead>
-</table>
 
-<div id="toolbar">
-    <div>
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-undo" onclick="cancel();"
-           plain="true">取消选择</a><a>|</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" onclick="add();"
-           plain="true">添加</a><a>|</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" onclick="del();"
-           plain="true">删除</a><a>|</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" onclick="edit();"
-           plain="true">编辑</a><a>|</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-reload" onclick="reflesh();" plain="true">刷新页面</a>
+            var password = $('#password').val();
+            if (password == '' || password == undefined) {
+                alert('密码不能为空');
+                return false;
+            }
 
-        <div style="padding-top:6px; padding-bottom:6px; padding-left:6px;">
-            包名:
-            <input type="text" id="search_package_name" name="search_package_name" value=""/>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-search"
-               onclick="javascript:searchClick();return false;">查询</a>
+            var confirm_password = $('#confirm_password').val();
+            if (confirm_password == '' || confirm_password == undefined) {
+                alert('确认密码不能为空');
+                return false;
+            }
+
+            var url;
+            var id = $('#hidden_id').val();
+            if (isNaN(id) || id == '') {
+                url = '/user/useradd/';
+            } else {
+                var old_password = $('#old_password').val();
+                if (password == '' || password == undefined) {
+                    alert('原密码不能为空');
+                    return false;
+                }
+                url = '/user/useredit/';
+            }
+            $.post(
+                url, {
+                    id: id,
+                    username: username,
+                    password: password,
+                    old_password: old_password,
+                    confirm_password: confirm_password
+                },
+                function (result) {
+                    if (result.code == '00') {
+                        $('#dlg').dialog('close');
+                        $('#dg').datagrid('reload');
+                        alert(result.msg);
+                    } else {
+                        alert(result.msg);
+                    }
+                }, 'json');
+        }
+
+
+    </script>
+    <div id="dlg" class="easyui-dialog" title="Basic Dialog"
+         data-options="iconCls:'icon-save',closed:true, buttons:'#dlg-buttons'"
+         style="width:850px;height:200px; padding:10px;">
+        <div style="padding:10px 0 10px 60px">
+            <form id="view-ff" method="post">
+                <table class="form-table">
+                    <tr>
+                        <td>
+                            <input type="hidden" id="hidden_id" name="id">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td width="100" align="right">用户名:</td>
+                        <td>
+                            <input type="text" id="username" name="username" style="width:200px;height:auto;">
+                            <span class="no">*</span>
+                        </td>
+                    </tr>
+
+                    <tr style="display: none" id="tr_old_pass">
+                        <td width="100" align="right">原密码:</td>
+                        <td>
+                            <input type="password" id="old_password" name="old_password"
+                                   style="width:200px;height:auto;">
+                            <span class="no">*</span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td width="100" align="right">密码:</td>
+                        <td>
+                            <input type="password" id="password" name="password" style="width:200px;height:auto;">
+                            <span class="no">*</span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td width="100" align="right">确认密码:</td>
+                        <td>
+                            <input type="password" id="confirm_password" name="confirm_password"
+                                   style="width:200px;height:auto;">
+                            <span class="no">*</span>
+                        </td>
+                    </tr>
+
+                </table>
+                <input id="id" name="id" type="hidden" value=""/>
+            </form>
         </div>
 
     </div>
 
-</div>
+
+    <div id="dlg-buttons">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel"
+           onclick="javascript:$('#dlg').dialog('close')">取消</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="save()">保存</a>
+    </div>
+
+    <table id="dg" class="easyui-datagrid" title="用户管理" style="width:auto;height:auto" data-options="fitColumns:false,singleSelect:true,
+idField:'id',collapsible:false,url:'/user/user_list/',method:'post',
+toolbar:'#toolbar',pagination:true,pageSize:10,pageList:[10,20,30]">
+        <thead>
+        <tr>
+            <th data-options="field:'id'">用户ID</th>
+            <th data-options="field:'username'">用户名</th>
+            <th data-options="field:'raw_add_time'">添加时间</th>
+            <th data-options="field:'raw_update_time'">更新时间</th>
+        </tr>
+        </thead>
+    </table>
+
+    <div id="toolbar">
+        <div>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-undo" onclick="cancel();"
+               plain="true">取消选择</a><a>|</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" onclick="add();"
+               plain="true">添加</a><a>|</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" onclick="del();"
+               plain="true">删除</a><a>|</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" onclick="edit();"
+               plain="true">编辑</a><a>|</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-reload" onclick="reflesh();"
+               plain="true">刷新页面</a>
+
+            <div style="padding-top:6px; padding-bottom:6px; padding-left:6px;">
+                用户名:
+                <input type="text" id="search_username" name="search_username" value=""/>
+                <a href="#" class="easyui-linkbutton" iconCls="icon-search"
+                   onclick="javascript:searchClick();return false;">查询</a>
+            </div>
+
+        </div>
+
+    </div>
 
 
 {% endblock body %}
