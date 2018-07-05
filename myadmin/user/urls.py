@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'user_list/$',views.UserList.as_view()),
     url(r'useradd/$',views.UserAdd.as_view()),
     url(r'useredit/$',views.UserEdit.as_view()),
+    url(r'userdel/$',views.UserDel.as_view()),
     url(r'test/$',views.Test.as_view()),
 
 
