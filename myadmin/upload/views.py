@@ -13,3 +13,8 @@ class UploadExcelUserId(View):
     def post(self, request):
         print(request.FILES)
         return HttpResponse('ok')
+
+
+def uploadexcel(request):
+    print(request.FILES)
+    return HttpResponse('fun ok')
