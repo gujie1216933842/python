@@ -21,7 +21,7 @@ urlpatterns = [
     url(r'^index/', include("index.urls")),
     url(r'^user/', include("user.urls")),
     url(r'^rediscache/', include("rediscache.urls")),
-    url(r'upload/^', include("upload.urls")),
+    url(r'^upload/', include("upload.urls")),
     url(r'^', include("index.urls")),
 
 ]
