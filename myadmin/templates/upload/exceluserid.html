@@ -31,11 +31,11 @@ function importExp() {
             console.log("正在进行，请稍候");
         },
         success : function(responseStr) {
-            if(responseStr=="01"){
+{% comment %}            if(responseStr=="01"){
                 alert("导入成功");
             }else{
                 alert("导入失败");
-            }
+            }{% endcomment %}
         }
     });
 }

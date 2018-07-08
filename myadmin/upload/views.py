@@ -11,4 +11,5 @@ class UploadExcelUserId(View):
         return render(rquest, 'upload/exceluserid.html')
 
     def post(self, request):
+        print(request.POST)
         return HttpResponse('ok')
