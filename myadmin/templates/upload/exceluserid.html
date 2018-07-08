@@ -4,25 +4,27 @@
 
     <form id="uploadForm" enctype="multipart/form-data">
         文件:<input id="file" type="file" name="file"/>
+
     </form>
 
-    <button id="upload">上传文件</button>
+  <button id="upload">上传文件</button>
 
 
 
     <script type="text/javascript">
         $(function () {
             $("#upload").click(function () {
-                var formData = new FormData($('#uploadForm')[0]);
+                var file = document.getElementById("file").files[0];
+                console.log(file);
                 $.ajax({
                     type: 'post',
                     url: "/upload/test/",
-                    data: formData,
+                    data: $( '#uploadForm').serialize(),
                     cache: false,
                     processData: false,
                     contentType: false,
 
-                    success:function () {
+                    success: function () {
 
                     }
 
