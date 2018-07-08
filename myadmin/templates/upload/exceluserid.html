@@ -2,50 +2,34 @@
 
 {% block  body %}
 
-    <form action="" type="post" enctype="multipart/form-data">
-    <span>文件上传：&nbsp;&nbsp;&nbsp;</span>
-    <span class="input">
-      <input type="file" id="upfile" name="upfile" placeholder=""/>
-    </span>
-    <button onclick="importExp();">点击上传</button>
-    <span>格式：.xls</span>
-
+    <form id="uploadForm" enctype="multipart/form-data">
+        文件:<input id="file" type="file" name="file"/>
     </form>
+
+    <button id="upload">上传文件</button>
+
 
 
     <script type="text/javascript">
-
-    //导入文件
-function importExp() {
-    var formData = new FormData();
-    var name = $("#upfile").val();
-    formData.append("file",$("#upfile")[0].files[0]);
-    formData.append("name",name);
-    $.ajax({
-        url : '/upload/exceluserid/',
-        type : 'POST',
-        async : false,
-        data : formData,
-        // 告诉jQuery不要去处理发送的数据
-        processData : false,
-        // 告诉jQuery不要去设置Content-Type请求头
-        contentType : false,
-        beforeSend:function(){
-            console.log("正在进行，请稍候");
-        },
-        success : function(responseStr) {
-{% comment %}            if(responseStr=="01"){
-                alert("导入成功");
-            }else{
-                alert("导入失败");
-            }{% endcomment %}
-        }
-    });
-}
-
-
-
+        $(function () {
+            $("#upload").click(function () {
+                var formData = new FormData($('#uploadForm')[0]);
+                $.ajax({
+                    type: 'post',
+                    url: "/upload/exceluserid/",
+                    data: formData,
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                }).success(function (data) {
+                    alert(data);
+                }).error(function () {
+                    alert("上传失败");
+                });
+            });
+        });
     </script>
+
 
 
 
