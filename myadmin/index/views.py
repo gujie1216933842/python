@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse ,redirect
 from django.views.generic.base import View
 from utils.common import require_logined, django_model_opration
 from . import models
@@ -78,3 +78,14 @@ class ResourceEdit(View):
             return JsonResponse({'code': '01', 'msg': '编辑失败'})
 
         return JsonResponse({'code': '00', 'msg': '编辑成功'})
+
+
+
+
+
+class HeaderTest(View):
+    def get(self,request):
+        return redirect("www.baidu.com")
+
+
+
