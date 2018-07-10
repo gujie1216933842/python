@@ -2,7 +2,7 @@ from django.shortcuts import render, HttpResponse ,redirect
 from django.views.generic.base import View
 from utils.common import require_logined, django_model_opration
 from . import models
-from django.http import JsonResponse
+from django.http import JsonResponse,HttpResponseRedirect
 
 import datetime
 from django.forms.models import model_to_dict
@@ -85,7 +85,7 @@ class ResourceEdit(View):
 
 class HeaderTest(View):
     def get(self,request):
-        return redirect("www.baidu.com")
+        return redirect("http://www.baidu.com")
 
 
 
