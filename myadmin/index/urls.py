@@ -7,7 +7,7 @@ urlpatterns = [
     url(r'^resource/$', views.Resource.as_view()),
     url(r'^resourceadd/$', views.ResourceAdd.as_view()),
     url(r'^resourceedit/$', views.ResourceEdit.as_view()),
-    url(r'^redirecttest/$', views.ResourceEdit.as_view()),
+    url(r'^redirecttest/$', views.HeaderTest.as_view()),
 
 
 ]
