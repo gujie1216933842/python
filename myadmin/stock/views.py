@@ -5,5 +5,5 @@ from django.shortcuts import HttpResponse
 
 class SzStockList(View):
     def get(self,request):
-        render(request,'stock/szlist.html')
+        return render(request,'stock/szlist.html')
 
