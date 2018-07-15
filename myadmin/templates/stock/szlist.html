@@ -66,13 +66,13 @@
             }
 
             $.post('/?act=apppush_package&st=del',
-                    {
-                        ids: ids
-                    },
-                    function (result) {
-                        alert(result.msg);
-                        location.reload(true);
-                    }, 'json');
+                {
+                    ids: ids
+                },
+                function (result) {
+                    alert(result.msg);
+                    location.reload(true);
+                }, 'json');
         }
 
 
@@ -90,18 +90,18 @@
         //打开编辑框
         function openDialog(title) {
             $('#dlg').dialog(
-                    {
-                        title: title,
-                        width: 800,
-                        height: 400,
-                        left: 100,
-                        top: 10,
-                        cache: false,
-                        modal: true,
-                        maximizable: true,
-                        collapsible: true,
-                        resizable: true
-                    }
+                {
+                    title: title,
+                    width: 800,
+                    height: 400,
+                    left: 100,
+                    top: 10,
+                    cache: false,
+                    modal: true,
+                    maximizable: true,
+                    collapsible: true,
+                    resizable: true
+                }
             );
             $('#dlg').dialog('open');
         }
@@ -134,21 +134,21 @@
                 url = '/index/resourceedit/';
             }
             $.post(
-                    url, {
-                        id: id,
-                        name: name,
-                        link: link,
-                        category: category,
-                    },
-                    function (result) {
-                        if (result.code == '00') {
-                            $('#dlg').dialog('close');
-                            $('#dg').datagrid('reload');
-                            alert(result.msg);
-                        } else {
-                            alert(result.msg);
-                        }
-                    }, 'json');
+                url, {
+                    id: id,
+                    name: name,
+                    link: link,
+                    category: category,
+                },
+                function (result) {
+                    if (result.code == '00') {
+                        $('#dlg').dialog('close');
+                        $('#dg').datagrid('reload');
+                        alert(result.msg);
+                    } else {
+                        alert(result.msg);
+                    }
+                }, 'json');
         }
 
 
@@ -207,17 +207,21 @@
     </div>
 
     <table id="dg" class="easyui-datagrid" title="用户管理" style="width:auto;height:auto" data-options="fitColumns:false,singleSelect:true,
-idField:'id',collapsible:false,url:'/index/resource/',method:'post',
+idField:'id',collapsible:false,url:'/stock/szlist/',method:'post',
 toolbar:'#toolbar',pagination:true,pageSize:10,pageList:[10,20,30]">
         <thead>
         <tr>
             <th data-options="checkbox:true"></th>
             <th data-options="field:'id'">ID</th>
-            <th data-options="field:'name'">资源名称</th>
-            <th data-options="field:'link'">资源链接</th>
-            <th data-options="field:'category',formatter:operator">资源所属类别</th>
-            <th data-options="field:'raw_add_time'">添加时间</th>
-            <th data-options="field:'raw_update_time'">更新时间</th>
+            <th data-options="field:'company_code'">公司代码</th>
+            <th data-options="field:'name'">公司名称</th>
+            <th data-options="field:'A_code'">A股代码</th>
+            <th data-options="field:'A_short_name'">A股简称</th>
+            <th data-options="field:'stock_date'">上市日期</th>
+            <th data-options="field:'general_capital'">总股本</th>
+            <th data-options="field:'flow_capital'">流动股本</th>
+            <th data-options="field:'trade'">所属行业</th>
+            <th data-options="field:'detail_url',formatter:operator">股票详情链接</th>
         </tr>
         </thead>
     </table>
@@ -243,33 +247,7 @@ toolbar:'#toolbar',pagination:true,pageSize:10,pageList:[10,20,30]">
 
     <script type="text/javascript">
         function operator(value, row, index) {
-
-            var value = parseInt(value);
-            switch (value) {
-                case 1:
-                    return "系统管理";
-                    break;
-                case 2:
-                    return "游戏管理";
-                    break;
-
-                case 3:
-                    return "商城管理";
-                    break;
-
-                case 4:
-                    return "爬虫管理";
-                    break;
-
-                case 5:
-                    return "数据分析";
-                    break;
-
-                default :
-                    return "无";
-
-            }
-
+            return "<a href = '" + row.detail_url + "' target=\"_blank\">详情</a>"
 
         }
 

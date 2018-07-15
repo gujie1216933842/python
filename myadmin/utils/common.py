@@ -7,7 +7,7 @@ from django.forms.models import model_to_dict
 from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
 
-import os, time
+import os, time, datetime, decimal
 
 
 # 如果登录则转到登录页面
@@ -45,6 +45,20 @@ def django_model_opration(Items):
     return new_list
 
 
+def datetime_serializable(obj):
+    if isinstance(obj, datetime.datetime):
+        return obj.strftime('%Y-%m-%d %H:%M:%S')
+    else:
+        return obj
+
+
+def decimal_serializable(obj):
+    if isinstance(obj, decimal.Decimal):
+        return str(obj)
+    else:
+        return obj
+
+
 def my_log(content, logName):
     '''
     :param content:   文件内容
@@ -62,7 +76,6 @@ def my_log(content, logName):
     except Exception as e:
         print('创建文件异常1:%s' % e)
 
-
     log_file_path = "%s/%s.log" % (log_path, logName)
     log_file_handle = open(log_file_path, 'a')
 
@@ -73,4 +86,3 @@ def my_log(content, logName):
     log_file_handle.write('\n')
 
     log_file_handle.close()
-
