@@ -14,7 +14,7 @@ class SzStockList(View):
         page = request.POST.get('page', 1)
         rows = request.POST.get('rows', 10)
         SzStockList = mymodels.SzStock()
-        ret = SzStockList.getList(page, rows)
+        ret = SzStockList.getList(int(page), int(rows))
         total = SzStockList.getCount()
         for index, value in enumerate(ret):
             for k, v in value.items():
