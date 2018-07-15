@@ -7,8 +7,7 @@ class SzStock(MysqlHandler):
 
     def getList(self, page=1, rows=10):
         start = rows * (page - 1)
-        end = start + rows - 1
-        sql = " select * from sz_stock_list limit %s ,%s " % (start, end)
+        sql = " select * from sz_stock_list limit %s ,%s " % (start, rows)
         ret = self.select(sql)
         return ret
 
