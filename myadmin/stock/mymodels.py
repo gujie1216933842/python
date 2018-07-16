@@ -1,14 +1,14 @@
 from utils.BaseModel import MysqlHandler
 import json
-from utils.common import decimal_serializable, datetime_serializable,my_log
+from utils.common import decimal_serializable, datetime_serializable, my_log
 
 
 class SzStock(MysqlHandler):
 
     def getList(self, page=1, rows=10, company_code='', name=''):
         start = rows * (page - 1)
-        params = [start, rows]
-        limit_sql = " limit %s , %s "
+        params = []
+        limit_sql = " limit %s , %s " % (start, rows)
         company_code_sql = ''
         if company_code:
             company_code_sql = " and company_code = %s "
@@ -19,8 +19,8 @@ class SzStock(MysqlHandler):
             params.append(name)
 
         sql = " select * from sz_stock_list " + company_code_sql + name_sql + limit_sql
-        my_log('sql: %s'%sql,'stock')
-        my_log('params : %s'%params,'stock')
+        my_log('sql: %s' % sql, 'stock')
+        my_log('params : %s' % params, 'stock')
         ret = self.select(sql, params)
         return ret
 
