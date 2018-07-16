@@ -1,6 +1,6 @@
 from utils.BaseModel import MysqlHandler
 import json
-from utils.common import decimal_serializable, datetime_serializable
+from utils.common import decimal_serializable, datetime_serializable,my_log
 
 
 class SzStock(MysqlHandler):
@@ -19,6 +19,8 @@ class SzStock(MysqlHandler):
             params.append(name)
 
         sql = " select * from sz_stock_list " + company_code_sql + name_sql + limit_sql
+        my_log('sql: %s'%sql,'stock')
+        my_log('params : %s'%params,'stock')
         ret = self.select(sql, params)
         return ret
 
