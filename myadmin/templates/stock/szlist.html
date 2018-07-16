@@ -61,6 +61,15 @@ toolbar:'#toolbar',pagination:true,pageSize:10,pageList:[10,20,30]">
             <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-reload" onclick="reflesh();"
                plain="true">刷新页面</a>
 
+            <div style="padding-top:6px; padding-bottom:6px; padding-left:6px;">
+                公司代码:
+                <input type="text" id="search_company_code" name="search_company_code" value=""/>
+                公司名称:
+                <input type="text" id="search_name" name="search_name" value=""/>
+                <a href="#" class="easyui-linkbutton" iconCls="icon-search"
+                   onclick="javascript:searchClick();return false;">查询</a>
+            </div>
+
         </div>
 
     </div>
@@ -69,6 +78,19 @@ toolbar:'#toolbar',pagination:true,pageSize:10,pageList:[10,20,30]">
     <script type="text/javascript">
         function operator(value, row, index) {
             return "<a href = '" + row.detail_url + "' target=\"_blank\">详情</a>"
+
+        }
+
+
+        //搜索
+        function searchClick() {
+            var search_company_code = $('#search_company_code').val();
+            var search_name = $('#search_name').val();
+            $('#dg').datagrid('load', {
+                search_company_code: search_company_code
+                search_name: search_name
+            });
+
 
         }
 
