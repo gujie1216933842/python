@@ -22,7 +22,7 @@ class MysqlHandler:
         my_log('sql:%s' % sql, 'sql')
         my_log('params:%s' % args, 'sql')
         try:
-            cursor.execute(sql, args)
+            cursor.execute(sql, *args)
             ret = cursor.fetchall()
             return ret
         except Exception as e:
@@ -35,7 +35,7 @@ class MysqlHandler:
         connect = self.getConn()
         cursor = connect.cursor(cursor=pymysql.cursors.DictCursor)  # 返回结果为字典
         try:
-            cursor.execute(sql, args)
+            cursor.execute(sql, *args)
             ret = cursor.fetchone()
             return ret
         except Exception as e:

@@ -7,8 +7,8 @@ class SzStock(MysqlHandler):
 
     def getList(self, page=1, rows=10, company_code='', name=''):
         start = rows * (page - 1)
-        params = []
         limit_sql = " limit %s , %s " % (start, rows)
+        params = []
         company_code_sql = ''
         if company_code:
             company_code_sql = " and company_code = %s "
@@ -24,9 +24,19 @@ class SzStock(MysqlHandler):
         ret = self.select(sql, params)
         return ret
 
-    def getCount(self):
-        sql = " select count(*) as n from sz_stock_list"
-        count = self.selectCount(sql)
+    def getCount(self, company_code='', name=''):
+
+        params = []
+        company_code_sql = ''
+        if company_code:
+            company_code_sql = " and company_code = %s "
+            params.append(company_code)
+        name_sql = ''
+        if name:
+            name_sql = " and name = %s "
+            params.append(name)
+        sql = " select count(*) as n from sz_stock_list" + company_code_sql + name_sql
+        count = self.selectCount(sql, params)
         return count
 
 
