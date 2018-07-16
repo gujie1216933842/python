@@ -1,5 +1,6 @@
 import pymysql.cursors
 
+
 class MysqlHandler:
     # 获取数据库连接
     def getConn(self):
@@ -14,11 +15,11 @@ class MysqlHandler:
         except Exception as e:
             print("getConn Error:%s" % e)
 
-    def select(self, sql):
+    def select(self, sql, *args):
         connect = self.getConn()
         cursor = connect.cursor(cursor=pymysql.cursors.DictCursor)  # 返回结果为字典
         try:
-            cursor.execute(sql)
+            cursor.execute(sql, list(args))
             ret = cursor.fetchall()
             return ret
         except Exception as e:
@@ -27,11 +28,11 @@ class MysqlHandler:
             cursor.close()
             connect.close()
 
-    def selectCount(self, sql):
+    def selectCount(self, sql, *args):
         connect = self.getConn()
         cursor = connect.cursor(cursor=pymysql.cursors.DictCursor)  # 返回结果为字典
         try:
-            cursor.execute(sql)
+            cursor.execute(sql, list(args))
             ret = cursor.fetchone()
             return ret
         except Exception as e:
@@ -39,7 +40,6 @@ class MysqlHandler:
         finally:
             cursor.close()
             connect.close()
-
 
     # 带参数的更新方法,eg:sql='insert into pythontest values(%s,%s,%s,now()',params=(6,'C#','good book')
     def update(self, sql, params):
@@ -60,15 +60,19 @@ class MysqlHandler:
 if __name__ == "__main__":
     db = MysqlHandler()
 
+
     def get():
         sql = "select count(*) as n from sz_stock_list"
         ret = db.selectCount(sql)
         print(ret)
+
+
     get()
 
 
     def update():
         pass
+
 
     def insert():
         pass
@@ -76,5 +80,3 @@ if __name__ == "__main__":
 
     def delop():
         pass
-
-

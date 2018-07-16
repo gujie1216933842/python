@@ -5,10 +5,21 @@ from utils.common import decimal_serializable, datetime_serializable
 
 class SzStock(MysqlHandler):
 
-    def getList(self, page=1, rows=10):
+    def getList(self, page=1, rows=10, company_code='', name=''):
         start = rows * (page - 1)
-        sql = " select * from sz_stock_list limit %s ,%s " % (start, rows)
-        ret = self.select(sql)
+        params = [start, rows]
+        limit_sql = " limit %s , %s "
+        company_code_sql = ''
+        if company_code:
+            company_code_sql = " and company_code = %s "
+            params.append(company_code)
+        name_sql = ''
+        if name:
+            name_sql = " and name = %s "
+            params.append(name)
+
+        sql = " select * from sz_stock_list " + company_code_sql + name_sql + limit_sql
+        ret = self.select(sql, params)
         return ret
 
     def getCount(self):
