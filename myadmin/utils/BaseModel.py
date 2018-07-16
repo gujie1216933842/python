@@ -1,5 +1,5 @@
 import pymysql.cursors
-
+from utils.common import my_log
 
 class MysqlHandler:
     # 获取数据库连接
@@ -19,7 +19,7 @@ class MysqlHandler:
         connect = self.getConn()
         cursor = connect.cursor(cursor=pymysql.cursors.DictCursor)  # 返回结果为字典
         try:
-            cursor.execute(sql, list(args))
+            cursor.execute(sql, args)
             ret = cursor.fetchall()
             return ret
         except Exception as e:
@@ -32,7 +32,7 @@ class MysqlHandler:
         connect = self.getConn()
         cursor = connect.cursor(cursor=pymysql.cursors.DictCursor)  # 返回结果为字典
         try:
-            cursor.execute(sql, list(args))
+            cursor.execute(sql, args)
             ret = cursor.fetchone()
             return ret
         except Exception as e:
