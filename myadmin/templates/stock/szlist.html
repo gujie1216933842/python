@@ -23,24 +23,6 @@
         }
 
         //打开编辑框
-        function openDialog(title) {
-            $('#dlg').dialog(
-                {
-                    title: title,
-                    width: 800,
-                    height: 400,
-                    left: 100,
-                    top: 10,
-                    cache: false,
-                    modal: true,
-                    maximizable: true,
-                    collapsible: true,
-                    resizable: true
-                }
-            );
-            $('#dlg').dialog('open');
-        }
-
 
 
     </script>
@@ -56,8 +38,8 @@ toolbar:'#toolbar',pagination:true,pageSize:10,pageList:[10,20,30]">
             <th data-options="field:'A_code'">A股代码</th>
             <th data-options="field:'A_short_name'">A股简称</th>
             <th data-options="field:'stock_date'">上市日期</th>
-            <th data-options="field:'general_capital'">总股本</th>
-            <th data-options="field:'flow_capital'">流动股本</th>
+            <th data-options="field:'general_capital'">总股本(亿股)</th>
+            <th data-options="field:'flow_capital'">流动股本(亿股)</th>
             <th data-options="field:'trade'">所属行业</th>
             <th data-options="field:'detail_url',formatter:operator">股票详情链接</th>
         </tr>
