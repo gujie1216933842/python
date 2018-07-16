@@ -1,6 +1,7 @@
 import pymysql.cursors
 from utils.common import my_log
 
+
 class MysqlHandler:
     # 获取数据库连接
     def getConn(self):
@@ -18,6 +19,8 @@ class MysqlHandler:
     def select(self, sql, *args):
         connect = self.getConn()
         cursor = connect.cursor(cursor=pymysql.cursors.DictCursor)  # 返回结果为字典
+        my_log('sql:%s' % sql, 'sql')
+        my_log('params:%s' % args, 'sql')
         try:
             cursor.execute(sql, args)
             ret = cursor.fetchall()
