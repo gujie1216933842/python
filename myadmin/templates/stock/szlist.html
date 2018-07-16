@@ -26,13 +26,12 @@
 
 
     </script>
-    <table id="dg" class="easyui-datagrid" title="用户管理" style="width:auto;height:auto" data-options="fitColumns:false,singleSelect:true,
+    <table id="dg" class="easyui-datagrid" title="深交所股票列表" style="width:auto;height:auto" data-options="fitColumns:false,rownumbers:true,singleSelect:true,
 idField:'id',collapsible:false,url:'/stock/szlist/',method:'post',
 toolbar:'#toolbar',pagination:true,pageSize:10,pageList:[10,20,30]">
         <thead>
         <tr>
-            <th data-options="checkbox:true"></th>
-            <th data-options="field:'id'">ID</th>
+            <th data-options="field:'id',hidden:true">ID</th>
             <th data-options="field:'company_code'">公司代码</th>
             <th data-options="field:'name'">公司名称</th>
             <th data-options="field:'A_code'">A股代码</th>
