@@ -13,8 +13,8 @@ class SzStockList(View):
     def post(self, request):
         page = request.POST.get('page', 1)
         rows = request.POST.get('rows', 10)
-        company_code = request.POST.get('search_company_code', 10)
-        name = request.POST.get('search_name', 10)
+        company_code = request.POST.get('search_company_code', '')
+        name = request.POST.get('search_name', '')
         SzStockList = mymodels.SzStock()
         ret = SzStockList.getList(int(page), int(rows), company_code, name)
         total = SzStockList.getCount()['n']
