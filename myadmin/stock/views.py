@@ -17,7 +17,7 @@ class SzStockList(View):
         name = request.POST.get('search_name', '')
         SzStockList = mymodels.SzStock()
         ret = SzStockList.getList(int(page), int(rows), company_code, name)
-        total = SzStockList.getCount()['n']
+        total = SzStockList.getCount(company_code, name)['n']
         for index, value in enumerate(ret):
             for k, v in value.items():
                 v = decimal_serializable(v)
