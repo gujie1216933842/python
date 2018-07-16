@@ -19,8 +19,8 @@ class MysqlHandler:
     def select(self, sql, *args):
         connect = self.getConn()
         cursor = connect.cursor(cursor=pymysql.cursors.DictCursor)  # 返回结果为字典
-        my_log('sql:%s' % sql, 'sql')
-        my_log('params:%s' % args, 'sql')
+        my_log('select sql:%s' % sql, 'sql')
+        my_log('select params:%s' % args, 'sql')
         try:
             cursor.execute(sql, *args)
             ret = cursor.fetchall()
@@ -34,6 +34,8 @@ class MysqlHandler:
     def selectCount(self, sql, *args):
         connect = self.getConn()
         cursor = connect.cursor(cursor=pymysql.cursors.DictCursor)  # 返回结果为字典
+        my_log('selectCount sql:%s' % sql, 'sql')
+        my_log('selectCount params:%s' % args, 'sql')
         try:
             cursor.execute(sql, *args)
             ret = cursor.fetchone()
