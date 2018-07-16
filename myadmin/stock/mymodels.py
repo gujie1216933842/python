@@ -18,7 +18,7 @@ class SzStock(MysqlHandler):
             name_sql = " and name = %s "
             params.append(name)
 
-        sql = " select * from sz_stock_list " + company_code_sql + name_sql + limit_sql
+        sql = " select * from sz_stock_list where delete_flag = 0 " + company_code_sql + name_sql + limit_sql
         my_log('sql: %s' % sql, 'stock')
         my_log('params : %s' % params, 'stock')
         ret = self.select(sql, params)
@@ -35,7 +35,7 @@ class SzStock(MysqlHandler):
         if name:
             name_sql = " and name = %s "
             params.append(name)
-        sql = " select count(*) as n from sz_stock_list" + company_code_sql + name_sql
+        sql = " select count(*) as n from sz_stock_list where delete_flag = 0" + company_code_sql + name_sql
         count = self.selectCount(sql, params)
         return count
 
