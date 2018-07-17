@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+    <style type="text/css">
+        /*rownumbers:序号如果是大于等于4位数时,会显示不全*/
+        .datagrid-header-rownumber, .datagrid-cell-rownumber {
+            width: 40px;
+        }
+    </style>
+
+
+
+    <script type="text/javascript">
+        //新增
+
+        // 更新(编辑)
+
+
+        // 删除
+
+
+        //取消选择
+        function cancel() {
+            $('#dg').datagrid('unselectAll');
+        }
+
+        //刷新
+        function reflesh() {
+            $('#dg').datagrid('reload');
+            $('#parent_id').combotree('reload');
+        }
+
+        //打开编辑框
+
+
+    </script>
+    <table id="dg" class="easyui-datagrid" title="深交所股票列表" style="width:auto;height:auto" data-options="fitColumns:false,rownumbers:true,singleSelect:true,
+idField:'id',collapsible:false,url:'/stock/szlist/',method:'post',
+toolbar:'#toolbar',pagination:true,pageSize:10,pageList:[10,20,30]">
+        <thead>
+        <tr>
+            <th data-options="field:'id',hidden:true">ID</th>
+            <th data-options="field:'company_code'">公司代码</th>
+            <th data-options="field:'name'">公司名称</th>
+            <th data-options="field:'A_code'">A股代码</th>
+            <th data-options="field:'A_short_name'">A股简称</th>
+            <th data-options="field:'stock_date'">上市日期</th>
+            <th data-options="field:'general_capital'">总股本(亿股)</th>
+            <th data-options="field:'flow_capital'">流动股本(亿股)</th>
+            <th data-options="field:'trade'">所属行业</th>
+            <th data-options="field:'detail_url',formatter:operator">股票详情链接</th>
+        </tr>
+        </thead>
+    </table>
+
+    <div id="toolbar">
+        <div>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-undo" onclick="cancel();"
+               plain="true">取消选择</a><a>|</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-reload" onclick="reflesh();"
+               plain="true">刷新页面</a>
+
+            <div style="padding-top:6px; padding-bottom:6px; padding-left:6px;">
+                公司代码:
+                <input type="text" id="search_company_code" name="search_company_code" value=""/>
+                公司名称:
+                <input type="text" id="search_name" name="search_name" value=""/>
+                <a href="#" class="easyui-linkbutton" iconCls="icon-search"
+                   onclick="javascript:searchClick();return false;">查询</a>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script type="text/javascript">
+        function operator(value, row, index) {
+            return "<a href = '" + row.detail_url + "' target=\"_blank\">详情</a>"
+
+        }
+
+
+        //搜索
+        function searchClick() {
+            var search_company_code = $('#search_company_code').val();
+            var search_name = $('#search_name').val();
+            $('#dg').datagrid('load', {
+                search_company_code: search_company_code,
+                search_name: search_name
+            });
+
+
+        }
+
+
+    </script>
+
+
+{% endblock body %}
+
+
+
+
