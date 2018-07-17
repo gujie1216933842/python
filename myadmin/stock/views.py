@@ -36,11 +36,11 @@ class SzGgChangeStockList(View):
     def post(self, request):
         page = request.POST.get('page', 1)
         rows = request.POST.get('rows', 10)
-        company_code = request.POST.get('search_company_code', '')
-        name = request.POST.get('search_name', '')
+        stock_code = request.POST.get('search_stock_code', '')
+        stock_name = request.POST.get('search_stock_name', '')
         SzStockList = mymodels.SzStock()
-        ret = SzStockList.getList(int(page), int(rows), company_code, name)
-        total = SzStockList.getCount(company_code, name)['n']
+        ret = SzStockList.getGgList(int(page), int(rows), stock_code, stock_name)
+        total = SzStockList.getGgCount(stock_code, stock_name)['n']
         for index, value in enumerate(ret):
             for k, v in value.items():
                 v = decimal_serializable(v)

@@ -36,20 +36,23 @@
 
     </script>
     <table id="dg" class="easyui-datagrid" title="深交所股票列表" style="width:auto;height:auto" data-options="fitColumns:false,rownumbers:true,singleSelect:true,
-idField:'id',collapsible:false,url:'/stock/szlist/',method:'post',
+idField:'id',collapsible:false,url:'/stock/szchangelist/',method:'post',
 toolbar:'#toolbar',pagination:true,pageSize:10,pageList:[10,20,30]">
         <thead>
         <tr>
             <th data-options="field:'id',hidden:true">ID</th>
-            <th data-options="field:'company_code'">公司代码</th>
-            <th data-options="field:'name'">公司名称</th>
-            <th data-options="field:'A_code'">A股代码</th>
-            <th data-options="field:'A_short_name'">A股简称</th>
-            <th data-options="field:'stock_date'">上市日期</th>
-            <th data-options="field:'general_capital'">总股本(亿股)</th>
-            <th data-options="field:'flow_capital'">流动股本(亿股)</th>
-            <th data-options="field:'trade'">所属行业</th>
-            <th data-options="field:'detail_url',formatter:operator">股票详情链接</th>
+            <th data-options="field:'stock_code'">证券代码</th>
+            <th data-options="field:'stock_name'">证券简称</th>
+            <th data-options="field:'senior_name'">高管姓名</th>
+            <th data-options="field:'change_date'">变动日期</th>
+            <th data-options="field:'change_amount'">变动数量(万股)</th>
+            <th data-options="field:'price'">成交均价</th>
+            <th data-options="field:'reason'">变动原因</th>
+            <th data-options="field:'change_rate'">变动比率(千分之一)</th>
+            <th data-options="field:'day_stock_amount'">当日结存股数(万股)</th>
+            <th data-options="field:'change_name'">股份变动人姓名</th>
+            <th data-options="field:'duty'">职务</th>
+            <th data-options="field:'relationship'">关系</th>
         </tr>
         </thead>
     </table>
@@ -63,9 +66,9 @@ toolbar:'#toolbar',pagination:true,pageSize:10,pageList:[10,20,30]">
 
             <div style="padding-top:6px; padding-bottom:6px; padding-left:6px;">
                 公司代码:
-                <input type="text" id="search_company_code" name="search_company_code" value=""/>
+                <input type="text" id="search_stock_code" name="search_stock_code" value=""/>
                 公司名称:
-                <input type="text" id="search_name" name="search_name" value=""/>
+                <input type="text" id="search_stock_name" name="search_stock_name" value=""/>
                 <a href="#" class="easyui-linkbutton" iconCls="icon-search"
                    onclick="javascript:searchClick();return false;">查询</a>
             </div>
@@ -76,19 +79,15 @@ toolbar:'#toolbar',pagination:true,pageSize:10,pageList:[10,20,30]">
 
 
     <script type="text/javascript">
-        function operator(value, row, index) {
-            return "<a href = '" + row.detail_url + "' target=\"_blank\">详情</a>"
-
-        }
 
 
         //搜索
         function searchClick() {
-            var search_company_code = $('#search_company_code').val();
-            var search_name = $('#search_name').val();
+            var search_stock_code = $('#search_stock_code').val();
+            var search_stock_name = $('#search_stock_name').val();
             $('#dg').datagrid('load', {
-                search_company_code: search_company_code,
-                search_name: search_name
+                search_stock_name: search_stock_name,
+                search_stock_code: search_stock_code
             });
 
 
