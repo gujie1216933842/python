@@ -60,6 +60,7 @@ class SzStock(MysqlHandler):
         end_time_sql = ''
         if end_time:
             end_time_sql = " and change_date <= %s "
+            params.append(end_time)
         sql = " select * from sz_senior_stock_change_list where delete_flag = 0 " + stock_code_sql + stock_name_sql + start_time_sql + end_time_sql + limit_sql
         my_log('sql: %s' % sql, 'stock')
         my_log('params : %s' % params, 'stock')
@@ -86,6 +87,8 @@ class SzStock(MysqlHandler):
         end_time_sql = ''
         if end_time:
             end_time_sql = " and change_date <= %s "
+            params.append(end_time)
+
         sql = " select count(*) as n from sz_senior_stock_change_list where delete_flag = 0" + stock_code_sql + stock_name_sql + start_time_sql + end_time_sql
         count = self.selectCount(sql, params)
         return count
