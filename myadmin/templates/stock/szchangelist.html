@@ -93,8 +93,8 @@ toolbar:'#toolbar',pagination:true,pageSize:10,pageList:[10,20,30]">
         function searchClick() {
             var search_stock_code = $('#search_stock_code').val();
             var search_stock_name = $('#search_stock_name').val();
-            var start_time = $('#start_time').val();
-            var end_time = $('#end_time').val();
+            var start_time = $('#start_time').datebox('getValue');
+            var end_time = $('#end_time').datebox('getValue');
             $('#dg').datagrid('load', {
                 search_stock_name: search_stock_name,
                 search_stock_code: search_stock_code,
