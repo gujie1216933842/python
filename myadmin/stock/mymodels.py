@@ -41,7 +41,7 @@ class SzStock(MysqlHandler):
 
     def getGgList(self, page=1, rows=10, stock_code='', stock_name=''):
         start = rows * (page - 1)
-        limit_sql = " limit %s , %s " % (start, rows)
+        limit_sql = " order by change_date desc  limit %s , %s " % (start, rows)
         params = []
         stock_code_sql = ''
         if stock_code:
