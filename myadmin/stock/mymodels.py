@@ -39,7 +39,7 @@ class SzStock(MysqlHandler):
         count = self.selectCount(sql, params)
         return count
 
-    def getGgList(self, page=1, rows=10, stock_code='', stock_name=''):
+    def getGgList(self, page=1, rows=10, stock_code='', stock_name='', start_time='', end_time=''):
         start = rows * (page - 1)
         limit_sql = " order by change_date desc  limit %s , %s " % (start, rows)
         params = []
@@ -52,13 +52,21 @@ class SzStock(MysqlHandler):
             stock_name_sql = " and stock_name = %s "
             params.append(stock_name)
 
-        sql = " select * from sz_senior_stock_change_list where delete_flag = 0 " + stock_code_sql + stock_name_sql + limit_sql
+        start_time_sql = ''
+        if start_time:
+            start_time_sql = ' and change_date >= %s '
+            params.append(start_time)
+
+        end_time_sql = ''
+        if end_time:
+            end_time_sql = " and change_date <= %s "
+        sql = " select * from sz_senior_stock_change_list where delete_flag = 0 " + stock_code_sql + stock_name_sql + start_time_sql + end_time_sql + limit_sql
         my_log('sql: %s' % sql, 'stock')
         my_log('params : %s' % params, 'stock')
         ret = self.select(sql, params)
         return ret
 
-    def getGgCount(self, stock_code='', stock_name=''):
+    def getGgCount(self, stock_code='', stock_name='', start_time='', end_time=''):
 
         params = []
         stock_code_sql = ''
@@ -69,7 +77,16 @@ class SzStock(MysqlHandler):
         if stock_name:
             stock_name_sql = " and stock_name = %s "
             params.append(stock_name)
-        sql = " select count(*) as n from sz_senior_stock_change_list where delete_flag = 0" + stock_code_sql + stock_name_sql
+
+        start_time_sql = ''
+        if start_time:
+            start_time_sql = ' and change_date >= %s '
+            params.append(start_time)
+
+        end_time_sql = ''
+        if end_time:
+            end_time_sql = " and change_date <= %s "
+        sql = " select count(*) as n from sz_senior_stock_change_list where delete_flag = 0" + stock_code_sql + stock_name_sql + start_time_sql + end_time_sql
         count = self.selectCount(sql, params)
         return count
 
