@@ -27,8 +27,6 @@ class SzStockList(View):
         return JsonResponse({'rows': ret, 'total': total})
 
 
-
-
 class SzGgChangeStockList(View):
     def get(self, request):
         return render(request, 'stock/szchangelist.html')
@@ -38,9 +36,11 @@ class SzGgChangeStockList(View):
         rows = request.POST.get('rows', 10)
         stock_code = request.POST.get('search_stock_code', '')
         stock_name = request.POST.get('search_stock_name', '')
+        start_time = request.POST.get('start_time', '')
+        end_time = request.POST.get('end_time', '')
         SzStockList = mymodels.SzStock()
-        ret = SzStockList.getGgList(int(page), int(rows), stock_code, stock_name)
-        total = SzStockList.getGgCount(stock_code, stock_name)['n']
+        ret = SzStockList.getGgList(int(page), int(rows), stock_code, stock_name, start_time, end_time)
+        total = SzStockList.getGgCount(stock_code, stock_name, start_time, end_time)['n']
         for index, value in enumerate(ret):
             for k, v in value.items():
                 v = decimal_serializable(v)
