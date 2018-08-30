@@ -10,5 +10,5 @@ class heroInfo(models.Model):
     gender = models.BooleanField()
     content = models.CharField(max_length=1000)
     #定义外键
-    book = models.ForeignKey(booInfo)
+    book = models.ForeignKey(booInfo,on_delete=models.CASCADE)
 
