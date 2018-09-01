@@ -19,7 +19,7 @@ class User(AbstractUser):
         verbose_name_plural = verbose_name
         ordering = ['-id']
 
-    def __unicode__(self):
+    def __unicode__(self):  # 当返回一个对象的时候,会默认返回username
         return self.username
 
 

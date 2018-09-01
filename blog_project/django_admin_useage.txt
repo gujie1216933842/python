@@ -20,3 +20,7 @@ contrib下还包括django.contrib.auth, django.contrib.session 和django.contrib
 https://docs.djangoproject.com/zh-hans/2.0/
 
 
+admin模块式官方的模块
+xadmin是非官方的模块,功能也是非常强大
+
+
