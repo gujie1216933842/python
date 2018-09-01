@@ -6,7 +6,7 @@ from .models import *
 
 # 自定义
 class AticleAdmin(admin.ModelAdmin):
-    fields = ('title', 'desc', 'content')  # 后台管理只显示这三项,下面注册需要用自定义的类名
+    # fields = ('title', 'desc', 'content')  # 后台管理只显示这三项,下面注册需要用自定义的类名
     class Media:
         js = (
             '/static/js/kindeditor/kindeditor-all-min.js',
