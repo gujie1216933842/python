@@ -215,3 +215,12 @@ WEIBO_SINA = ''
 PRO_RSS = ''
 PRO_ENMAIL = ''
 AUTH_USER_MODEL = 'blog.User'
+
+# 上传图片地址
+MEDIA_URL = '/uploads/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+
+
+
+
+
