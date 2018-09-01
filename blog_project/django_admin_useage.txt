@@ -1,0 +1,22 @@
+django admin 的用法
+
+1.什么是django admin?  django.contrib.admin
+django的管理员模块式django的标准库django.contrib的一部分,
+contrib下还包括django.contrib.auth, django.contrib.session 和django.contrib.comments模块等
+
+2.如何配置实用django admin
+  在INSTALL_APPS中添加django.contrib.admin    新建项目初始化就存在
+  配置urls.py
+  urls(r'admin/',include(admin.site.urls))   新建项目初始化就存在
+
+  在admin注册的Model,(默认方式和自定义方式),注意model中关于admin的一些配置
+
+
+3.创建一个后台管理员
+ python manage.py createsuperuser   按提示输入用户名,邮箱,密码
+ blog项目  username:admin   password:adminqwe123
+
+更过资料,参考django的官方文档
+https://docs.djangoproject.com/zh-hans/2.0/
+
+
