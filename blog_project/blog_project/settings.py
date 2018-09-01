@@ -68,6 +68,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'blog.views.global_setting'  # 是一个上下文管理器,代码首次加载的时候,就会执行
             ],
         },
     },
@@ -206,3 +207,10 @@ LOGGING = {
         },
     }
 }
+
+# 网站的基本信息配置
+SITE_NAME = '林间有风的博客'
+SITE_DESC = '交流python开发'
+WEIBO_SINA = ''
+PRO_RSS = ''
+PRO_ENMAIL = ''
