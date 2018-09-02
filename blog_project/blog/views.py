@@ -19,4 +19,4 @@ def index(request):
         category = Category.objects.all()
     except Exception as e:
         logger.error(e)
-    return render(request, 'blog/index.html', {'category', category})
+    return render(request, 'blog/index.html', {'category': category})
