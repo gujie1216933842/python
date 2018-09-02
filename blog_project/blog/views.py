@@ -64,3 +64,29 @@ def archive(request):
         logger.error(e)
 
     return render(request, 'blog/archive.html', locals())  # locals()返回一个包含当前作用域里面的所有变量和它们的值的字典。
+
+
+from django.db import connection
+
+
+def sqltest(request):
+    '''
+    :desc django中执行原生sql语句
+          django中有两个方法
+          1.raw()
+          2.execute()
+          注意:django官方,并不推荐此类方法,非必要的时候尽量不要使用,因为:数据库的迁移会有影响
+    '''
+    # 以获取文章信息为例
+    # raw() 方法 ,注意,raw()方法是用select 字段中一定要含有主键,即id字段
+    list1 = Article.objects.raw('select id,title from blog_article where id = %s', (1))
+    for item in list1:
+        print(item)
+
+    # execute()方法
+    cursor = connection.cursor()
+    cursor.execute('select id,title from blog_article where id = %s', (1))
+
+    list2 = cursor.fetchall()
+    for item2 in list2:
+        print(item2)
