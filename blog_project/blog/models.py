@@ -80,7 +80,7 @@ class Article(models.Model):
     class Meta:
         verbose_name = '文章'
         verbose_name_plural = verbose_name
-        ordering = ['-date_publish']
+        ordering = ['-date_publish'] # 前面加'-'表示倒叙排序
 
     def __unicode__(self):
         return self.title
