@@ -219,6 +219,8 @@ AUTH_USER_MODEL = 'blog.User'
 # 上传图片地址
 MEDIA_URL = '/uploads/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+# 文章的分页数量
+ARTICLE_PAGE_OFFSET = 2
 
 
 
