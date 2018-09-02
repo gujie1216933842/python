@@ -4,6 +4,6 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index),
-    url(r'^/sqltest$', views.sqltest)
+    url(r'^sqltest/$', views.sqltest)
 
 ]
