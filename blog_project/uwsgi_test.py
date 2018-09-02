@@ -13,3 +13,7 @@ uwsgi --http :9000 --wsgi-file test.py
 如果服务正常   ,页面返回   Hello World
 
 '''
+'''
+https://blog.csdn.net/oolawokao/article/details/77994527
+
+'''
