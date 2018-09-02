@@ -1,7 +1,7 @@
 from django.shortcuts import render
 import logging
 from django.conf import settings
-from . import models
+from .models import *
 
 # 定义日志器
 logger = logging.getLogger('blog.views')
@@ -14,5 +14,9 @@ def global_setting(request):
 
 
 def index(request):
-    category = models.Category().object().all()
+    category = []
+    try:
+        category = Category.objects.all()
+    except Exception as e:
+        logger.error(e)
     return render(request, 'blog/index.html', {'category', category})
