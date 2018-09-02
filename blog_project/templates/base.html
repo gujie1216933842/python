@@ -20,15 +20,14 @@
 <body>
 <header>
     <div class="logo">
-        <h1>某某某的个人博客</h1>
-        <p>梦虽虚幻,却是自己的梦想；位虽低微,却是自己的岗位；屋虽简陋,却是自己的家；志虽渺小,却是自己的追求。</p>
+        <h1>{{ SITE_NAME }}</h1>
+        <p>{{ SITE_DESC }}</p>
     </div>
     <nav id="topnav" class="f_r">
         <ul>
-            <a href="blog/index.html" target="_blank">首页</a> <a href="news.html" target="_blank">关于我</a> <a href="p.html"
-                                                                                                            target="_blank">文章</a>
-            <a href="a.html" target="_blank">心情</a> <a href="c.html" target="_blank">相册</a> <a href="b.html"
-                                                                                               target="_blank">留言</a>
+            {%  for item in category %}
+            <a href="blog/index.html" target="_blank">{{ item.name }}</a>
+            {% endfor %}
         </ul>
         <script src="js/nav.js"></script>
     </nav>

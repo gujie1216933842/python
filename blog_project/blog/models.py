@@ -43,7 +43,7 @@ class Category(models.Model):
     class Meta:
         verbose_name = '分类'
         verbose_name_plural = verbose_name
-        ordering = ['index', 'id']
+        ordering = ['index', 'id']  # 设置默认排序
 
     def __unicode__(self):
         return self.name

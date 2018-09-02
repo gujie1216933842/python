@@ -210,7 +210,7 @@ LOGGING = {
 
 # 网站的基本信息配置
 SITE_NAME = '林间有风的博客'
-SITE_DESC = '交流python开发'
+SITE_DESC = '梦虽虚幻,却是自己的梦想；位虽低微,却是自己的岗位；屋虽简陋,却是自己的家；志虽渺小,却是自己的追求。交流python开发'
 WEIBO_SINA = ''
 PRO_RSS = ''
 PRO_ENMAIL = ''
