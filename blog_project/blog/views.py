@@ -35,7 +35,32 @@ def index(request):
         except (InvalidPage, EmptyPage, PageNotAnInteger):
             article_list = paginator.page(1)
 
+        # 文章归档
+        # 1.先要去获取到文章中有的 年份-月份 2015-06 文章归档
+        # 自定义manager管理器
+        archive_list = Article.objects.distinct_date()
+
     except Exception as e:
         logger.error(e)
 
-    return render(request, 'blog/index.html', {'category': category, 'article_list': article_list})
+    return render(request, 'blog/index.html', locals())
+
+
+def archive(request):
+    try:
+        year = request.GET.get('year', None)
+        month = request.GET.get('month', None)
+
+        # Article对象做模糊查询
+        article_list = Article.objects.filter(date_publish__contains=year + '-' + month)
+        paginator = Paginator(article_list, 2)
+        try:
+            page = int(request.GET.get('page', 1))
+            article_list = paginator.page(page)
+            logger.info(article_list)
+        except (InvalidPage, EmptyPage, PageNotAnInteger):
+            article_list = paginator.page(1)
+    except Exception as e:
+        logger.error(e)
+
+    return render(request, 'blog/archive.html', locals())  # locals()返回一个包含当前作用域里面的所有变量和它们的值的字典。

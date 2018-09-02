@@ -71,19 +71,36 @@ class Article(models.Model):
     click_count = models.IntegerField(default=0, verbose_name='点击次数')
     is_recommend = models.BooleanField(default=False, verbose_name='是否推荐')
     date_publish = models.DateTimeField(auto_now_add=True, verbose_name='发布时间')
-    user = models.ForeignKey(User, verbose_name='用户',on_delete=models.CASCADE)
-    category = models.ForeignKey(Category, blank=True, null=True, verbose_name='分类',on_delete=models.CASCADE)
+    user = models.ForeignKey(User, verbose_name='用户', on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, blank=True, null=True, verbose_name='分类', on_delete=models.CASCADE)
     tag = models.ManyToManyField(Tag, verbose_name='标签')
 
-    objects = ArticleManager()
+    objects = ArticleManager()  # 自定义后需要在Ariticle类中覆盖原来的属性
 
     class Meta:
         verbose_name = '文章'
         verbose_name_plural = verbose_name
-        ordering = ['-date_publish'] # 前面加'-'表示倒叙排序
+        ordering = ['-date_publish']  # 前面加'-'表示倒叙排序
 
     def __unicode__(self):
         return self.title
+
+
+# 自定义一个文章modle的管理器
+# 大概实现的话,有两种方式
+# 1.新增方法
+# 2.改变queryset的数据结构
+# 下面的代码主要用到第1种方式
+class ArticleManager(models.Manager):
+    def distinct_date(self):
+        distinct_date_list = []
+        date_list = self.values('date_publish')
+        new_date = ''
+        for date in date_list:
+            new_date = date['date_publish'].strftime("%Y%m文档存档")
+        if new_date not in distinct_date_list:
+            distinct_date_list.append(new_date)
+        return distinct_date_list
 
 
 # 评论模型
@@ -93,9 +110,9 @@ class Comment(models.Model):
     email = models.EmailField(max_length=50, blank=True, null=True, verbose_name='邮箱地址')
     url = models.URLField(max_length=100, blank=True, null=True, verbose_name='个人网页地址')
     date_publish = models.DateTimeField(auto_now_add=True, verbose_name='发布时间')
-    user = models.ForeignKey(User, blank=True, null=True, verbose_name='用户',on_delete=models.CASCADE)
-    article = models.ForeignKey(Article, blank=True, null=True, verbose_name='文章',on_delete=models.CASCADE)
-    pid = models.ForeignKey('self', blank=True, null=True, verbose_name='父级评论',on_delete=models.CASCADE)
+    user = models.ForeignKey(User, blank=True, null=True, verbose_name='用户', on_delete=models.CASCADE)
+    article = models.ForeignKey(Article, blank=True, null=True, verbose_name='文章', on_delete=models.CASCADE)
+    pid = models.ForeignKey('self', blank=True, null=True, verbose_name='父级评论', on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = '评论'
