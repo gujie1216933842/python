@@ -79,7 +79,7 @@ def sqltest(request):
     '''
     # 以获取文章信息为例
     # raw() 方法 ,注意,raw()方法是用select 字段中一定要含有主键,即id字段
-    list1 = Article.objects.raw('select id,title from blog_article where id = %s', (1))
+    list1 = Article.objects.raw('select id,title from blog_article where id = %s', params=(1,))
     for item in list1:
         print(item)
 
