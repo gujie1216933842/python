@@ -18,4 +18,9 @@ https://blog.csdn.net/oolawokao/article/details/77994527
 
 nginx + uwsgi + django 原理:
 https://www.linuxidc.com/Linux/2017-03/141785.htm
+
+
+uwsgi 启动django项目
+uwsgi --ini uwsgi.ini
+
 '''
