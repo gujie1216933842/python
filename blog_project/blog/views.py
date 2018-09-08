@@ -60,6 +60,20 @@ def get_page(request, article_list):
     return article_list
 
 
+# 文章详情
+def article(request):
+    # 获取文章的id
+    id = request.GET.get('id', None)
+
+    try:
+        # 获取文章的信息
+        article = Article.objects.get(pk=id)
+    except Article.DoesNotExist:
+        return render(request, 'blog/failure.html', {'reason': '没有找到相对应的文章'})
+
+    return render(request, 'blog/article.html')
+
+
 def sqltest(request):
     '''
     :desc django中执行原生sql语句
