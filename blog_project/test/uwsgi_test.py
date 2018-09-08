@@ -14,6 +14,14 @@ uwsgi --http :9000 --wsgi-file uwsgi_test.py
 
 '''
 '''
+
+
+2)验证uwsgi：
+
+    进入到和django项目的manage.py所在的文件夹，运行如下命令：
+        uwsgi --http :8000 --module Sport.wsgi
+
+
 https://blog.csdn.net/oolawokao/article/details/77994527
 
 nginx + uwsgi + django 原理:
@@ -22,5 +30,10 @@ https://www.linuxidc.com/Linux/2017-03/141785.htm
 
 uwsgi 启动django项目
 uwsgi --ini uwsgi.ini
+
+
+
+
+
 
 '''
