@@ -32,6 +32,16 @@ uwsgi 启动django项目
 uwsgi --ini uwsgi.ini
 
 
+重启uwsgi进程
+首先在uwsgi.ini配置文件中增加
+stats=%(chdir)/uwsgi.status
+pidfile=%(chdir)/uwsgi.pid
+
+然后执行以下  uwsgi --ini uwsgi.ini  才会生成  uwsgi.status  /  uwsgi.pid  这两个文件
+
+查看命令   cat  uwsgi.pid  这里要注意文件目录路径,要对应上
+uwsgi --reload uwsgi.pid 
+
 
 
 
