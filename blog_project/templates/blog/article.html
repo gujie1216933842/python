@@ -16,7 +16,7 @@
                 <span class="postmeta_time">{{ article.date_publish | date:'Y-m-d' }}</span>
             </div><!-- end postmeta -->
             <div class="entry">
-                文章内容
+                {{ article.content | safe }}
             </div>
             <span class="tags"><a href="http://www.baidu.org/?tag=android" rel="tag">android</a>, <a
                     href="http://www.baidu.org/?tag=jdk" rel="tag">jdk</a></span>
