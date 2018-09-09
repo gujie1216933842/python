@@ -71,7 +71,7 @@ def article(request):
     except Article.DoesNotExist:
         return render(request, 'blog/failure.html', {'reason': '没有找到相对应的文章'})
 
-    return render(request, 'blog/article.html')
+    return render(request, 'blog/article.html',locals())
 
 
 def sqltest(request):
