@@ -4,8 +4,8 @@
 {% block left_content %}
     <div class="l_box f_l">
         <div class="postdate">
-            <div class="month"></div>
-            <div class="date"></div>
+            <div class="month">{{ article.date_publish | date:'m' }}</div>
+            <div class="date">{{ article.date_publish | date:'d' }}</div>
         </div>
         <div class="title">
             <h2><a href="http://www.baidu.org/?p=542" rel="bookmark"
