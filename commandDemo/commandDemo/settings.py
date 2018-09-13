@@ -80,10 +80,10 @@ WSGI_APPLICATION = 'commandDemo.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'myadmin',
+        'NAME': 'scratch_card',
         'USER': 'root',
         'PASSWORD': '123',
-        'HOST': 'localhost',
+        'HOST': '47.97.165.75',
         'PORT': '3306',
     }
 }
