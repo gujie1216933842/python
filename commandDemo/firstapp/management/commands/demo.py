@@ -14,9 +14,11 @@ logger = logging.getLogger('ant_delivery_package')
 
 class Command(BaseCommand):
 
+    # 往参数**option中加入params
+    def add_arguments(self, parser):
+        parser.add_argument('params', nargs='+', type=unicode)
+
     def handle(self, *args, **options):
-        logger.info('hahahaha')
-        logger.debug('aaaaa')
-        logger.error('kkkkk')
-        logger.fatal('ffffff')
+        print options['params'][0]
+
         print 'first command'

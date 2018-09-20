@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'firstapp'
+    'firstapp',
+    'sencondapp',
 ]
 
 MIDDLEWARE = [
@@ -204,7 +205,7 @@ LOGGING = {
             'formatter': 'verbose',
             'mailhost': 'smtpdm.aliyun.com',
             'fromaddr': 'typhon-no-reply@smtp2.rrd.com.cn',
-            'toaddrs': ['eric.j.tong@rrd.com', ],
+            'toaddrs': ['admin@admin.com', ],
             'subject': 'typhon api error log',
             'credentials': ('typhon-no-reply@smtp2.rrd.com.cn', 'HellO13579'),
         },
