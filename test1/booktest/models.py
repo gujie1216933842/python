@@ -1,5 +1,10 @@
 from django.db import models
 
+status_choices = (
+    (0, u'未处理'),
+    (2, u'正在生成PDF'),
+    (9, u'生成PDF成功'),
+)
 
 # Create your models here.
 class BookInfo(models.Model):
@@ -8,6 +13,7 @@ class BookInfo(models.Model):
     bread = models.IntegerField(default=0)
     bcomment = models.IntegerField(null=False)
     isDelete = models.BooleanField(default=False)
+    pdfStatus = models.IntegerField(choices=status_choices)
 
     class Meta:
         db_table = 'bookinfo'
