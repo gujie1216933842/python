@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^rediscache/', include("rediscache.urls")),
     url(r'^upload/', include("upload.urls")),
     url(r'^stock/', include("stock.urls")),
+    url(r'^qf/', include("modelQF.urls")),
     url(r'^', include("index.urls")),
 
 ]
