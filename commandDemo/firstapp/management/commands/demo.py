@@ -19,6 +19,7 @@ class Command(BaseCommand):
         parser.add_argument('params', nargs='+', type=unicode)
 
     def handle(self, *args, **options):
-        print options['params'][0]
-
-        print 'first command'
+        # print options['params'][0]
+        #
+        # print 'first command'
+        pass
