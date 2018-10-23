@@ -6,6 +6,7 @@ status_choices = (
     (9, u'生成PDF成功'),
 )
 
+
 # Create your models here.
 class BookInfo(models.Model):
     btitle = models.CharField(max_length=20)
@@ -26,3 +27,13 @@ class HeroInfo(models.Model):
     isDelete = models.BooleanField(default=False)
     # 定义外键
     book = models.ForeignKey(BookInfo, on_delete=models.CASCADE)
+
+
+class Person(models.Model):
+    name = models.CharField(max_length=20, verbose_name='姓名')
+    age = models.IntegerField(verbose_name='年龄')
+
+
+class image(models.Model):
+    image_name = models.CharField(max_length=20, verbose_name='图片名称')
+    image_url = models.CharField(max_length=20, verbose_name='图片链接')
