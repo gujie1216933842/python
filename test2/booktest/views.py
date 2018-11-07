@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from .models import *
+from .models import User
 # Create your views here.
 
 def index(request):
-    list = BookInfo.bookinfo1.filter()
+    list = User.objects.all()
     content = {'list':list}
     print(list)
     return render(request,'booktest/index.html',content)
