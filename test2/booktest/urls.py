@@ -3,4 +3,6 @@ from . import views  #注意这是py3的写法  ,如果沿用py2中的写法   i
 
 urlpatterns = [
     url(r'^$', views.index),
+    url(r'^test_update/$', views.test_update),
+    url(r'^test_q/$', views.test_q),
 ]
