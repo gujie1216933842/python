@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import User
+from .models import User, Student
 # Create your views here.
 from django.db.models import F, Q
+from django.db import connection, transaction, close_old_connections
 
 """F()函数实例"""
 
@@ -40,3 +41,22 @@ def test_update(request):
     row_count = User.objects.filter(id=3).update(hobby='大名')
     print(row_count)
     return HttpResponse('ok')
+
+
+def shiwu_demo(request):
+    """
+    事务demo
+    :param request:
+    :return:
+    """
+    package()
+    return HttpResponse('ok')
+
+
+@transaction.atomic
+def package():
+    try:
+        User.objects.filter(id=1).update(name='hahaha1233')
+        Student.objects.filter(ids=5).update(name='ggggg')
+    except Exception as e:
+        print(e)
