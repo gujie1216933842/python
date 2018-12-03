@@ -45,18 +45,36 @@ def test_update(request):
 
 def shiwu_demo(request):
     """
-    事务demo
+    用装饰器开启事务demo
     :param request:
     :return:
     """
-    package()
+    try:
+        package()
+    except Exception as e:
+        print(e)
     return HttpResponse('ok')
 
 
 @transaction.atomic
 def package():
+    # with transaction.atomic:
+    User.objects.filter(id=1).update(name='你好yalll')
+    Student.objects.filter(ids=5).update(name='ggggg')
+
+
+"""
+with .....   上下文管理器的方式来开启事务
+"""
+
+
+def shiwu_demo1(request):
+    e = ''
     try:
-        User.objects.filter(id=1).update(name='hahaha1233')
-        Student.objects.filter(ids=5).update(name='ggggg')
+        with transaction.atomic():
+            User.objects.filter(id=1).update(name='demo1')
+            Student.objects.filter(ids=5).update(name='ggggg')
     except Exception as e:
         print(e)
+
+    return HttpResponse('ok')
