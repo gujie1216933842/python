@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import User, Student
 # Create your views here.
-from django.db.models import F, Q
+from django.db.models import F, Q, Count
 from django.db import connection, transaction, close_old_connections
 
 """F()函数实例"""
@@ -78,3 +78,14 @@ def shiwu_demo1(request):
         print(e)
 
     return HttpResponse('ok')
+
+
+def testaa(request):
+    rows = User.objects.filter(id__in=[1, 2, 3, 4, 5]).values('hobby').annotate(count=Count('*'))
+    print(rows)  # 结果  <QuerySet [{'hobby': 'f', 'count': 3}, {'hobby': 'm', 'count': 2}]>
+    test_list = []
+    for i in rows:
+        print('hahahhah:{},count:{}'.format(i['hobby'], i['count']))
+        test_list.append('hahahhah:{},count:{}'.format(i['hobby'], i['count']))
+
+    return HttpResponse('ok:{}'.format(test_list))

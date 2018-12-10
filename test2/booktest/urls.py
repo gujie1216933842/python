@@ -7,4 +7,5 @@ urlpatterns = [
     url(r'^test_q/$', views.test_q),
     url(r'^shiwu/$', views.shiwu_demo),
     url(r'^shiwu1/$', views.shiwu_demo1),
+    url(r'^testaa/$', views.testaa),
 ]
