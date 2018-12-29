@@ -99,4 +99,6 @@ def sumtest(request):
     """
     rows = User.objects.all().values('hobby').annotate(s=Sum('age'))
     print(rows) #<QuerySet [{'hobby': 'f', 's': 2419}, {'hobby': 'm', 's': 65}]>
+    for row in rows:
+        print(row)
     return HttpResponse('ok')
