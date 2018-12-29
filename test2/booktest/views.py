@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import User, Student
 # Create your views here.
-from django.db.models import F, Q, Count
+from django.db.models import F, Q, Count, Sum
 from django.db import connection, transaction, close_old_connections
 
 """F()函数实例"""
@@ -89,3 +89,14 @@ def testaa(request):
         test_list.append('hahahhah:{},count:{}'.format(i['hobby'], i['count']))
 
     return HttpResponse('ok:{}'.format(test_list))
+
+
+def sumtest(request):
+    """
+    django 求和 测试
+    :param request:
+    :return:
+    """
+    rows = User.objects.all().values('hobby').annotate(s=Sum('age'))
+    print(rows)
+    return HttpResponse('ok')
