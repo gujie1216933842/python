@@ -98,5 +98,5 @@ def sumtest(request):
     :return:
     """
     rows = User.objects.all().values('hobby').annotate(s=Sum('age'))
-    print(rows)
+    print(rows) #<QuerySet [{'hobby': 'f', 's': 2419}, {'hobby': 'm', 's': 65}]>
     return HttpResponse('ok')
