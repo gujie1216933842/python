@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^shiwu1/$', views.shiwu_demo1),
     url(r'^testaa/$', views.testaa),
     url(r'^sumtest/$', views.sumtest),
+    url(r'^map/$', views.map),
 ]

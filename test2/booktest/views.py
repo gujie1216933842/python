@@ -97,8 +97,15 @@ def sumtest(request):
     :param request:
     :return:
     """
-    rows = User.objects.all().values('hobby').annotate(s=Sum('age'))
-    print(rows) #<QuerySet [{'hobby': 'f', 's': 2419}, {'hobby': 'm', 's': 65}]>
+    rows = User.objects.all().values('hobby', 'name').annotate(s=Sum('age'))
+    print(rows)  # <QuerySet [{'hobby': 'f', 's': 2419}, {'hobby': 'm', 's': 65}]>
+
+    row_list = []
+    row_dict = {}
     for row in rows:
-        print(row)
+        row_dict[row]
     return HttpResponse('ok')
+
+
+def map(request):
+    return render(request, 'booktest/map.html')
