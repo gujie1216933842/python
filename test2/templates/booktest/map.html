@@ -60,7 +60,7 @@
     });
     // 停止移动
     AMap.event.addListener(map, 'dragend', function () {
-        console.log(map.getCenter())
+        console.log(map.getCenter());
         // 利用地图地理编码查询地址
         geocoder.getAddress(map.getCenter(), function (status, data) {
             if (status === 'complete' && data.info === 'OK') {
@@ -69,13 +69,13 @@
                 var str = '<p>获取成功</p>';
                 str += '<p>当前位置：' + data.regeocode.formattedAddress + '</p>';
                 result.innerHTML = str;
-                console.log(data.regeocode.formattedAddress)
-                console.log(map.getCenter().getLat())
+                console.log(data.regeocode.formattedAddress);
+                console.log(map.getCenter().getLat());
                 console.log(map.getCenter().getLng())
             } else {
                 //获取地址失败
                 var str = '<p>定位失败</p>';
-                str += '<p>错误信息：'
+                str += '<p>错误信息：';
                 switch (data.info) {
                     case 'INVALID_UESR_KEY':
                         str += '用户key非法或过期';
@@ -97,7 +97,7 @@
                 result.innerHTML = str;
             }
         });
-        Marker.setPosition(map.getCenter())
+        Marker.setPosition(map.getCenter());
         Marker.setAnimation('AMAP_ANIMATION_DROP')
     });
 
@@ -156,7 +156,7 @@
         // 初始化标记
         if (Marker) {
             // 标记存在则把地图中心点设置给标记
-            Marker.setPosition(map.getCenter())
+            Marker.setPosition(map.getCenter());
             Marker.setAnimation('AMAP_ANIMATION_DROP')
         } else {
             // 标记不存在则实例化一个新的标记，且把当前地图中心点设置给标记
@@ -177,7 +177,7 @@
        */
     function onError(data) {
         var str = '<p>定位失败</p>';
-        str += '<p>错误信息：'
+        str += '<p>错误信息：';
         switch (data.info) {
             case 'PERMISSION_DENIED':
                 str += '浏览器阻止了定位操作';
@@ -196,7 +196,7 @@
         // 初始化标记
         if (Marker) {
             // 标记存在则把地图中心点设置给标记
-            Marker.setPosition(map.getCenter())
+            Marker.setPosition(map.getCenter());
             Marker.setAnimation('AMAP_ANIMATION_DROP')
         } else {
             // 标记不存在则实例化一个新的标记，且把当前地图中心点设置给标记
