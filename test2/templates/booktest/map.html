@@ -144,11 +144,12 @@
        *解析定位结果
        */
     function onComplete(data) {
+        console.log(data);
         Marker = null;
         var str = '<p>定位成功</p>';
-        //str += '<p>经度：' + data.position.getLng() + '</p>';
-        //str += '<p>纬度：' + data.position.getLat() + '</p>';
-        str += '<p>精度：' + data.accuracy + ' 米</p>';
+        str += '<p>经度：' + data.position.getLng() + '</p>';
+        str += '<p>纬度：' + data.position.getLat() + '</p>';
+        {#str += '<p>精度：' + data.accuracy + ' 米</p>';#}
         //str += '<p>是否经过偏移：' + (data.isConverted ? '是' : '否') + '</p>';
         str += '<p>当前位置：' + data.formattedAddress + '</p>';
         //str += '<p>' + data.addressComponent.province + data.addressComponent.city + data.addressComponent.district + data.addressComponent.township + data.addressComponent.street + data.addressComponent.streetNumber + '</p>';
