@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^testaa/$', views.testaa),
     url(r'^sumtest/$', views.sumtest),
     url(r'^map/$', views.map),
+    url(r'^index_if/$', views.index_if),
 ]

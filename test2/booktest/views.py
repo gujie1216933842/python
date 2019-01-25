@@ -20,8 +20,6 @@ def index(request):
 """Q()函数实例
 作用：对对象进行复杂查询，并支持&（and）,|（or），~（not）操作符。
 filter()方法中查询都是以and查询的,如果要使用复杂的sql查询,比如or,not 需要用到Q函数
-
-
 """
 
 
@@ -109,3 +107,7 @@ def sumtest(request):
 
 def map(request):
     return render(request, 'booktest/map.html')
+
+
+def index_if(request):
+    return render(request, 'booktest/index_if.html')
