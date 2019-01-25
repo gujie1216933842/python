@@ -7,8 +7,9 @@
 <body>
 <h4>你好哈哈哈哈哈哈!</h4>
 <ul>
-{% for book in list %}
-{{book.name}}&#45;&#45;{{book.age}}&#45;&#45;{{book.hobby}}
+{% for book in user_list %}
+
+    {% if 'a' in book.name %}{{book.name}}{% endif %}&#45;&#45;{{book.age}}&#45;&#45;{{book.hobby}}<br/>
 {%endfor%}
 </ul>
 </body>
