@@ -40,4 +40,7 @@ class NewStudent(models.Model):
         verbose_name = u'学生'
         verbose_name_plural = verbose_name
 
+    def __str__(self):
+        return self.name
+
 

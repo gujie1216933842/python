@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import User, Student
+from .models import User, Student,NewStudent
 # Create your views here.
 from django.db.models import F, Q, Count, Sum
 from django.db import connection, transaction, close_old_connections
@@ -116,4 +116,8 @@ def index_if(request):
 
 
 def group(request):
+
+
+
+
     return HttpResponse('group')
