@@ -116,8 +116,6 @@ def index_if(request):
 
 
 def group(request):
-
-
-
-
+    ret = NewStudent.objects.filter().annotate('hobby')
+    print(ret)
     return HttpResponse('group')
