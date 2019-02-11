@@ -110,4 +110,10 @@ def map(request):
 
 
 def index_if(request):
-    return render(request, 'booktest/index_if.html')
+    user_list = User.objects.filter(hobby__contains='f').exclude(name__contains='a')
+    return render(request, 'booktest/index_if.html', locals())
+
+
+
+def group(request):
+    return HttpResponse('group')
